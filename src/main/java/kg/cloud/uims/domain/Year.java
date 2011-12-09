@@ -3,11 +3,18 @@
  * Created on December 18, 2007, 1:32 PM
  */
 package kg.cloud.uims.domain;
+
+import java.io.Serializable;
+
 /**
- * @author opensky
+ * @author mirlan
  */
-public class Year {
-    private int id;
+public class Year implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
     private int current;
     private  String year;
     
