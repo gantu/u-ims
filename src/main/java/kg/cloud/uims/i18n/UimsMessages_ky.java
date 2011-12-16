@@ -22,7 +22,10 @@ public class UimsMessages_ky extends UimsMessages {
 		{TSBRegistration,"Регистрация"},
 		{TSBMySubjects,"Сабактарым"},
 		{TSBMySuccess,"Жетишкендиктерим"},
-		{TSBMyTranscript,"Транскрипт"}
+		{TSBMyTranscript,"Транскриптим"},
+		
+		//Registration View
+		{RegistrationHeader,"Регистрация"}
 		
 		
 	};

@@ -16,7 +16,6 @@
 package kg.cloud.uims;
 
 import java.util.Locale;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import org.apache.shiro.SecurityUtils;
@@ -52,7 +51,7 @@ public class MyVaadinApplication extends Application implements
 
 	@Override
 	public void init() {
-		setTheme("chameleon");
+		setTheme("runo");
 		final ResourceBundle i18n = ResourceBundle.getBundle(
 				UimsMessages.class.getName(), getLocale());
 		this.getContext().addTransactionListener(this);
@@ -150,7 +149,7 @@ public class MyVaadinApplication extends Application implements
 	public void setLocale(Locale locale) {
 		super.setLocale(locale);
 		i18nBundle = ResourceBundle.getBundle(UimsMessages.class.getName(),
-				getLocale());
+		getLocale());
 	}
 
 	public ResourceBundle getBundle() {

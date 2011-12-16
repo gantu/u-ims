@@ -1,12 +1,17 @@
 package kg.cloud.uims.ui;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Stack;
 
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 
-public class ViewManager {
+public class ViewManager implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	HashMap<String,Layout> views=new HashMap<String,Layout>();
 	Stack<Layout> screenStack=new Stack<Layout>();
 	Panel window;

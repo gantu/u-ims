@@ -23,7 +23,10 @@ public class UimsMessages_en extends UimsMessages{
 		{TSBRegistration,"Registration"},
 		{TSBMySubjects,"My Subjects"},
 		{TSBMySuccess,"My Success"},
-		{TSBMyTranscript,"My Transcript"}
+		{TSBMyTranscript,"My Transcript"},
+		
+		//Registration View
+		{RegistrationHeader,"Registration"}
 	};
 	
 	 @Override
