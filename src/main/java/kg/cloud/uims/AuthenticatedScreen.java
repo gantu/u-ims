@@ -4,6 +4,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.HierarchicalContainer;
+import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.terminal.ThemeResource;
 
@@ -118,8 +119,8 @@ public class AuthenticatedScreen extends VerticalLayout {
 
 		HierarchicalContainer navContainer = new HierarchicalContainer();
 		navContainer.addContainerProperty(propertyName, String.class, null);
-		navContainer.addContainerProperty(propertyIcon, ThemeResource.class,
-				Runo.class.getResource("document.png"));
+		navContainer.addContainerProperty(propertyIcon,Resource.class,null);
+		
 		for (int i = 0; i < navigation.length; i++) {
 			// Add new item
 			item = navContainer.addItem(itemId);
@@ -144,6 +145,9 @@ public class AuthenticatedScreen extends VerticalLayout {
 		}
 		navTree = new Tree();
 		navTree.setContainerDataSource(navContainer);
+		navTree.setItemCaptionPropertyId("name");
+		navTree.setItemIconPropertyId("icon");
+		navTree.setItemCaptionMode(Tree.ITEM_CAPTION_MODE_PROPERTY);
 		navTree.setImmediate(true);
 
 		navTree.addListener(new ValueChangeListener() {
