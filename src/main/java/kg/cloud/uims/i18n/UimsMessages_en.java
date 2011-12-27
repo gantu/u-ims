@@ -20,13 +20,37 @@ public class UimsMessages_en extends UimsMessages{
 		{TBEduProcess,"Educational Process"},
 		
 		//Navigation Tree Sub-branches
-		{TSBRegistration,"Registration"},
+		
 		{TSBMySubjects,"My Subjects"},
 		{TSBMySuccess,"My Success"},
 		{TSBMyTranscript,"My Transcript"},
+	
+		//Supervisor Branches
+		{TBSupervisor,"Supervisor"},
+		{TSBRegistration,"Registration"},
+		{TSBTranscript,"Transcript"},
+		{TSBSuccessReport,"Success Report"},
 		
+		//Instructor Branches
+		{TBInstructor,"Lecturer"},
+		{TSBAttendance,"Attendance"},
+		{TSBExam,"Exam"},
 		//Registration View
-		{RegistrationHeader,"Registration"}
+		{RegistrationHeader,"Registration"},
+		{RegistrationStudentName,"First Name"},
+		{RegistrationStudentSurname,"Last Name"},
+		{RegistrationStudentEduStatus,"Education Status"},
+		
+		{SubjectName,"Subject Name"},
+		{SubjectCode,"Subjec Code"},
+		{SubjectCredit,"Credits"},
+		{SubjectHour,"Hours"},
+		{Semester,"Semester"},
+		{StudyYear,"Year"},
+		{DepartmentCode,"Department Code"},
+		{DepartmentName,"Department Name"},
+		{SubjectRegistrationStatus,"Registration Status"},
+		{SubjectHoursSum,"Sum of Hours"}
 	};
 	
 	 @Override

@@ -19,15 +19,36 @@ public class UimsMessages_ky extends UimsMessages {
 	   {TBEduProcess,"Окуу Процеси"},
 				
 		//Navigation Tree Sub-branches
-		{TSBRegistration,"Регистрация"},
+		
 		{TSBMySubjects,"Сабактарым"},
 		{TSBMySuccess,"Жетишкендиктерим"},
 		{TSBMyTranscript,"Транскриптим"},
 		
+		//Supervisor Branches
+		{TBSupervisor,"Куратор"},
+		{TSBRegistration,"Каттоо"},
+		{TSBTranscript,"Транскрипт"},
+		{TSBSuccessReport,"Жетишкендик"},
+		//Instructor Branches
+		{TBInstructor,"Окутуучу"},
+		{TSBAttendance,"Жоктоо"},
+		{TSBExam,"Сынак"},
 		//Registration View
-		{RegistrationHeader,"Регистрация"}
+		{RegistrationHeader,"Регистрация"},
+		{RegistrationStudentName,"Аты"},
+		{RegistrationStudentSurname,"Фамилиясы"},
+		{RegistrationStudentEduStatus,"Окуу Статусу"},
 		
-		
+		{SubjectName,"Сабактын Аты"},
+		{SubjectCode,"Сабактын Коду"},
+		{SubjectCredit,"Кредити"},
+		{SubjectHour,"Сааты"},
+		{Semester,"Семестр"},
+		{StudyYear,"Жыл"},
+		{DepartmentCode,"Бөлүмдүн Коду"},
+		{DepartmentName,"Бөлүмдүн Аты"},
+		{SubjectRegistrationStatus,"Катталуу Статусу"},
+		{SubjectHoursSum,"Саатардын Саны"}
 	};
 	
 	 @Override

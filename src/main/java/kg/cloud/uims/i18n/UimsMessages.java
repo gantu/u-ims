@@ -31,12 +31,39 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 
 	// RegistrationView
 	public static final String RegistrationHeader = generateId();
+	public static final String RegistrationStudentName = generateId();
+	public static final String RegistrationStudentSurname = generateId();
+	public static final String RegistrationStudentEduStatus = generateId();
+
+	public static final String SubjectName = generateId();
+	public static final String SubjectCode = generateId();
+	public static final String SubjectCredit = generateId();
+	public static final String SubjectHour = generateId();
+	public static final String SubjectRegistrationStatus = generateId();
+
+	public static final String SubjectHoursSum = generateId();
+
+	public static final String Semester = generateId();
+	public static final String StudyYear = generateId();
+	public static final String DepartmentName = generateId();
+	public static final String DepartmentCode = generateId();
+
 	// Navigation Tree Branches
 	public static final String TBEduProcess = generateId();
 
 	// Navigation Tree Sub-branches
 
+	// Supervisor Branches
+	public static final String TBSupervisor = generateId();
 	public static final String TSBRegistration = generateId();
+	public static final String TSBTranscript = generateId();
+	public static final String TSBSuccessReport = generateId();
+
+	// Instructor Branches
+	public static final String TBInstructor = generateId();
+	public static final String TSBAttendance = generateId();
+	public static final String TSBExam = generateId();
+
 	public static final String TSBMySubjects = generateId();
 	public static final String TSBMySuccess = generateId();
 	public static final String TSBMyTranscript = generateId();

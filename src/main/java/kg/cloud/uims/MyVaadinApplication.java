@@ -15,6 +15,9 @@
  */
 package kg.cloud.uims;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -28,9 +31,12 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Window;
 
+import kg.cloud.uims.dao.BaseDb;
 import kg.cloud.uims.dao.DbSemester;
 import kg.cloud.uims.dao.DbYear;
+import kg.cloud.uims.domain.Exam;
 import kg.cloud.uims.domain.Semester;
+import kg.cloud.uims.domain.Week;
 import kg.cloud.uims.domain.Year;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.ui.ViewManager;
@@ -46,6 +52,14 @@ public class MyVaadinApplication extends Application implements
 	private Window window;
 	private Semester currentSemester;
 	private Year currentYear;
+	private Week currentWeek;
+	private Exam currentExam;
+	private int facultyId;
+	private int departmentId;
+	private int groupId;
+	private int userStatus;
+
+
 	private ResourceBundle i18nBundle;
 	ViewManager viewManager;
 
@@ -125,31 +139,72 @@ public class MyVaadinApplication extends Application implements
 		}
 	}
 
-	public void workingDetails() throws Exception {
+	public void workingDetails(String username) throws Exception {
+		String query = "select y.id,y.year,s.id,s.semester,w.id,w.week,e.exam_id,e.exam_name," +
+				"e.percentage,inst.faculty_id,inst.dept_id,inst.group_id, u.status from year as y," +
+				"semester as s,weeks as w,exam as e, instructor as inst, " +
+				"users as u where inst.rollnum=u.user_name and y.curr=? and " +
+				"s.curr=? and w.curr=? and e.curr=? and u.user_name=?";
+		
+		BaseDb base = new BaseDb();
+		Connection conn = base.getConnection();
+		PreparedStatement statement=conn.prepareStatement(query);
+		statement.setInt(1,1);
+		statement.setInt(2,1);
+		statement.setInt(3,1);
+		statement.setInt(4,1);
+		statement.setString(5, username);
+		ResultSet result=statement.executeQuery();
+		currentYear=new Year();
+		currentSemester=new Semester();
+		currentWeek=new Week();
+		currentExam=new Exam();
+		
+		while (result.next()) {
+			currentYear.setId(result.getInt("y.id"));
+			currentYear.setYear(result.getString("y.year"));
+			currentYear.setCurrent(1);
+			currentSemester.setId(result.getInt("s.id"));
+			currentSemester.setSemester(result.getString("s.semester"));
+			currentSemester.setCurrent(1);
+			currentWeek.setId(result.getInt("w.id"));
+			currentWeek.setWeek(result.getString("w.week"));
+			currentWeek.setCurrent(1);
+			currentExam.setId(result.getInt("e.exam_id"));
+			currentExam.setExam(result.getString("e.exam_name"));
+			currentExam.setPercentage(result.getInt("e.percentage"));
+			currentExam.setCurrent(1);
+			facultyId = result.getInt("inst.faculty_id");
+            departmentId = result.getInt("inst.dept_id");
+            groupId = result.getInt("inst.group_id");
+            userStatus = result.getInt("u.status");
+        }
 
-		DbSemester dbsem = new DbSemester();
-		DbYear dbyear = new DbYear();
-		dbyear.connect();
-		dbsem.connect();
-		currentSemester = dbsem.execSQL_currSem();
-		currentYear = dbyear.execSQL_currYear();
-		dbsem.close();
-		dbyear.close();
+		
 	}
 
-	public String getCurrentSemester() {
-		return currentSemester.getSemester();
+	public Semester getCurrentSemester() {
+		return currentSemester;
 	}
 
-	public String getCurrentYear() {
-		return currentYear.getYear();
+	public Year getCurrentYear() {
+		return currentYear;
 
+	}
+	
+	public Exam getCurrentExam(){
+		return currentExam;
+	}
+	
+	public Week getCurrentWeek(){
+		
+		return currentWeek;
 	}
 
 	public void setLocale(Locale locale) {
 		super.setLocale(locale);
 		i18nBundle = ResourceBundle.getBundle(UimsMessages.class.getName(),
-		getLocale());
+				getLocale());
 	}
 
 	public ResourceBundle getBundle() {
@@ -164,6 +219,18 @@ public class MyVaadinApplication extends Application implements
 
 	public ViewManager getViewManager() {
 		return viewManager;
+	}
+	
+	public int getFacultyId() {
+		return facultyId;
+	}
+
+	public int getDepartmentId() {
+		return departmentId;
+	}
+
+	public int getGroupId() {
+		return groupId;
 	}
 
 }
