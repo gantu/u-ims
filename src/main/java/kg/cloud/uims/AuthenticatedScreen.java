@@ -32,7 +32,7 @@ public class AuthenticatedScreen extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 	private MyVaadinApplication app;
 	private HorizontalSplitPanel horizontalPanel;
-	private GridLayout controlsLayout;
+	private VerticalLayout controlsLayout;
 	private VerticalLayout statusLayout;
 	private VerticalLayout navigationLayout;
 	private Tree navTree;
@@ -46,7 +46,7 @@ public class AuthenticatedScreen extends VerticalLayout {
 		horizontalPanel.setSizeFull();
 		horizontalPanel.setLocked(true);
 
-		controlsLayout = new GridLayout(1, 3);
+		controlsLayout = new VerticalLayout();
 		controlsLayout.setSizeFull();
 
 		// controlsLayout.setStyleName("segment-alternate");
@@ -88,10 +88,8 @@ public class AuthenticatedScreen extends VerticalLayout {
 		statusLayout.addComponent(label);
 		statusLayout.addComponent(logout);
 
-		controlsLayout.addComponent(buildTree(), 0, 0);
-		controlsLayout.addComponent(user, 0, 1);
-		controlsLayout.addComponent(perm, 0, 2);
-
+		controlsLayout.addComponent(buildTree());
+		
 		navigationLayout = new VerticalLayout();
 		navigationLayout.addComponent(statusLayout);
 		navigationLayout.addComponent(controlsLayout);
@@ -147,7 +145,7 @@ public class AuthenticatedScreen extends VerticalLayout {
 			for (int j = 1; j < navigation[i].length; j++) {
 				if (j == 1) {
 					item.getItemProperty(propertyIcon).setValue(
-							new ThemeResource("folder.png"));
+							new ThemeResource("../runo/icons/16/folder.png"));
 				}
 				// Add child items
 				item = navContainer.addItem(itemId);
