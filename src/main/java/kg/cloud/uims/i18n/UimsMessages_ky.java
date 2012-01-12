@@ -48,7 +48,8 @@ public class UimsMessages_ky extends UimsMessages {
 		{DepartmentCode,"Бөлүмдүн Коду"},
 		{DepartmentName,"Бөлүмдүн Аты"},
 		{SubjectRegistrationStatus,"Катталуу Статусу"},
-		{SubjectHoursSum,"Саатардын Саны"}
+		{SubjectHoursSum,"Саатардын Саны"},
+		{AccountingStatus,"Бухкалтерия Статусу"}
 	};
 	
 	 @Override

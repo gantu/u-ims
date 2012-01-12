@@ -11,6 +11,7 @@
           <string>WEB-INF/classes/kg/cloud/uims/LoginScreen$MyLoginListener.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/LoginScreen$SwitchLanguage.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/domain/StudLess.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/domain/Instructor.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/domain/Department.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/domain/Faculty.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/domain/Exam.class</string>
@@ -23,6 +24,7 @@
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbStudLess.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbSubjects.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbStudent.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/dao/DbInstructor.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbYear.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbGroup.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/BaseDb.class</string>
@@ -33,6 +35,7 @@
           <string>WEB-INF/classes/kg/cloud/uims/AuthenticatedScreen.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/MyVaadinApplication$LogoutListener.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/resources/DataContainers.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/resources/RegistrationPDF.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/ui/RegistrationWindow.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/ui/RegistrationView.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/ui/ViewManager.class</string>
@@ -267,6 +270,12 @@
           <string>WEB-INF/lib/google-collections-1.0.jar</string>
           <string>WEB-INF/lib/mysql-connector-java-5.1.18.jar</string>
           <string>WEB-INF/lib/commons-logging-1.1.1.jar</string>
+          <string>WEB-INF/lib/itext-2.1.7.jar</string>
+          <string>WEB-INF/lib/bcmail-jdk14-138.jar</string>
+          <string>WEB-INF/lib/bcprov-jdk14-138.jar</string>
+          <string>WEB-INF/lib/bctsp-jdk14-1.38.jar</string>
+          <string>WEB-INF/lib/bcprov-jdk14-1.38.jar</string>
+          <string>WEB-INF/lib/bcmail-jdk14-1.38.jar</string>
         </pathsSet>
       </path-set>
     </entry>
@@ -355,6 +364,18 @@
         <optional>false</optional>
       </dependency>
       <targetFileName>commons-logging-1.1.1.jar</targetFileName>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>com.lowagie</groupId>
+        <artifactId>itext</artifactId>
+        <version>2.1.7</version>
+        <type>jar</type>
+        <scope>compile</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>itext-2.1.7.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
   </dependenciesInfo>
 </webapp-structure>

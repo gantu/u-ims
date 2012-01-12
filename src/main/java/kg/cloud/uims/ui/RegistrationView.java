@@ -1,14 +1,10 @@
 package kg.cloud.uims.ui;
 
-import java.util.Set;
-
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
 
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -70,6 +66,12 @@ public class RegistrationView extends VerticalLayout {
 				if (null == event.getProperty().getValue()) {
 					testLabel.setValue("No selection");
 				} else {
+					String accountingStatus = groupStudentTable
+							.getItem(groupStudentTable.getValue())
+							.getItemProperty(
+									app.getMessage(UimsMessages.AccountingStatus))
+							.getValue().toString();
+					
 					String fullName = groupStudentTable
 							.getItem(groupStudentTable.getValue())
 							.getItemProperty(
@@ -81,6 +83,7 @@ public class RegistrationView extends VerticalLayout {
 									.getItemProperty(
 											app.getMessage(UimsMessages.RegistrationStudentSurname))
 									.getValue();
+					if(accountingStatus.equals("Can Register")){
 					getWindow().addWindow(
 							new RegistrationWindow(app, groupStudentTable
 									.getValue().toString(), fullName));
@@ -96,6 +99,9 @@ public class RegistrationView extends VerticalLayout {
 									.getItemProperty(
 											app.getMessage(UimsMessages.RegistrationStudentSurname))
 									.getValue());
+					}else{
+						getWindow().showNotification("Freezed! This student must visit Accounting Services!");
+					}
 
 				}
 			}

@@ -40,6 +40,8 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String SubjectCredit = generateId();
 	public static final String SubjectHour = generateId();
 	public static final String SubjectRegistrationStatus = generateId();
+	
+	public static final String AccountingStatus = generateId();
 
 	public static final String SubjectHoursSum = generateId();
 

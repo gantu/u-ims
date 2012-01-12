@@ -2,8 +2,6 @@ package kg.cloud.uims.resources;
 
 import java.util.ArrayList;
 
-import org.apache.commons.logging.Log;
-
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.dao.DbStudent;
@@ -31,6 +29,7 @@ public class DataContainers {
 	public String PROPERTY_SEMESTER;
 	public String PROPERTY_STDYEAR;
 	public String PROPERTY_SUBJECT_REGISTRATION_STATUS;
+	public String studContainer_PROPERTY_ACC_STATUS;
 
 	public DataContainers(MyVaadinApplication app) {
 		this.app = app;
@@ -50,6 +49,7 @@ public class DataContainers {
 		PROPERTY_STDYEAR = app.getMessage(UimsMessages.StudyYear);
 		PROPERTY_SUBJECT_REGISTRATION_STATUS = app
 				.getMessage(UimsMessages.SubjectRegistrationStatus);
+		studContainer_PROPERTY_ACC_STATUS = app.getMessage(UimsMessages.AccountingStatus);
 	}
 
 	public DataContainers() {
@@ -62,8 +62,8 @@ public class DataContainers {
 				String.class, null);
 		studentContainer.addContainerProperty(studContainer_PROPERTY_SURNAME,
 				String.class, null);
-		studentContainer.addContainerProperty(studContainer_PROPERTY_STATUS,
-				String.class, null);
+		
+		studentContainer.addContainerProperty(studContainer_PROPERTY_ACC_STATUS, String.class,null);
 		try {
 			DbStudent dbStudent = new DbStudent();
 			dbStudent.connect();
@@ -78,8 +78,11 @@ public class DataContainers {
 						studentList.get(i).getName());
 				item.getItemProperty(studContainer_PROPERTY_SURNAME).setValue(
 						studentList.get(i).getSurname());
-				item.getItemProperty(studContainer_PROPERTY_STATUS).setValue(
-						studentList.get(i).getEducation());
+				
+				if(studentList.get(i).getAcc_status().equals("released"))
+					item.getItemProperty(studContainer_PROPERTY_ACC_STATUS).setValue("Can Register");
+				else 
+					item.getItemProperty(studContainer_PROPERTY_ACC_STATUS).setValue("Can not Register");
 
 			}
 		} catch (Exception e) {

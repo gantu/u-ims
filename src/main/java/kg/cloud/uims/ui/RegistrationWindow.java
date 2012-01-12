@@ -2,20 +2,23 @@ package kg.cloud.uims.ui;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
+import kg.cloud.uims.resources.RegistrationPDF;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.terminal.Resource;
+import com.vaadin.terminal.StreamResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
@@ -46,7 +49,8 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 	private String studentId;
 
 	MyVaadinApplication app;
-
+	 final Embedded pdfContents = new Embedded();
+     
 	public RegistrationWindow(MyVaadinApplication app, String studentId,
 			String studentFullName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
@@ -85,6 +89,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		moveDown.addListener((Button.ClickListener) this);
 		moveUp.addListener((Button.ClickListener) this);
 		save.addListener((Button.ClickListener) this);
+		toPDF.addListener((Button.ClickListener)this);
 
 		controlButtons.addComponent(moveDown);
 		controlButtons.addComponent(moveUp);
@@ -93,6 +98,9 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		controlLayout.addComponent(save);
 
 		fillTables();
+
+		pdfContents.setSizeFull();
+        pdfContents.setType(Embedded.TYPE_BROWSER);
 
 		Label studInfo = new Label("Student : " + studentFullName);
 		mainLayout.addComponent(studInfo);
@@ -271,6 +279,11 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 			}
 
 		}
+		if(source==toPDF){
+			Resource pdf=createPdf();
+			pdfContents.setSource(pdf);
+			getWindow().addComponent(pdfContents);
+		}
 
 	}
 
@@ -327,5 +340,15 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		}
 
 	}
+	
+	 private Resource createPdf() {
+	        // Here we create a new StreamResource which downloads our StreamSource,
+	        // which is our pdf.
+	        StreamResource resource = new StreamResource(new RegistrationPDF(studentId,subjectID,Integer.toString(app.getCurrentSemester().getId()),
+					Integer.toString(app.getCurrentYear().getId())), "test.pdf?" + System.currentTimeMillis(), app);
+	        // Set the right mime type
+	        resource.setMIMEType("application/pdf");
+	        return resource;
+	    }
 
 }

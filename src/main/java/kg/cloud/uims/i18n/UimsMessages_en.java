@@ -50,7 +50,8 @@ public class UimsMessages_en extends UimsMessages{
 		{DepartmentCode,"Department Code"},
 		{DepartmentName,"Department Name"},
 		{SubjectRegistrationStatus,"Registration Status"},
-		{SubjectHoursSum,"Sum of Hours"}
+		{SubjectHoursSum,"Sum of Hours"},
+		{AccountingStatus,"Accounting Status"}
 	};
 	
 	 @Override
