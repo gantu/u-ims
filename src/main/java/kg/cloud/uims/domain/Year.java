@@ -18,6 +18,7 @@ public class Year implements Serializable{
     private int current;
     private  String year;
     
+    public Year(){}
     
     public Year(int i,int c,String yr) {
         this.id = i;
@@ -28,12 +29,25 @@ public class Year implements Serializable{
     public String getYear() {
         return year;
     }
-    
-    public int getID(){
-        return id;
-    }
-    
+  
     public int getCurrent(){
         return current;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCurrent(int current) {
+		this.current = current;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+    
 }

@@ -13,18 +13,18 @@ import java.util.logging.Logger;
 
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.ui.RegistrationView;
+import kg.cloud.uims.ui.SuccessReportView;
+import kg.cloud.uims.ui.TranscriptView;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
-import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.themes.Runo;
 
 public class AuthenticatedScreen extends VerticalLayout {
 
@@ -38,6 +38,7 @@ public class AuthenticatedScreen extends VerticalLayout {
 	private VerticalLayout statusLayout;
 	private VerticalLayout navigationLayout;
 	private Tree navTree;
+	private Subject currentUser = SecurityUtils.getSubject();
 
 	public AuthenticatedScreen(MyVaadinApplication app) {
 		super();
@@ -55,32 +56,31 @@ public class AuthenticatedScreen extends VerticalLayout {
 		statusLayout = new VerticalLayout();
 		setSizeFull();
 		try {
-			app.workingDetails();
+			app.workingDetails(currentUser.getPrincipal().toString());
 		} catch (Exception ex) {
 			Logger.getLogger(AuthenticatedScreen.class.getName()).log(
 					Level.SEVERE, null, ex);
 		}
 
-		Subject currentUser = SecurityUtils.getSubject();
+		
 		Label label = new Label("<b>Logged in as </b> <i>"
 				+ currentUser.getPrincipal().toString() + "</i><br/>"
 
-				+ "<b>Current Semester: </b><i>" + app.getCurrentSemester()
+				+ "<b>Current Semester: </b><i>" + app.getCurrentSemester().getSemester()
 				+ "</i><br/>" + "<b>Current Year: </b><i>"
-				+ app.getCurrentYear() + "</i>");
+				+ app.getCurrentYear().getYear() + "</i><br/>" + "<b>Current Week: </b><i>"
+				+ app.getCurrentWeek().getWeek() + "</i>"+ "</i><br/>" + "<b>Current Exam: </b><i>"
+				+ app.getCurrentExam().getExam() + "</i>");
 		label.setContentMode(Label.CONTENT_XHTML);
 
-		Button admin = new Button("For administrators only");
-
-		Button user = new Button("For users only");
-		if (!currentUser.hasRole("admin")) {
-			admin.setEnabled(false);
-		} else if (!currentUser.hasRole("user")) {
+	
+	
+		Button user = new Button("For instructors only");
+		if (!currentUser.hasRole("instructor")) 
 			user.setEnabled(false);
-		}
-
-		Button perm = new Button("For all with permission 'permission_2' only");
-		if (!currentUser.isPermitted("permission_2")) {
+		
+		Button perm = new Button("For all with permission 'Registration' only");
+		if (!currentUser.isPermitted("Registration")) {
 			perm.setEnabled(false);
 		}
 
@@ -106,12 +106,29 @@ public class AuthenticatedScreen extends VerticalLayout {
 
 	public Tree buildTree() {
 
-		String[][] navigation = new String[][] { new String[] {
-				app.getMessage(UimsMessages.TBEduProcess),
+		String [] supervisor={app.getMessage(UimsMessages.TBSupervisor),
 				app.getMessage(UimsMessages.TSBRegistration),
-				app.getMessage(UimsMessages.TSBMySubjects),
-				app.getMessage(UimsMessages.TSBMySuccess),
-				app.getMessage(UimsMessages.TSBMyTranscript) } };
+				app.getMessage(UimsMessages.TSBTranscript),
+				app.getMessage(UimsMessages.TSBSuccessReport)};
+		String [] instructor={
+				app.getMessage(UimsMessages.TBInstructor),
+				app.getMessage(UimsMessages.TSBAttendance),
+				app.getMessage(UimsMessages.TSBExam),
+				};
+		
+		int size=0;
+		if(currentUser.hasRole("supervisor"))
+			size++;
+		if(currentUser.hasRole("instructor"))
+			size++;
+		
+		String[][] navigation = new String[size][];
+		int controller=0;
+		if(currentUser.hasRole("supervisor"))
+			navigation[controller++]=supervisor;
+		if(currentUser.hasRole("instructor"))
+			navigation[controller++]=instructor;
+		
 		Object propertyName = "name";
 		Object propertyIcon = "icon";
 		Item item = null;
@@ -166,16 +183,24 @@ public class AuthenticatedScreen extends VerticalLayout {
 							.getItem(event.getProperty().getValue())
 							.getItemProperty("name").toString();
 
-					/*
-					 * String
-					 * eventPressed=navTree.getItem(event.getProperty().getValue
-					 * ()).getItemProperty("name").toString();
-					 */
+					
 					if (eventPressed.equals(app
 							.getMessage(UimsMessages.TSBRegistration))) {
 						// getWindow().showNotification(eventPressed);
 						horizontalPanel
 								.setSecondComponent(new RegistrationView(app));
+
+					}else if (eventPressed.equals(app
+							.getMessage(UimsMessages.TSBTranscript))) {
+						// getWindow().showNotification(eventPressed);
+						horizontalPanel
+								.setSecondComponent(new TranscriptView(app));
+
+					}else if (eventPressed.equals(app
+							.getMessage(UimsMessages.TSBSuccessReport))) {
+						// getWindow().showNotification(eventPressed);
+						horizontalPanel
+								.setSecondComponent(new SuccessReportView(app));
 
 					}
 				} else {

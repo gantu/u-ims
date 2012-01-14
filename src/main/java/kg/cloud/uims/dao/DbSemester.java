@@ -2,8 +2,6 @@ package kg.cloud.uims.dao;
 
 import java.sql.*;
 import java.util.*;
-import java.lang.String.*;
-
 import kg.cloud.uims.domain.Semester;
 
 
