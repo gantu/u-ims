@@ -60,6 +60,8 @@ public class Student implements Serializable{
     private String edu_order_num2;
     private String edu_order_num3;
     private String acc_status;
+    private String fullName;
+    private String faculty_name;
 
     public Student(int i,String nam, String sur, String rollnum, String edu_order_num1, String awards,String attestat,
             String purmAdr,String currAdr,String birthPl,String phone,Date dob,String passport,String email,String photo,
@@ -178,7 +180,17 @@ public class Student implements Serializable{
         this.acc_status=acc_status;
     }
 
-    public int getID(){
+    public Student(String fname, String rollnum, String fct_nam, String dpt_nam) {
+    	
+    	this.fullName=fname;
+    	this.rollnum = rollnum;
+    	this.dept_name = dpt_nam;
+        this.faculty_name = fct_nam;
+        
+        
+	}
+
+	public int getID(){
         return id;
     }
     public String getName() {
@@ -328,6 +340,14 @@ public class Student implements Serializable{
      */
     public String getAcc_status() {
         return acc_status;
+    }
+    
+    public String getFull_name() {
+        return fullName;
+    }
+    
+    public String getFaculty_name() {
+        return faculty_name;
     }
 
     /**

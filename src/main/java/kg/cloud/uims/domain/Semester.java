@@ -1,5 +1,5 @@
 /*
- * Student.java
+ * Semester.java
  * Created on December 18, 2007, 1:32 PM
  */
 package kg.cloud.uims.domain;

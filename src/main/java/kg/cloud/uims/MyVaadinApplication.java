@@ -21,6 +21,14 @@ import java.sql.ResultSet;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import kg.cloud.uims.dao.BaseDb;
+import kg.cloud.uims.domain.Exam;
+import kg.cloud.uims.domain.Semester;
+import kg.cloud.uims.domain.Week;
+import kg.cloud.uims.domain.Year;
+import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.ui.ViewManager;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -30,16 +38,6 @@ import com.vaadin.service.ApplicationContext;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Window;
-
-import kg.cloud.uims.dao.BaseDb;
-import kg.cloud.uims.dao.DbSemester;
-import kg.cloud.uims.dao.DbYear;
-import kg.cloud.uims.domain.Exam;
-import kg.cloud.uims.domain.Semester;
-import kg.cloud.uims.domain.Week;
-import kg.cloud.uims.domain.Year;
-import kg.cloud.uims.i18n.UimsMessages;
-import kg.cloud.uims.ui.ViewManager;
 
 /**
  * The Application's "main" class

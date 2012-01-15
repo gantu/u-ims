@@ -21,7 +21,12 @@ public class Exam implements Serializable{
         this.percentage=percent;
     }
     
-    public String getExam() {
+    public Exam(String e_name, int perc) {
+    	this.exam=e_name;
+    	this.percentage=perc;
+	}
+
+	public String getExam() {
         return exam;
     }
     
@@ -57,4 +62,8 @@ public class Exam implements Serializable{
 		this.percentage = percentage;
 	}
     
+
 }
+
+
+

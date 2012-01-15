@@ -8,8 +8,13 @@
           <string>META-INF/MANIFEST.MF</string>
           <string>META-INF/context.xml</string>
           <string>WEB-INF/classes/kg/cloud/uims/MyVaadinApplication.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/util/ExportTranscriptToPDF$1.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/util/ExportTranscriptToPDF.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/util/ExportReporttoPDF$1.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/util/ExportReporttoPDF.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/LoginScreen$MyLoginListener.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/LoginScreen$SwitchLanguage.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/domain/Stud_Attendance.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/domain/StudLess.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/domain/Instructor.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/domain/Department.class</string>
@@ -28,7 +33,9 @@
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbYear.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbGroup.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/BaseDb.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/dao/DbStudent_Attendance.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/dao/DbSemester.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/dao/DbExam.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/i18n/UimsMessages_en.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/i18n/UimsMessages_ky.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/i18n/UimsMessages.class</string>
@@ -37,9 +44,15 @@
           <string>WEB-INF/classes/kg/cloud/uims/resources/DataContainers.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/resources/RegistrationPDF.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/ui/RegistrationWindow.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/ui/SuccessReportView$1.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/ui/SuccessReportWindow.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/ui/RegistrationView.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/ui/SuccessReportView.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/ui/TranscriptView.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/ui/ViewManager.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/ui/TranscriptWindow.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/ui/RegistrationView$1.class</string>
+          <string>WEB-INF/classes/kg/cloud/uims/ui/TranscriptView$1.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/AuthenticatedScreen$1.class</string>
           <string>WEB-INF/classes/kg/cloud/uims/LoginScreen.class</string>
           <string>WEB-INF/classes/shiro.ini</string>
@@ -265,17 +278,17 @@
           <string>WEB-INF/lib/slf4j-api-1.6.1.jar</string>
           <string>WEB-INF/lib/commons-beanutils-1.8.3.jar</string>
           <string>WEB-INF/lib/shiro-web-1.1.0.jar</string>
-          <string>WEB-INF/lib/bonecp-0.6.5.jar</string>
-          <string>WEB-INF/lib/log4j-1.2.14.jar</string>
-          <string>WEB-INF/lib/google-collections-1.0.jar</string>
-          <string>WEB-INF/lib/mysql-connector-java-5.1.18.jar</string>
-          <string>WEB-INF/lib/commons-logging-1.1.1.jar</string>
           <string>WEB-INF/lib/itext-2.1.7.jar</string>
           <string>WEB-INF/lib/bcmail-jdk14-138.jar</string>
           <string>WEB-INF/lib/bcprov-jdk14-138.jar</string>
           <string>WEB-INF/lib/bctsp-jdk14-1.38.jar</string>
           <string>WEB-INF/lib/bcprov-jdk14-1.38.jar</string>
           <string>WEB-INF/lib/bcmail-jdk14-1.38.jar</string>
+          <string>WEB-INF/lib/bonecp-0.6.5.jar</string>
+          <string>WEB-INF/lib/log4j-1.2.14.jar</string>
+          <string>WEB-INF/lib/google-collections-1.0.jar</string>
+          <string>WEB-INF/lib/mysql-connector-java-5.1.18.jar</string>
+          <string>WEB-INF/lib/commons-logging-1.1.1.jar</string>
         </pathsSet>
       </path-set>
     </entry>
@@ -316,6 +329,18 @@
         <optional>false</optional>
       </dependency>
       <targetFileName>shiro-web-1.1.0.jar</targetFileName>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>com.lowagie</groupId>
+        <artifactId>itext</artifactId>
+        <version>2.1.7</version>
+        <type>jar</type>
+        <scope>compile</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>itext-2.1.7.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>
@@ -364,18 +389,6 @@
         <optional>false</optional>
       </dependency>
       <targetFileName>commons-logging-1.1.1.jar</targetFileName>
-    </org.apache.maven.plugin.war.util.DependencyInfo>
-    <org.apache.maven.plugin.war.util.DependencyInfo>
-      <dependency>
-        <groupId>com.lowagie</groupId>
-        <artifactId>itext</artifactId>
-        <version>2.1.7</version>
-        <type>jar</type>
-        <scope>compile</scope>
-        <exclusions/>
-        <optional>false</optional>
-      </dependency>
-      <targetFileName>itext-2.1.7.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
   </dependenciesInfo>
 </webapp-structure>

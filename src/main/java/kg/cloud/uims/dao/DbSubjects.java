@@ -335,4 +335,5 @@ public class DbSubjects extends BaseDb {
 	public ArrayList<Subjects> getArray() {
 		return q;
 	}
+
 }

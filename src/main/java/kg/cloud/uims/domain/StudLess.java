@@ -31,7 +31,12 @@ public class StudLess implements Serializable{
     private String subHour;
     private String subCredit;
     private String studDepartment;
-    private String facultyName;    
+    private String facultyName;  
+    private String yearID;
+    private String semesterID;
+    private String avMark;
+    
+    
     public StudLess(int i,int st_id,int sub_id,int grp_id,int sts,String std_name,
             String std_surname,String std_dep,String sub_name,String sub_code,String grp_name,
             String stdY,String edY,String sem,String hour,String credit, String facultyName, int studDepID) {
@@ -54,6 +59,23 @@ public class StudLess implements Serializable{
         this.facultyName = facultyName;
         this.studDepID = studDepID;
     }
+    
+    public StudLess(int i, int sub_id, String year_id, String sem_id, String sub_code,
+    		String sub_name, String credit, String stdY, String sem, String av_mark) {
+        this.id = i;
+        this.subjID=sub_id;
+        this.yearID=year_id;
+        this.semesterID=sem_id;        
+        this.subjCode=sub_code;
+        this.subjName=sub_name;
+        this.subCredit = credit;
+        this.studYear=stdY;        
+        this.semester=sem;  
+        this.avMark=av_mark;
+        
+    }
+    
+        
     public int getID(){
         return id;
     }    
@@ -107,5 +129,15 @@ public class StudLess implements Serializable{
     }
     public int getStudDepID(){
         return studDepID;
+    }
+
+    public String getyearID(){
+        return yearID;
+    }
+    public String getsemesterID(){
+        return semesterID;
+    }
+    public String getavMark(){
+    	return avMark;
     }
 }

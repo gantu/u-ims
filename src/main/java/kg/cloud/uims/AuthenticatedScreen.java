@@ -1,5 +1,16 @@
 package kg.cloud.uims;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.ui.RegistrationView;
+import kg.cloud.uims.ui.SuccessReportView;
+import kg.cloud.uims.ui.TranscriptView;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -7,22 +18,11 @@ import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.terminal.ThemeResource;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import kg.cloud.uims.i18n.UimsMessages;
-import kg.cloud.uims.ui.RegistrationView;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.HorizontalSplitPanel;
 
 public class AuthenticatedScreen extends VerticalLayout {
 
@@ -70,17 +70,6 @@ public class AuthenticatedScreen extends VerticalLayout {
 				+ app.getCurrentWeek().getWeek() + "</i>"+ "</i><br/>" + "<b>Current Exam: </b><i>"
 				+ app.getCurrentExam().getExam() + "</i>");
 		label.setContentMode(Label.CONTENT_XHTML);
-
-	
-	
-		Button user = new Button("For instructors only");
-		if (!currentUser.hasRole("instructor")) 
-			user.setEnabled(false);
-		
-		Button perm = new Button("For all with permission 'Registration' only");
-		if (!currentUser.isPermitted("Registration")) {
-			perm.setEnabled(false);
-		}
 
 		Button logout = new Button("logout");
 		logout.addListener(new MyVaadinApplication.LogoutListener(this.app));
@@ -186,14 +175,20 @@ public class AuthenticatedScreen extends VerticalLayout {
 						horizontalPanel
 								.setSecondComponent(new RegistrationView(app));
 
+					}else if (eventPressed.equals(app
+							.getMessage(UimsMessages.TSBTranscript))) {
+						// getWindow().showNotification(eventPressed);
+						horizontalPanel
+								.setSecondComponent(new TranscriptView(app));
+
+					}else if (eventPressed.equals(app
+							.getMessage(UimsMessages.TSBSuccessReport))) {
+						// getWindow().showNotification(eventPressed);
+						horizontalPanel
+								.setSecondComponent(new SuccessReportView(app));
+
 					}
-				} else {
-					getWindow().showNotification(
-							"else"
-									+ navTree.getItem(
-											event.getProperty().getValue())
-											.getItemProperty("name"));
-				}
+				} 
 
 			}
 		});

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import kg.cloud.uims.domain.StudLess;
 
 
+
 public class DbStudLess extends BaseDb{
     public ArrayList<StudLess> q;
     
@@ -161,7 +162,123 @@ public class DbStudLess extends BaseDb{
         stat.executeUpdate();
         
     }
-    
+public void execSubjectsTranscript(String sid) throws SQLException {
+		
+		String sql = "select t1.id, t1.subject_id, t1.year_id, t1.sem_id, t2.code, t2.name, t2.credit,"
+				+ " t5.year, t6.semester"
+				+ " from less_stud as t1 left join subjects as t2 on t1.subject_id=t2.id"
+				+ " left join year as t5 on t1.year_id=t5.id"
+				+ " left join semester as t6 on t1.sem_id=t6.id"
+				+ " where t1.student_id=? and t1.status<4 order by t1.year_id,t1.sem_id;";
+		
+		q = new ArrayList<StudLess>();
+		
+		PreparedStatement stat = dbCon.prepareStatement(sql);
+		stat.setString(1, sid);
+		ResultSet result = stat.executeQuery();
+		while (result.next()) {
+
+			q.add(new StudLess(result.getInt("t1.id"), result
+					.getInt("t1.subject_id"), result.getString("t1.year_id"),
+					result.getString("t1.sem_id"), result.getString("t2.code"),
+					result.getString("t2.name"), result.getString("t2.credit"),
+					result.getString("t5.year"), result.getString("t6.semester"),
+					Long.toString(Math.round(calcAverage_Transcript(result.getString("t1.id"), result
+					.getString("t1.subject_id"))))));
+		}
+	}
+	
+	public double calcAverage_Transcript(String s_less_id, String subj_id) throws SQLException {
+        String sql = "select t3.exam_name as exam,(t4.mark * t3.percentage/100) as average from less_stud "
+                + " as t5 left join student as  t1 on t5.student_id=t1.id left join "
+                + " subjects as t2 on t5.subject_id=t2.id left join sinif as t6 on "
+                + " t1.group_id=t6.id  left join subj_exam as t4 on t5.id = t4.stud_less_id "
+                + " left join exam as t3 on t4.exam_id=t3.exam_id "
+                + " where t2.id=? and t4.stud_less_id =? ;";
+
+        double average = 0;
+        double midterm = 0, fin = 0, mup = 0.0;
+        int colCount = 0;
+
+        PreparedStatement stat = dbCon.prepareStatement(sql);
+		stat.setString(1, subj_id);
+		stat.setString(2, s_less_id);
+		ResultSet result = stat.executeQuery();
+          while (result.next()) {
+            String exam = result.getString("exam");
+            if (exam.equals("Midterm")) {
+                midterm = result.getDouble("average");
+            } else if (exam.equals("Final")) {
+                fin = result.getDouble("average");
+                if (fin < 29.7) {
+                    fin = 0.0;
+                }
+            } else if (exam.equals("MakeUp")) {
+                mup = result.getDouble("average");
+                if (mup < 29.7) {
+                    mup = 0.0;
+                }
+            }
+            if ((midterm + fin) < 49.5) {
+                average = midterm + mup;
+            } else {
+                average = midterm + fin;
+            }
+            colCount++;
+        }
+        if (colCount < 2) {
+            average = 101;
+        }
+        return average;
+    }
+	
+	public double calcAverage_Report(String s_id, String sem, String year, int subj_id)
+            throws SQLException {
+
+        String sql = "select t3.exam_name as exam,(t4.mark * t3.percentage/100) as average from less_stud "
+                + "as t5 left join student as  t1 on t5.student_id=t1.id left join "
+                + "subjects as t2 on t5.subject_id=t2.id left join sinif as t6 on "
+                + "t1.group_id=t6.id  left join subj_exam as t4 on t5.id = t4.stud_less_id "
+                + "left join exam as t3 on t4.exam_id=t3.exam_id "
+                + "where  t2.id=? and t5.year_id=? and t5.sem_id=? and t5.student_id =?;";
+
+        double average = 0;
+
+        PreparedStatement stat = dbCon.prepareStatement(sql);
+        stat.setInt(1, subj_id);
+        stat.setString(2, year);
+        stat.setString(3, sem);
+        stat.setString(4, s_id);
+        ResultSet result = stat.executeQuery();
+
+        double midterm = 0, fin = 0, mup = 0.0;
+        while (result.next()) {
+            String exam = result.getString("exam");
+            if (result.wasNull()) {
+                average = 0;
+            } else if (exam.equals("Midterm")) {
+                midterm = result.getDouble("average");
+            } else if (exam.equals("Final")) {
+                fin = result.getDouble("average");
+                if (fin < 29.7) {
+                    fin = 0.0;
+                }
+            } else if (exam.equals("MakeUp")) {
+                mup = result.getDouble("average");
+                if (mup < 29.7) {
+                    mup = 0.0;
+                }
+            }
+
+            if ((midterm + fin) < 49.5) {
+                average = midterm + mup;
+            } else {
+                average = midterm + fin;
+            }
+        }
+        return average;
+    }
+
     public ArrayList<StudLess> getArray() {
         return q;
     }

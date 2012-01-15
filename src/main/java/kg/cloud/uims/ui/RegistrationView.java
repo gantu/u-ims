@@ -83,6 +83,7 @@ public class RegistrationView extends VerticalLayout {
 									.getItemProperty(
 											app.getMessage(UimsMessages.RegistrationStudentSurname))
 									.getValue();
+
 					if(accountingStatus.equals("Can Register")){
 					getWindow().addWindow(
 							new RegistrationWindow(app, groupStudentTable
