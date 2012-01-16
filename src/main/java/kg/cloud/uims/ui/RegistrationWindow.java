@@ -54,7 +54,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 			String studentFullName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
 		this.setModal(true);
-		this.setCaption(app.getMessage(UimsMessages.RegistrationHeader) + studentFullName);
+		this.setCaption(app.getMessage(UimsMessages.RegistrationHeader) + " " + studentFullName);
 		this.setWidth("80%");
 		this.setHeight("100%");
 		this.app = app;
@@ -101,40 +101,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 
 		pdfContents.setSizeFull();
         pdfContents.setType(Embedded.TYPE_BROWSER);
-		DataContainers dc = new DataContainers(app);
-		notTakenDatasource = dc.getStudentNotTookYetSubjects(studentId,
-				Integer.toString(app.getCurrentSemester().getId()));
-		notTakenSubjects.setContainerDataSource(notTakenDatasource);
-
-		registeredDatasource = dc.getStudentRegisteredSubjects(studentId,
-				Integer.toString(app.getCurrentSemester().getId()),
-				Integer.toString(app.getCurrentYear().getId()));
-		currentSubjects.setContainerDataSource(registeredDatasource);
-
-		for (int i = 0; i < registeredDatasource.size(); i++) {
-			Item item = registeredDatasource.getItem(registeredDatasource
-					.getIdByIndex(i));
-			Object value = item.getItemProperty(
-					app.getMessage(UimsMessages.SubjectHour)).getValue();
-
-			Number amount;
-			try {
-				amount = NumberFormat.getNumberInstance().parse(
-						value.toString());
-				hourSum += amount.intValue();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-		currentSubjects.setColumnFooter(
-				app.getMessage(UimsMessages.SubjectName),
-				app.getMessage(UimsMessages.SubjectHoursSum));
-		currentSubjects.setColumnFooter(
-				app.getMessage(UimsMessages.SubjectHour),
-				Integer.toString(hourSum));
-
+		
 		Label studInfo = new Label("Student : " + studentFullName);
 		mainLayout.addComponent(studInfo);
 		mainLayout.addComponent(tablesLayout);
