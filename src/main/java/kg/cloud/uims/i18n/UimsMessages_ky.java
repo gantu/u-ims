@@ -15,6 +15,11 @@ public class UimsMessages_ky extends UimsMessages {
 
 			// Authenticated screen
 			{ LogoutButton, "Чык" },
+			{LogInAsLabel, "Вы зашли как"},
+			{CurYearLabel, "Жыл"},
+			{CurSemesterLabel, "Семестр"},
+			{CurWeekLabel, "Апта"},
+			{CurExamLabel, "Сыйнак"},
 
 			// Navigation Tree Branches
 			{ TBEduProcess, "Окуу Процеси" },

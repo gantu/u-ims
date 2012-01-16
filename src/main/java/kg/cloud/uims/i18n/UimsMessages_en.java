@@ -20,7 +20,12 @@ public class UimsMessages_en extends UimsMessages {
 			// Authenticated Screen
 
 			{ LogoutButton, "Logout" },
-
+			{LogInAsLabel, "Logged in as"},
+			{CurYearLabel, "Current Year"},
+			{CurSemesterLabel, "Current Semester"},
+			{CurWeekLabel, "Current Week"},
+			{CurExamLabel, "Current Exam"},
+			
 			// Navigation Tree Branches
 			{ TBEduProcess, "Educational Process" },
 
@@ -48,7 +53,7 @@ public class UimsMessages_en extends UimsMessages {
 			{AccountingStatus,"Accounting Status"},
 
 			{ SubjectName, "Subject Name" }, 
-			{ SubjectCode, "Subjec Code" },
+			{ SubjectCode, "Subject Code" },
 			{ SubjectCredit, "Credits" }, 
 			{ SubjectHour, "Hours" },
 			{ Semester, "Semester" }, 

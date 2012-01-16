@@ -28,6 +28,11 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 
 	// AuthenticatedScreen
 	public static final String LogoutButton = generateId();
+	public static final String LogInAsLabel = generateId();
+	public static final String CurYearLabel = generateId();
+	public static final String CurSemesterLabel = generateId();
+	public static final String CurWeekLabel = generateId();
+	public static final String CurExamLabel = generateId();
 
 	// RegistrationView
 	public static final String RegistrationHeader = generateId();

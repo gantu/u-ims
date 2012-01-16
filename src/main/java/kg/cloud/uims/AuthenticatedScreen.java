@@ -61,17 +61,19 @@ public class AuthenticatedScreen extends VerticalLayout {
 		}
 
 		
-		Label label = new Label("<b>Logged in as </b> <i>"
+		Label label = new Label("<b>"+app.getMessage(UimsMessages.LogInAsLabel)+ ": </b> <i>"
 				+ currentUser.getPrincipal().toString() + "</i><br/>"
-
-				+ "<b>Current Semester: </b><i>" + app.getCurrentSemester().getSemester()
-				+ "</i><br/>" + "<b>Current Year: </b><i>"
-				+ app.getCurrentYear().getYear() + "</i><br/>" + "<b>Current Week: </b><i>"
-				+ app.getCurrentWeek().getWeek() + "</i>"+ "</i><br/>" + "<b>Current Exam: </b><i>"
+				+ "<b>"+app.getMessage(UimsMessages.CurYearLabel)+ ": </b> <i>"
+				+ app.getCurrentYear().getYear() + "</i><br/>" 
+				+ "<b>"+app.getMessage(UimsMessages.CurSemesterLabel)+ ": </b> <i>" 
+				+ app.getCurrentSemester().getSemester()+ "</i><br/>"
+				+ "<b>"+app.getMessage(UimsMessages.CurWeekLabel)+ ": </b> <i>"
+				+ app.getCurrentWeek().getWeek() + "</i>"+ "</i><br/>"
+				+ "<b>"+app.getMessage(UimsMessages.CurExamLabel)+ ": </b> <i>"
 				+ app.getCurrentExam().getExam() + "</i>");
 		label.setContentMode(Label.CONTENT_XHTML);
 
-		Button logout = new Button("logout");
+		Button logout = new Button(app.getMessage(UimsMessages.LogoutButton));
 		logout.addListener(new MyVaadinApplication.LogoutListener(this.app));
 
 		statusLayout.addComponent(label);
