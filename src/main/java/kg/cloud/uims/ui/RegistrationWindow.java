@@ -54,6 +54,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 			String studentFullName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
 		this.setModal(true);
+		this.setCaption(app.getMessage(UimsMessages.RegistrationHeader) + studentFullName);
 		this.setWidth("80%");
 		this.setHeight("100%");
 		this.app = app;
