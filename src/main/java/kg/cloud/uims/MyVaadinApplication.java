@@ -56,8 +56,6 @@ public class MyVaadinApplication extends Application implements
 	private int departmentId;
 	private int groupId;
 	private int userStatus;
-
-
 	private ResourceBundle i18nBundle;
 	ViewManager viewManager;
 

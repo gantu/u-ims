@@ -3,6 +3,10 @@ package kg.cloud.uims.i18n;
 
 public class UimsMessages_en extends UimsMessages {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static final Object[][] contents_en = {
 			{ OkKey, "OK" },
 			{ CancelKey, "Cancel" },
@@ -41,10 +45,14 @@ public class UimsMessages_en extends UimsMessages {
 			{ RegistrationStudentName, "First Name" },
 			{ RegistrationStudentSurname, "Last Name" },
 			{ RegistrationStudentEduStatus, "Education Status" },
+			{AccountingStatus,"Accounting Status"},
 
-			{ SubjectName, "Subject Name" }, { SubjectCode, "Subjec Code" },
-			{ SubjectCredit, "Credits" }, { SubjectHour, "Hours" },
-			{ Semester, "Semester" }, { StudyYear, "Year" },
+			{ SubjectName, "Subject Name" }, 
+			{ SubjectCode, "Subjec Code" },
+			{ SubjectCredit, "Credits" }, 
+			{ SubjectHour, "Hours" },
+			{ Semester, "Semester" }, 
+			{ StudyYear, "Year" },
 			{ DepartmentCode, "Department Code" },
 			{ DepartmentName, "Department Name" },
 			{ SubjectRegistrationStatus, "Registration Status" },

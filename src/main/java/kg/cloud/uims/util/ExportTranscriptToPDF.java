@@ -97,7 +97,7 @@ public class ExportTranscriptToPDF{
                     document.open();
                     
                     PdfContentByte punder = writer.getDirectContentUnder();
-                    img = Image.getInstance("/home/alex/images/notV.png");
+                    img = Image.getInstance("/usr/local/images/notV.png");
                     img.setAbsolutePosition(document.getPageSize().getWidth() / 5, document.getPageSize().getHeight() / 4);
                     img.scaleAbsolute(400, 400);
 

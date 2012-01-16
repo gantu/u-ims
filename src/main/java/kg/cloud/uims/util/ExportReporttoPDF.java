@@ -85,7 +85,7 @@ public class ExportReporttoPDF{
                 	
                 	document.open();
                     PdfContentByte punder = writer.getDirectContentUnder();
-                    img = Image.getInstance("/home/alex/images/iaauLogoT.png");
+                    img = Image.getInstance("/usr/local/images/iaauLogoT.png");
                     img.setAbsolutePosition(document.getPageSize().getWidth() / 4, document.getPageSize().getHeight() / 3);
                     img.scaleAbsolute(300, 300);
                     punder.addImage(img);
