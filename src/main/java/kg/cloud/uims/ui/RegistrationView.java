@@ -44,7 +44,7 @@ public class RegistrationView extends VerticalLayout {
 		body = new VerticalLayout();
 		body.addComponent(groupStudentTable);
 		body.addComponent(testLabel);
-		groupStudentTable.setSizeFull();
+		groupStudentTable.setWidth("100%");
 		groupStudentTable.setSelectable(true);
 		groupStudentTable.setImmediate(true);
 		DataContainers container = new DataContainers(app);
