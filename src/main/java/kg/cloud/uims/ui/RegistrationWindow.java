@@ -32,12 +32,12 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Table notTakenSubjects = new Table("Not Taken Subjects :");
-	Table currentSubjects = new Table("Current Subjects");
-	Button toPDF = new Button("Make PDF");
-	Button save = new Button("Save");
-	Button moveDown = new Button("Move Down");
-	Button moveUp = new Button("Move Up");
+	Table notTakenSubjects = new Table();
+	Table currentSubjects = new Table();
+	Button toPDF = new Button();
+	Button save = new Button();
+	Button moveDown = new Button();
+	Button moveUp = new Button();
 	IndexedContainer registeredDatasource;
 	IndexedContainer notTakenDatasource;
 	int hourSum = 0;
@@ -60,12 +60,14 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		this.app = app;
 		this.studentId = studentId;
 
+		currentSubjects.setCaption(app.getMessage(UimsMessages.TableCurrentSubjects)+ " :");
 		currentSubjects.setWidth("100%");
 		currentSubjects.setHeight("60%");
 		currentSubjects.setSelectable(true);
 		currentSubjects.setImmediate(true);
 		currentSubjects.setFooterVisible(true);
 
+		notTakenSubjects.setCaption(app.getMessage(UimsMessages.TableNotTakenSubjects)+" :");
 		notTakenSubjects.setWidth("100%");
 		notTakenSubjects.setHeight("20%");
 		notTakenSubjects.setSelectable(true);
@@ -86,9 +88,13 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		controlButtons.setWidth("100%");
 		controlButtons.setHeight("10%");
 
+		moveDown.setCaption(app.getMessage(UimsMessages.MoveDownButton));
 		moveDown.addListener((Button.ClickListener) this);
+		moveUp.setCaption(app.getMessage(UimsMessages.MoveUpButton));
 		moveUp.addListener((Button.ClickListener) this);
+		save.setCaption(app.getMessage(UimsMessages.SaveButton));
 		save.addListener((Button.ClickListener) this);
+		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
 		toPDF.addListener((Button.ClickListener)this);
 
 		controlButtons.addComponent(moveDown);
@@ -102,7 +108,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		pdfContents.setSizeFull();
         pdfContents.setType(Embedded.TYPE_BROWSER);
 		
-		Label studInfo = new Label("Student : " + studentFullName);
+		Label studInfo = new Label(app.getMessage(UimsMessages.LabelStudent) + " : " + studentFullName);
 		mainLayout.addComponent(studInfo);
 		mainLayout.addComponent(tablesLayout);
 		mainLayout.addComponent(controlLayout);
@@ -165,11 +171,10 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							.getItemProperty(
 									app.getMessage(UimsMessages.SubjectHour))
 							.toString());
-					getWindow().showNotification(
-							"Sum of Subject hours can not exceed 40!");
+					getWindow().showNotification(app.getMessage(UimsMessages.NotifSumOFSubjExceed));
 				}
 			} else {
-				getWindow().showNotification("Nothing is selected");
+				getWindow().showNotification(app.getMessage(UimsMessages.NotifNothingSelected));
 			}
 		}
 
@@ -221,8 +226,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 					selectedTableItem2 = null;
 					// getWindow().showNotification("The item "+selectedTableItem2.getItemProperty(app.getMessage(UimsMessages.SubjectCode)).toString()+"will be removed");
 				} else {
-					getWindow().showNotification(
-							"You can not remove this Subject!");
+					getWindow().showNotification(app.getMessage(UimsMessages.NotifCantRemoveSubj));
 				}
 			}
 
@@ -260,8 +264,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							}
 						}
 						saveStatus = false;
-						getWindow().showNotification(
-								"Thank you registration is completed!");
+						getWindow().showNotification(app.getMessage(UimsMessages.NotifThankYouRegistr));
 						dbsl.close();
 
 					} catch (Exception e) {

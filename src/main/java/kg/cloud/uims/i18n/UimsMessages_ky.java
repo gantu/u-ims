@@ -2,7 +2,6 @@ package kg.cloud.uims.i18n;
 
 public class UimsMessages_ky extends UimsMessages {
 
-
 	static final Object[][] contents_ky = {
 			{ OkKey, "Мейли" },
 			{ CancelKey, "Жок" },
@@ -15,11 +14,11 @@ public class UimsMessages_ky extends UimsMessages {
 
 			// Authenticated screen
 			{ LogoutButton, "Чык" },
-			{LogInAsLabel, "Вы зашли как"},
-			{CurYearLabel, "Жыл"},
-			{CurSemesterLabel, "Семестр"},
-			{CurWeekLabel, "Апта"},
-			{CurExamLabel, "Сыйнак"},
+			{ LogInAsLabel, "Вы зашли как" },
+			{ CurYearLabel, "Жыл" },
+			{ CurSemesterLabel, "Семестр" },
+			{ CurWeekLabel, "Апта" },
+			{ CurExamLabel, "Сыйнак" },
 
 			// Navigation Tree Branches
 			{ TBEduProcess, "Окуу Процеси" },
@@ -44,35 +43,43 @@ public class UimsMessages_ky extends UimsMessages {
 			{ RegistrationStudentName, "Аты" },
 			{ RegistrationStudentSurname, "Фамилиясы" },
 			{ RegistrationStudentEduStatus, "Окуу Статусу" },
-			{AccountingStatus,"Бухгалтерия"},
-
-			{ SubjectName, "Сабактын Аты" }, 
+			{ AccountingStatus, "Бухгалтерия" },
+			
+			{TableNotTakenSubjects, "Алынбаган сабактар"},
+			{TableCurrentSubjects, "Кезектеги сабактар"},
+			
+			{ SubjectName, "Сабактын Аты" },
 			{ SubjectCode, "Сабактын Коду" },
-			{ SubjectCredit, "Кредити" }, 
+			{ SubjectCredit, "Кредити" },
 			{ SubjectHour, "Сааты" },
-			{ Semester, "Семестр" }, 
+			{ Semester, "Семестр" },
 			{ StudyYear, "Жыл" },
 			{ DepartmentCode, "Бөлүмдүн Коду" },
 			{ DepartmentName, "Бөлүмдүн Аты" },
 			{ SubjectRegistrationStatus, "Катталуу Статусу" },
 			{ SubjectHoursSum, "Саатардын Саны" },
 
+			{ MoveUpButton, "Ылдый жылдыр" },
+			{ MoveDownButton, "Ойдо жылдыр" },
+			{ SaveButton, "Сактоо" },
+
+			{NotifSumOFSubjExceed, "Сумма часов предметов не должна превышать 40!"},
+			{NotifNothingSelected, "Ничего не выбрано"},
+			{NotifCantRemoveSubj, "Вы не можете удалить этот предмет!"},
+			{NotifThankYouRegistr, "Спасибо, регистрацияуспешно завершена!"},
+			
 			// Transcript View
 			{ TranscriptHeader, "Транскрипт" },
-			{ SubjectAverage, "Ортоломо баасы"},
+			{ SubjectAverage, "Ортоломо баасы" },
 			{ SubjectCreditSum, "Кредиттин Саны" },
-			{LabelStudent, "Студент"},
-			{ButtonMakePDF, "Сохранить в PDF"},
-			
-			//SuccessReportView
-			{LabelYear, "Академик жылы"},
-			{LabelSemester, "Семестр"},
-			{SuccessReportHeader, "Жетишкендиктер"},
-			{ StudentMidterm, "Мидтерм"},
-			{ StudentFinal, "Финал"},
-			{ StudentMakeup, "Мейкап"},
-			{ StudentAttandance, "Жоктоо"}};
+			{ LabelStudent, "Студент" },
+			{ ButtonMakePDF, "PDF жасоо" },
 
+			// SuccessReportView
+			{ LabelYear, "Академик жылы" }, { LabelSemester, "Семестр" },
+			{ SuccessReportHeader, "Жетишкендиктер" },
+			{ StudentMidterm, "Мидтерм" }, { StudentFinal, "Финал" },
+			{ StudentMakeup, "Мейкап" }, { StudentAttandance, "Жоктоо" } };
 
 	@Override
 	public Object[][] getContents() {
