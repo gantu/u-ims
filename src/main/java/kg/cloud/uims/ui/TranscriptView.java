@@ -44,7 +44,7 @@ public class TranscriptView extends VerticalLayout {
 		body = new VerticalLayout();
 		body.addComponent(groupStudentTable);
 		body.addComponent(testLabel);
-		groupStudentTable.setWidth("100%");
+		groupStudentTable.setSizeFull();
 		groupStudentTable.setSelectable(true);
 		groupStudentTable.setImmediate(true);
 		DataContainers container = new DataContainers(app);
