@@ -45,7 +45,7 @@ public class SuccessReportWindow extends Window implements ClickListener{
 			String studentFullName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
 		this.setModal(true);
-		this.setCaption(app.getMessage(UimsMessages.SuccessReportHeader));
+		this.setCaption(app.getMessage(UimsMessages.SuccessReportHeader) + " " + studentFullName);
 		this.setWidth("80%");
 		this.setHeight("100%");
 		this.app = app;
