@@ -175,6 +175,7 @@ public class MyVaadinApplication extends Application implements
             groupId = result.getInt("inst.group_id");
             userStatus = result.getInt("u.status");
         }
+		base.close();
 
 		
 	}
