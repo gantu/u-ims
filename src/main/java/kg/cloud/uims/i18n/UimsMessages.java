@@ -28,6 +28,11 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 
 	// AuthenticatedScreen
 	public static final String LogoutButton = generateId();
+	public static final String LogInAsLabel = generateId();
+	public static final String CurYearLabel = generateId();
+	public static final String CurSemesterLabel = generateId();
+	public static final String CurWeekLabel = generateId();
+	public static final String CurExamLabel = generateId();
 
 	// RegistrationView
 	public static final String RegistrationHeader = generateId();
@@ -45,10 +50,25 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 
 	public static final String SubjectHoursSum = generateId();
 
-	public static final String Semester = generateId();
+	public static final String Semester = generateId();	
+	
+	public static final String TableNotTakenSubjects = generateId();
+	public static final String TableCurrentSubjects = generateId();
+	
 	public static final String StudyYear = generateId();
 	public static final String DepartmentName = generateId();
 	public static final String DepartmentCode = generateId();
+	
+	public static final String MoveUpButton = generateId();
+	public static final String MoveDownButton = generateId();
+	public static final String SaveButton = generateId();
+	
+	public static final String NotifSumOFSubjExceed = generateId();
+	public static final String NotifNothingSelected = generateId();
+	public static final String NotifCantRemoveSubj = generateId();
+	public static final String NotifThankYouRegistr = generateId();
+	
+	
 	// TranscriptView
 	public static final String TranscriptHeader = generateId();
 	public static final String SubjectAverage = generateId();

@@ -20,7 +20,12 @@ public class UimsMessages_en extends UimsMessages {
 			// Authenticated Screen
 
 			{ LogoutButton, "Logout" },
-
+			{LogInAsLabel, "Logged in as"},
+			{CurYearLabel, "Current Year"},
+			{CurSemesterLabel, "Current Semester"},
+			{CurWeekLabel, "Current Week"},
+			{CurExamLabel, "Current Exam"},
+			
 			// Navigation Tree Branches
 			{ TBEduProcess, "Educational Process" },
 
@@ -47,8 +52,11 @@ public class UimsMessages_en extends UimsMessages {
 			{ RegistrationStudentEduStatus, "Education Status" },
 			{AccountingStatus,"Accounting Status"},
 
+			{TableNotTakenSubjects, "Not Taken Subjects"},
+			{TableCurrentSubjects, "Current Subjects"},
+			
 			{ SubjectName, "Subject Name" }, 
-			{ SubjectCode, "Subjec Code" },
+			{ SubjectCode, "Subject Code" },
 			{ SubjectCredit, "Credits" }, 
 			{ SubjectHour, "Hours" },
 			{ Semester, "Semester" }, 
@@ -57,13 +65,22 @@ public class UimsMessages_en extends UimsMessages {
 			{ DepartmentName, "Department Name" },
 			{ SubjectRegistrationStatus, "Registration Status" },
 			{ SubjectHoursSum, "Sum of Hours" },
+			
+			{MoveUpButton, "Move up"},
+			{MoveDownButton, "Move down"},
+			{SaveButton, "Save"},
 
+			{NotifSumOFSubjExceed, "Sum of Subject hours can not exceed 40!"},
+			{NotifNothingSelected, "Nothing is selected"},
+			{NotifCantRemoveSubj, "You can not remove this Subject!"},
+			{NotifThankYouRegistr, "Thank you registration is completed!"},
+			
 			// TranscriptView
 			{ TranscriptHeader, "Transcript" },
 			{ SubjectAverage, "Average"},
 			{ SubjectCreditSum, "Sum of Credits" },
 			{LabelStudent, "Student"},
-			{ButtonMakePDF, "Save In PDF"},
+			{ButtonMakePDF, "Make PDF"},
 			
 	//SuccessReportView
 			{LabelYear, "Academic Year"},
