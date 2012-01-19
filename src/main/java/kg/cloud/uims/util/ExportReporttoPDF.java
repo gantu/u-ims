@@ -161,7 +161,7 @@ public class ExportReporttoPDF{
                         Tfoot.getDefaultCell().setBorder(0);
                         Tfoot.setWidthPercentage(90f);
                         Tfoot.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-                        Tfoot.addCell(new Phrase("ALEX", in_font));
+                        Tfoot.addCell(new Phrase(app.getInstName() + " " + app.getInstSurname(), in_font));
                         document.add(Tfoot);
 
                     } else {
