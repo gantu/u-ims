@@ -55,6 +55,8 @@ public class MyVaadinApplication extends Application implements
 	private int facultyId;
 	private int departmentId;
 	private int groupId;
+	private String instName;
+	private String instSurname;
 	private int userStatus;
 	private ResourceBundle i18nBundle;
 	ViewManager viewManager;
@@ -136,26 +138,26 @@ public class MyVaadinApplication extends Application implements
 	}
 
 	public void workingDetails(String username) throws Exception {
-		String query = "select y.id,y.year,s.id,s.semester,w.id,w.week,e.exam_id,e.exam_name," +
-				"e.percentage,inst.faculty_id,inst.dept_id,inst.group_id, u.status from year as y," +
-				"semester as s,weeks as w,exam as e, instructor as inst, " +
-				"users as u where inst.rollnum=u.user_name and y.curr=? and " +
-				"s.curr=? and w.curr=? and e.curr=? and u.user_name=?";
-		
+		String query = "select y.id,y.year,s.id,s.semester,w.id,w.week,e.exam_id,e.exam_name,"
+				+ "e.percentage,inst.faculty_id,inst.dept_id,inst.group_id, inst.name, inst.surname, u.status from year as y,"
+				+ "semester as s,weeks as w,exam as e, instructor as inst, "
+				+ "users as u where inst.rollnum=u.user_name and y.curr=? and "
+				+ "s.curr=? and w.curr=? and e.curr=? and u.user_name=?";
+
 		BaseDb base = new BaseDb();
 		Connection conn = base.getConnection();
-		PreparedStatement statement=conn.prepareStatement(query);
-		statement.setInt(1,1);
-		statement.setInt(2,1);
-		statement.setInt(3,1);
-		statement.setInt(4,1);
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setInt(1, 1);
+		statement.setInt(2, 1);
+		statement.setInt(3, 1);
+		statement.setInt(4, 1);
 		statement.setString(5, username);
-		ResultSet result=statement.executeQuery();
-		currentYear=new Year();
-		currentSemester=new Semester();
-		currentWeek=new Week();
-		currentExam=new Exam();
-		
+		ResultSet result = statement.executeQuery();
+		currentYear = new Year();
+		currentSemester = new Semester();
+		currentWeek = new Week();
+		currentExam = new Exam();
+
 		while (result.next()) {
 			currentYear.setId(result.getInt("y.id"));
 			currentYear.setYear(result.getString("y.year"));
@@ -171,12 +173,13 @@ public class MyVaadinApplication extends Application implements
 			currentExam.setPercentage(result.getInt("e.percentage"));
 			currentExam.setCurrent(1);
 			facultyId = result.getInt("inst.faculty_id");
-            departmentId = result.getInt("inst.dept_id");
-            groupId = result.getInt("inst.group_id");
-            userStatus = result.getInt("u.status");
-        }
+			departmentId = result.getInt("inst.dept_id");
+			groupId = result.getInt("inst.group_id");
+			userStatus = result.getInt("u.status");
+			instName = result.getString("inst.name");
+			instSurname = result.getString("inst.surname");
+		}
 
-		
 	}
 
 	public Semester getCurrentSemester() {
@@ -187,13 +190,13 @@ public class MyVaadinApplication extends Application implements
 		return currentYear;
 
 	}
-	
-	public Exam getCurrentExam(){
+
+	public Exam getCurrentExam() {
 		return currentExam;
 	}
-	
-	public Week getCurrentWeek(){
-		
+
+	public Week getCurrentWeek() {
+
 		return currentWeek;
 	}
 
@@ -216,7 +219,7 @@ public class MyVaadinApplication extends Application implements
 	public ViewManager getViewManager() {
 		return viewManager;
 	}
-	
+
 	public int getFacultyId() {
 		return facultyId;
 	}
@@ -227,6 +230,16 @@ public class MyVaadinApplication extends Application implements
 
 	public int getGroupId() {
 		return groupId;
+	}
+
+	public String getInstName() {
+
+		return instName;
+	}
+
+	public String getInstSurname() {
+
+		return instSurname;
 	}
 
 }
