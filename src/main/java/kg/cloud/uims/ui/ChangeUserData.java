@@ -72,8 +72,7 @@ public class ChangeUserData extends VerticalLayout implements
 		userForm.setCaption("User: " + currentUser.getPrincipal().toString());
 		userForm.setDescription("Set a complex password 6-20 characters long - numbers, latin letters and special symbols.");
 		userForm.setImmediate(true);
-		userForm.setValidationVisible(false);
-
+		
 		userForm.addField("name",
 				new TextField("First Name", app.getInstName()));
 		userForm.getField("name").setRequired(true);
@@ -82,6 +81,7 @@ public class ChangeUserData extends VerticalLayout implements
 		userForm.getField("name").addValidator(
 				new StringLengthValidator("First Name must be 3-25 characters",
 						3, 25, false));
+		userForm.getField("name").setEnabled(false);
 
 		userForm.addField("surname",
 				new TextField("Last Name", app.getInstSurname()));
@@ -91,6 +91,7 @@ public class ChangeUserData extends VerticalLayout implements
 		userForm.getField("surname").addValidator(
 				new StringLengthValidator("First Name must be 3-50 characters",
 						3, 50, false));
+		userForm.getField("surname").setEnabled(false);
 
 		userForm.addField("pass", new PasswordField("Current Password"));
 		userForm.getField("pass").setRequired(true);
