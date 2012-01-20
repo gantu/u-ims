@@ -19,6 +19,7 @@ public class UimsMessages_ky extends UimsMessages {
 			{ CurSemesterLabel, "Семестр" },
 			{ CurWeekLabel, "Апта" },
 			{ CurExamLabel, "Сыйнак" },
+			{ButtonTooltip, "Биякта сыр создуну алмаштыр!"},
 
 			// Navigation Tree Branches
 			{ TBEduProcess, "Окуу Процеси" },
@@ -44,10 +45,10 @@ public class UimsMessages_ky extends UimsMessages {
 			{ RegistrationStudentSurname, "Фамилиясы" },
 			{ RegistrationStudentEduStatus, "Окуу Статусу" },
 			{ AccountingStatus, "Бухгалтерия" },
-			
-			{TableNotTakenSubjects, "Алынбаган сабактар"},
-			{TableCurrentSubjects, "Кезектеги сабактар"},
-			
+
+			{ TableNotTakenSubjects, "Алынбаган сабактар" },
+			{ TableCurrentSubjects, "Кезектеги сабактар" },
+
 			{ SubjectName, "Сабактын Аты" },
 			{ SubjectCode, "Сабактын Коду" },
 			{ SubjectCredit, "Кредити" },
@@ -63,11 +64,12 @@ public class UimsMessages_ky extends UimsMessages {
 			{ MoveDownButton, "Ойдо жылдыр" },
 			{ SaveButton, "Сактоо" },
 
-			{NotifSumOFSubjExceed, "Сумма часов предметов не должна превышать 40!"},
-			{NotifNothingSelected, "Ничего не выбрано"},
-			{NotifCantRemoveSubj, "Вы не можете удалить этот предмет!"},
-			{NotifThankYouRegistr, "Спасибо, регистрацияуспешно завершена!"},
-			
+			{ NotifSumOFSubjExceed,
+					"Сумма часов предметов не должна превышать 40!" },
+			{ NotifNothingSelected, "Ничего не выбрано" },
+			{ NotifCantRemoveSubj, "Вы не можете удалить этот предмет!" },
+			{ NotifThankYouRegistr, "Спасибо, регистрацияуспешно завершена!" },
+
 			// Transcript View
 			{ TranscriptHeader, "Транскрипт" },
 			{ SubjectAverage, "Ортоломо баасы" },
@@ -79,7 +81,11 @@ public class UimsMessages_ky extends UimsMessages {
 			{ LabelYear, "Академик жылы" }, { LabelSemester, "Семестр" },
 			{ SuccessReportHeader, "Жетишкендиктер" },
 			{ StudentMidterm, "Мидтерм" }, { StudentFinal, "Финал" },
-			{ StudentMakeup, "Мейкап" }, { StudentAttandance, "Жоктоо" } };
+			{ StudentMakeup, "Мейкап" }, { StudentAttandance, "Жоктоо" },
+			// HelpView
+			{ HelpHeader, "Жардам" },
+			// ChangeUserDataView
+			{ ChangeUserDataHeader, "Информациясы алмаштыр" } };
 
 	@Override
 	public Object[][] getContents() {

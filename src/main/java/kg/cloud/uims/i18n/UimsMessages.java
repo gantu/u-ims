@@ -33,6 +33,7 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String CurSemesterLabel = generateId();
 	public static final String CurWeekLabel = generateId();
 	public static final String CurExamLabel = generateId();
+	public static final String ButtonTooltip = generateId();
 
 	// RegistrationView
 	public static final String RegistrationHeader = generateId();
@@ -84,6 +85,12 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String StudentFinal = generateId();
 	public static final String StudentMakeup = generateId();
 	public static final String StudentAttandance = generateId();
+	
+	// HelpView
+		public static final String HelpHeader = generateId();
+		
+		// ChangeUserDataView
+		public static final String ChangeUserDataHeader = generateId();
 	// Navigation Tree Branches
 	public static final String TBEduProcess = generateId();
 

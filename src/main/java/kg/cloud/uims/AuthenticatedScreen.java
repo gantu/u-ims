@@ -71,12 +71,11 @@ public class AuthenticatedScreen extends VerticalLayout implements Button.ClickL
 		Label logLabel = new Label("<b>"+app.getMessage(UimsMessages.LogInAsLabel)+ ": </b>");
 		logLabel.setContentMode(Label.CONTENT_XHTML);
 		
-		String tooltip = "Change your password here!";
 		ThemeResource iconUser = new ThemeResource("../runo/icons/16/user.png");
 		
 		Button userDetails = new Button(currentUser.getPrincipal().toString());
 		userDetails.setStyleName(ChameleonTheme.BUTTON_LINK);
-		userDetails.setDescription(tooltip);
+		userDetails.setDescription(app.getMessage(UimsMessages.ButtonTooltip));
 		userDetails.setIcon(iconUser);
 		userDetails.addListener((Button.ClickListener) this);
 		
