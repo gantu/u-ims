@@ -1,9 +1,12 @@
 package kg.cloud.uims;
 
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.ui.ChangeUserData;
+import kg.cloud.uims.ui.HelpView;
 import kg.cloud.uims.ui.RegistrationView;
 import kg.cloud.uims.ui.SuccessReportView;
 import kg.cloud.uims.ui.TranscriptView;
@@ -19,12 +22,15 @@ import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ChameleonTheme;
 
-public class AuthenticatedScreen extends VerticalLayout {
+public class AuthenticatedScreen extends VerticalLayout implements Button.ClickListener
+{
 
 	/**
 	 * 
@@ -60,10 +66,25 @@ public class AuthenticatedScreen extends VerticalLayout {
 					Level.SEVERE, null, ex);
 		}
 
+		HorizontalLayout logLayout = new HorizontalLayout();
 		
-		Label label = new Label("<b>"+app.getMessage(UimsMessages.LogInAsLabel)+ ": </b> <i>"
-				+ currentUser.getPrincipal().toString() + "</i><br/>"
-				+ "<b>"+app.getMessage(UimsMessages.CurYearLabel)+ ": </b> <i>"
+		Label logLabel = new Label("<b>"+app.getMessage(UimsMessages.LogInAsLabel)+ ": </b>");
+		logLabel.setContentMode(Label.CONTENT_XHTML);
+		
+		String tooltip = "Change your password here!";
+		ThemeResource iconUser = new ThemeResource("../runo/icons/16/user.png");
+		
+		Button userDetails = new Button(currentUser.getPrincipal().toString());
+		userDetails.setStyleName(ChameleonTheme.BUTTON_LINK);
+		userDetails.setDescription(tooltip);
+		userDetails.setIcon(iconUser);
+		userDetails.addListener((Button.ClickListener) this);
+		
+		logLayout.setSpacing(true);
+		logLayout.addComponent(logLabel);
+		logLayout.addComponent(userDetails);
+				
+		Label label = new Label("<b>"+app.getMessage(UimsMessages.CurYearLabel)+ ": </b> <i>"
 				+ app.getCurrentYear().getYear() + "</i><br/>" 
 				+ "<b>"+app.getMessage(UimsMessages.CurSemesterLabel)+ ": </b> <i>" 
 				+ app.getCurrentSemester().getSemester()+ "</i><br/>"
@@ -72,10 +93,11 @@ public class AuthenticatedScreen extends VerticalLayout {
 				+ "<b>"+app.getMessage(UimsMessages.CurExamLabel)+ ": </b> <i>"
 				+ app.getCurrentExam().getExam() + "</i>");
 		label.setContentMode(Label.CONTENT_XHTML);
-
+		
 		Button logout = new Button(app.getMessage(UimsMessages.LogoutButton));
 		logout.addListener(new MyVaadinApplication.LogoutListener(this.app));
-
+		
+		statusLayout.addComponent(logLayout);
 		statusLayout.addComponent(label);
 		statusLayout.addComponent(logout);
 
@@ -87,6 +109,7 @@ public class AuthenticatedScreen extends VerticalLayout {
 		navigationLayout.setSpacing(true);
 		navigationLayout.setSizeFull();
 		horizontalPanel.setFirstComponent(navigationLayout);
+		horizontalPanel.setSecondComponent(new HelpView(app));
 		this.addComponent(horizontalPanel);
 
 	}
@@ -197,5 +220,9 @@ public class AuthenticatedScreen extends VerticalLayout {
 		return navTree;
 
 	}
+	public void buttonClick (Button.ClickEvent event) {
+		this.horizontalPanel.setSecondComponent(new ChangeUserData(app));
+		}
 
+	
 }
