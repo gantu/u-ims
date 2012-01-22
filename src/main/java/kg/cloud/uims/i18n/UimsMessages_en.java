@@ -25,6 +25,7 @@ public class UimsMessages_en extends UimsMessages {
 			{CurSemesterLabel, "Current Semester"},
 			{CurWeekLabel, "Current Week"},
 			{CurExamLabel, "Current Exam"},
+			{ButtonTooltip, "Change your password here!"},
 			
 			// Navigation Tree Branches
 			{ TBEduProcess, "Educational Process" },
@@ -89,7 +90,12 @@ public class UimsMessages_en extends UimsMessages {
 			{ StudentMidterm, "Midterm"},
 			{ StudentFinal, "Final"},
 			{ StudentMakeup, "Makeup"},
-			{ StudentAttandance, "Attandance"}};
+			{ StudentAttandance, "Attandance"},
+			//HelpView
+			{HelpHeader, "Help"},
+			
+			// ChangeUserDataView
+			{ChangeUserDataHeader, "Change Information"}};
 
 	@Override
 	public Object[][] getContents() {
