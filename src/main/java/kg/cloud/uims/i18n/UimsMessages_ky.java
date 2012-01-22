@@ -19,7 +19,7 @@ public class UimsMessages_ky extends UimsMessages {
 			{ CurSemesterLabel, "Семестр" },
 			{ CurWeekLabel, "Апта" },
 			{ CurExamLabel, "Сыйнак" },
-			{ButtonTooltip, "Биякта сыр создуну алмаштыр!"},
+			{ ButtonTooltip, "Биякта сыр создуну алмаштыр!" },
 
 			// Navigation Tree Branches
 			{ TBEduProcess, "Окуу Процеси" },
@@ -64,18 +64,17 @@ public class UimsMessages_ky extends UimsMessages {
 			{ MoveDownButton, "Ойдо жылдыр" },
 			{ SaveButton, "Сактоо" },
 
-			{ NotifSumOFSubjExceed,
-					"Сумма часов предметов не должна превышать 40!" },
-			{ NotifNothingSelected, "Ничего не выбрано" },
-			{ NotifCantRemoveSubj, "Вы не можете удалить этот предмет!" },
-			{ NotifThankYouRegistr, "Спасибо, регистрацияуспешно завершена!" },
+			{ NotifSumOFSubjExceed, "Саатардын суммасы 40 саатты ашпашы керек!" },
+			{ NotifNothingSelected, "Еч нерсе тандалган эмес." },
+			{ NotifCantRemoveSubj, "Сиз бул сабакты өчүрө албайсыз!!" },
+			{ NotifThankYouRegistr, "Рахмат, Катоо ийгиликтүү аяктады!!" },
 
 			// Transcript View
 			{ TranscriptHeader, "Транскрипт" },
 			{ SubjectAverage, "Ортоломо баасы" },
 			{ SubjectCreditSum, "Кредиттин Саны" },
 			{ LabelStudent, "Студент" },
-			{ ButtonMakePDF, "PDF жасоо" },
+			{ ButtonMakePDF, "PDFке айлант " },
 
 			// SuccessReportView
 			{ LabelYear, "Академик жылы" }, { LabelSemester, "Семестр" },
@@ -85,7 +84,7 @@ public class UimsMessages_ky extends UimsMessages {
 			// HelpView
 			{ HelpHeader, "Жардам" },
 			// ChangeUserDataView
-			{ ChangeUserDataHeader, "Информациясы алмаштыр" } };
+			{ ChangeUserDataHeader, "Маалымат алмаштыр" } };
 
 	@Override
 	public Object[][] getContents() {
