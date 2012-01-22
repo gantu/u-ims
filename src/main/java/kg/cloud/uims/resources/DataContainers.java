@@ -18,7 +18,6 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
 
 public class DataContainers {
-	private MyVaadinApplication app;
 	public String studContainer_PROPERTY_NAME;
 	public String studContainer_PROPERTY_SURNAME;
 	public String studContainer_PROPERTY_STATUS;
@@ -41,7 +40,6 @@ public class DataContainers {
 	public String PROPERTY_STUDENT_ATTENDANCE;
 
 	public DataContainers(MyVaadinApplication app) {
-		this.app = app;
 		studContainer_PROPERTY_NAME = app
 				.getMessage(UimsMessages.RegistrationStudentName);
 		studContainer_PROPERTY_SURNAME = app

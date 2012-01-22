@@ -56,7 +56,7 @@ public class LoginScreen extends VerticalLayout{
 		loginForm.setUsernameCaption(app.getMessage(UimsMessages.Username));
 		loginForm.setLoginButtonCaption(app.getMessage(UimsMessages.LoginButton));
 
-		loginForm.setHeight("100px");
+		loginForm.setHeight("150px");
 		loginForm.addListener(new MyLoginListener(this.app, loginForm));
 		loginPanel.addComponent(loginForm);
 

@@ -19,7 +19,6 @@ public class RegistrationView extends VerticalLayout {
 	private MyVaadinApplication app;
 	private VerticalLayout header, body;
 	private Table groupStudentTable = new Table();
-	private Label testLabel = new Label("NoSelection");
 	private Window subWindow = new Window();
 
 	public RegistrationView(MyVaadinApplication app) {
@@ -35,7 +34,6 @@ public class RegistrationView extends VerticalLayout {
 		Label headerLabel = new Label("<h1>"
 				+ app.getMessage(UimsMessages.RegistrationHeader) + "</h1>");
 		headerLabel.setContentMode(Label.CONTENT_XHTML);
-		headerLabel.setSizeFull();
 		header.addComponent(headerLabel);
 		addComponent(header);
 	}
@@ -43,7 +41,6 @@ public class RegistrationView extends VerticalLayout {
 	public void buildBody() {
 		body = new VerticalLayout();
 		body.addComponent(groupStudentTable);
-		body.addComponent(testLabel);
 		groupStudentTable.setWidth("100%");
 		groupStudentTable.setSelectable(true);
 		groupStudentTable.setImmediate(true);
@@ -64,7 +61,7 @@ public class RegistrationView extends VerticalLayout {
 			public void valueChange(ValueChangeEvent event) {
 
 				if (null == event.getProperty().getValue()) {
-					testLabel.setValue("No selection");
+					getWindow().showNotification(app.getMessage(UimsMessages.NotifNothingSelected));
 				} else {
 					String accountingStatus = groupStudentTable
 							.getItem(groupStudentTable.getValue())
@@ -88,18 +85,7 @@ public class RegistrationView extends VerticalLayout {
 					getWindow().addWindow(
 							new RegistrationWindow(app, groupStudentTable
 									.getValue().toString(), fullName));
-					testLabel.setValue("Selected: "
-							+ groupStudentTable
-									.getItem(groupStudentTable.getValue())
-									.getItemProperty(
-											app.getMessage(UimsMessages.RegistrationStudentName))
-									.getValue()
-							+ " "
-							+ groupStudentTable
-									.getItem(groupStudentTable.getValue())
-									.getItemProperty(
-											app.getMessage(UimsMessages.RegistrationStudentSurname))
-									.getValue());
+					
 					}else{
 						getWindow().showNotification("Freezed! This student must visit Accounting Services!");
 					}

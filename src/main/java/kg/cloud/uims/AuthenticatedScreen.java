@@ -1,6 +1,5 @@
 package kg.cloud.uims;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,8 +28,8 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ChameleonTheme;
 
-public class AuthenticatedScreen extends VerticalLayout implements Button.ClickListener
-{
+public class AuthenticatedScreen extends VerticalLayout implements
+		Button.ClickListener {
 
 	/**
 	 * 
@@ -38,7 +37,6 @@ public class AuthenticatedScreen extends VerticalLayout implements Button.ClickL
 	private static final long serialVersionUID = 1L;
 	private MyVaadinApplication app;
 	private HorizontalSplitPanel horizontalPanel;
-	private VerticalLayout controlsLayout;
 	private VerticalLayout statusLayout;
 	private VerticalLayout navigationLayout;
 	private Tree navTree;
@@ -52,12 +50,8 @@ public class AuthenticatedScreen extends VerticalLayout implements Button.ClickL
 		horizontalPanel.setSizeFull();
 		horizontalPanel.setLocked(true);
 
-		controlsLayout = new VerticalLayout();
-		controlsLayout.setSizeFull();
-
-		// controlsLayout.setStyleName("segment-alternate");
-
 		statusLayout = new VerticalLayout();
+
 		setSizeFull();
 		try {
 			app.workingDetails(currentUser.getPrincipal().toString());
@@ -67,44 +61,45 @@ public class AuthenticatedScreen extends VerticalLayout implements Button.ClickL
 		}
 
 		HorizontalLayout logLayout = new HorizontalLayout();
-		
-		Label logLabel = new Label("<b>"+app.getMessage(UimsMessages.LogInAsLabel)+ ": </b>");
+
+		Label logLabel = new Label("<b>"
+				+ app.getMessage(UimsMessages.LogInAsLabel) + ": </b>");
 		logLabel.setContentMode(Label.CONTENT_XHTML);
-		
+
 		ThemeResource iconUser = new ThemeResource("../runo/icons/16/user.png");
-		
+
 		Button userDetails = new Button(currentUser.getPrincipal().toString());
 		userDetails.setStyleName(ChameleonTheme.BUTTON_LINK);
 		userDetails.setDescription(app.getMessage(UimsMessages.ButtonTooltip));
 		userDetails.setIcon(iconUser);
 		userDetails.addListener((Button.ClickListener) this);
-		
+
 		logLayout.setSpacing(true);
 		logLayout.addComponent(logLabel);
 		logLayout.addComponent(userDetails);
-				
-		Label label = new Label("<b>"+app.getMessage(UimsMessages.CurYearLabel)+ ": </b> <i>"
-				+ app.getCurrentYear().getYear() + "</i><br/>" 
-				+ "<b>"+app.getMessage(UimsMessages.CurSemesterLabel)+ ": </b> <i>" 
-				+ app.getCurrentSemester().getSemester()+ "</i><br/>"
-				+ "<b>"+app.getMessage(UimsMessages.CurWeekLabel)+ ": </b> <i>"
-				+ app.getCurrentWeek().getWeek() + "</i>"+ "</i><br/>"
-				+ "<b>"+app.getMessage(UimsMessages.CurExamLabel)+ ": </b> <i>"
+
+		Label label = new Label("<b>"
+				+ app.getMessage(UimsMessages.CurYearLabel) + ": </b> <i>"
+				+ app.getCurrentYear().getYear() + "</i><br/>" + "<b>"
+				+ app.getMessage(UimsMessages.CurSemesterLabel) + ": </b> <i>"
+				+ app.getCurrentSemester().getSemester() + "</i><br/>" + "<b>"
+				+ app.getMessage(UimsMessages.CurWeekLabel) + ": </b> <i>"
+				+ app.getCurrentWeek().getWeek() + "</i>" + "</i><br/>" + "<b>"
+				+ app.getMessage(UimsMessages.CurExamLabel) + ": </b> <i>"
 				+ app.getCurrentExam().getExam() + "</i>");
 		label.setContentMode(Label.CONTENT_XHTML);
-		
+
 		Button logout = new Button(app.getMessage(UimsMessages.LogoutButton));
 		logout.addListener(new MyVaadinApplication.LogoutListener(this.app));
-		
+
 		statusLayout.addComponent(logLayout);
 		statusLayout.addComponent(label);
 		statusLayout.addComponent(logout);
+		statusLayout.addComponent(buildTree());
 
-		controlsLayout.addComponent(buildTree());
-		
 		navigationLayout = new VerticalLayout();
 		navigationLayout.addComponent(statusLayout);
-		navigationLayout.addComponent(controlsLayout);
+
 		navigationLayout.setSpacing(true);
 		navigationLayout.setSizeFull();
 		horizontalPanel.setFirstComponent(navigationLayout);
@@ -115,29 +110,27 @@ public class AuthenticatedScreen extends VerticalLayout implements Button.ClickL
 
 	public Tree buildTree() {
 
-		String [] supervisor={app.getMessage(UimsMessages.TBSupervisor),
+		String[] supervisor = { app.getMessage(UimsMessages.TBSupervisor),
 				app.getMessage(UimsMessages.TSBRegistration),
 				app.getMessage(UimsMessages.TSBTranscript),
-				app.getMessage(UimsMessages.TSBSuccessReport)};
-		String [] instructor={
-				app.getMessage(UimsMessages.TBInstructor),
+				app.getMessage(UimsMessages.TSBSuccessReport) };
+		String[] instructor = { app.getMessage(UimsMessages.TBInstructor),
 				app.getMessage(UimsMessages.TSBAttendance),
-				app.getMessage(UimsMessages.TSBExam),
-				};
-		
-		int size=0;
-		if(currentUser.hasRole("supervisor"))
+				app.getMessage(UimsMessages.TSBExam), };
+
+		int size = 0;
+		if (currentUser.hasRole("supervisor"))
 			size++;
-		if(currentUser.hasRole("instructor"))
+		if (currentUser.hasRole("instructor"))
 			size++;
-		
+
 		String[][] navigation = new String[size][];
-		int controller=0;
-		if(currentUser.hasRole("supervisor"))
-			navigation[controller++]=supervisor;
-		if(currentUser.hasRole("instructor"))
-			navigation[controller++]=instructor;
-		
+		int controller = 0;
+		if (currentUser.hasRole("supervisor"))
+			navigation[controller++] = supervisor;
+		if (currentUser.hasRole("instructor"))
+			navigation[controller++] = instructor;
+
 		Object propertyName = "name";
 		Object propertyIcon = "icon";
 		Item item = null;
@@ -145,8 +138,8 @@ public class AuthenticatedScreen extends VerticalLayout implements Button.ClickL
 
 		HierarchicalContainer navContainer = new HierarchicalContainer();
 		navContainer.addContainerProperty(propertyName, String.class, null);
-		navContainer.addContainerProperty(propertyIcon,Resource.class,null);
-		
+		navContainer.addContainerProperty(propertyIcon, Resource.class, null);
+
 		for (int i = 0; i < navigation.length; i++) {
 			// Add new item
 			item = navContainer.addItem(itemId);
@@ -192,36 +185,35 @@ public class AuthenticatedScreen extends VerticalLayout implements Button.ClickL
 							.getItem(event.getProperty().getValue())
 							.getItemProperty("name").toString();
 
-					
 					if (eventPressed.equals(app
 							.getMessage(UimsMessages.TSBRegistration))) {
 						// getWindow().showNotification(eventPressed);
 						horizontalPanel
 								.setSecondComponent(new RegistrationView(app));
 
-					}else if (eventPressed.equals(app
+					} else if (eventPressed.equals(app
 							.getMessage(UimsMessages.TSBTranscript))) {
 						// getWindow().showNotification(eventPressed);
-						horizontalPanel
-								.setSecondComponent(new TranscriptView(app));
+						horizontalPanel.setSecondComponent(new TranscriptView(
+								app));
 
-					}else if (eventPressed.equals(app
+					} else if (eventPressed.equals(app
 							.getMessage(UimsMessages.TSBSuccessReport))) {
 						// getWindow().showNotification(eventPressed);
 						horizontalPanel
 								.setSecondComponent(new SuccessReportView(app));
 
 					}
-				} 
+				}
 
 			}
 		});
 		return navTree;
 
 	}
-	public void buttonClick (Button.ClickEvent event) {
-		this.horizontalPanel.setSecondComponent(new ChangeUserData(app));
-		}
 
-	
+	public void buttonClick(Button.ClickEvent event) {
+		this.horizontalPanel.setSecondComponent(new ChangeUserData(app));
+	}
+
 }

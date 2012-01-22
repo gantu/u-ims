@@ -179,7 +179,7 @@ public class MyVaadinApplication extends Application implements
 			instName = result.getString("inst.name");
 			instSurname = result.getString("inst.surname");
 		}
-
+		base.close();
 	}
 
 	public Semester getCurrentSemester() {
