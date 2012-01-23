@@ -19,7 +19,6 @@ public class SuccessReportView extends VerticalLayout {
 	private MyVaadinApplication app;
 	private VerticalLayout header, body;
 	private Table groupStudentTable = new Table();
-	private Label testLabel = new Label("NoSelection");
 	private Window subWindow = new Window();
 
 	public SuccessReportView(MyVaadinApplication app) {
@@ -43,7 +42,6 @@ public class SuccessReportView extends VerticalLayout {
 	public void buildBody() {
 		body = new VerticalLayout();
 		body.addComponent(groupStudentTable);
-		body.addComponent(testLabel);
 		groupStudentTable.setWidth("100%");
 		groupStudentTable.setSelectable(true);
 		groupStudentTable.setImmediate(true);
@@ -64,7 +62,7 @@ public class SuccessReportView extends VerticalLayout {
 			public void valueChange(ValueChangeEvent event) {
 
 				if (null == event.getProperty().getValue()) {
-					testLabel.setValue("No selection");
+
 				} else {
 					String fullName = groupStudentTable
 							.getItem(groupStudentTable.getValue())
@@ -80,18 +78,6 @@ public class SuccessReportView extends VerticalLayout {
 					getWindow().addWindow(
 							new SuccessReportWindow(app, groupStudentTable
 									.getValue().toString(), fullName));
-					testLabel.setValue("Selected: "
-							+ groupStudentTable
-									.getItem(groupStudentTable.getValue())
-									.getItemProperty(
-											app.getMessage(UimsMessages.RegistrationStudentName))
-									.getValue()
-							+ " "
-							+ groupStudentTable
-									.getItem(groupStudentTable.getValue())
-									.getItemProperty(
-											app.getMessage(UimsMessages.RegistrationStudentSurname))
-									.getValue());
 
 				}
 			}
