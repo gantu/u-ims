@@ -84,7 +84,32 @@ public class UimsMessages_ky extends UimsMessages {
 			// HelpView
 			{ HelpHeader, "Жардам" },
 			// ChangeUserDataView
-			{ ChangeUserDataHeader, "Маалымат алмаштыр" } };
+			{ ChangeUserDataHeader, "Маалымат алмаштыр" },
+			{ FormCaptionUser, "Пользователь" },
+			{
+					FormDescription,
+					"Введите сложный пароль длинною 6-20 характеров - "
+							+ "цифры, латинские буквы и специальные символы." },
+			{ FormFiledCurPassword, "Текущий Пароль" },
+			{ FormFiledNewPassword, "Новый Пароль" },
+			{ FormFiledConfPassword, "Подтвердите Пароль" },
+
+			{ RequiredErrorCurrPassword, "Пожалуйста, введите Текущий Пароль!" },
+			{ RequiredErrorNewPassword, "Пожалуйста, введите Новый Пароль!" },
+			{ RequiredErrorConfPassword,
+					"Пожалуйста, подтвердите Новый Пароль!" },
+			{
+					RegexpValidatorError,
+					"Пароль должен содержать не менее 6 характеров "
+							+ "и состоять из допустимых символов" },
+			{
+					NotifDontMatch,
+					"Новый Пароль и Пароль подтверждения не совпадают,"
+							+ " пожалуйста, подтвердите их!" },
+			{ NotifWrongCurrPassword,
+					"Пожалуйста, введите текущий пароль правильно!" },
+			{ NotifSuccessfulChange, "Пароль успешно изменен." }
+	};
 
 	@Override
 	public Object[][] getContents() {

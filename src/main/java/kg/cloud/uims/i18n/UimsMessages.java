@@ -51,25 +51,24 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 
 	public static final String SubjectHoursSum = generateId();
 
-	public static final String Semester = generateId();	
-	
+	public static final String Semester = generateId();
+
 	public static final String TableNotTakenSubjects = generateId();
 	public static final String TableCurrentSubjects = generateId();
-	
+
 	public static final String StudyYear = generateId();
 	public static final String DepartmentName = generateId();
 	public static final String DepartmentCode = generateId();
-	
+
 	public static final String MoveUpButton = generateId();
 	public static final String MoveDownButton = generateId();
 	public static final String SaveButton = generateId();
-	
+
 	public static final String NotifSumOFSubjExceed = generateId();
 	public static final String NotifNothingSelected = generateId();
 	public static final String NotifCantRemoveSubj = generateId();
 	public static final String NotifThankYouRegistr = generateId();
-	
-	
+
 	// TranscriptView
 	public static final String TranscriptHeader = generateId();
 	public static final String SubjectAverage = generateId();
@@ -85,12 +84,26 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String StudentFinal = generateId();
 	public static final String StudentMakeup = generateId();
 	public static final String StudentAttandance = generateId();
-	
+
 	// HelpView
-		public static final String HelpHeader = generateId();
-		
-		// ChangeUserDataView
-		public static final String ChangeUserDataHeader = generateId();
+	public static final String HelpHeader = generateId();
+
+	// ChangeUserDataView
+	public static final String ChangeUserDataHeader = generateId();
+	public static final String FormCaptionUser = generateId();
+	public static final String FormDescription = generateId();
+	public static final String FormFiledCurPassword = generateId();
+	public static final String FormFiledNewPassword = generateId();
+	public static final String FormFiledConfPassword = generateId();
+
+	public static final String RequiredErrorCurrPassword = generateId();
+	public static final String RequiredErrorNewPassword = generateId();
+	public static final String RequiredErrorConfPassword = generateId();
+	public static final String RegexpValidatorError = generateId();
+	public static final String NotifDontMatch = generateId();
+	public static final String NotifWrongCurrPassword = generateId();
+	public static final String NotifSuccessfulChange = generateId();
+
 	// Navigation Tree Branches
 	public static final String TBEduProcess = generateId();
 

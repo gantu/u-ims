@@ -95,7 +95,31 @@ public class UimsMessages_en extends UimsMessages {
 			{HelpHeader, "Help"},
 			
 			// ChangeUserDataView
-			{ChangeUserDataHeader, "Change Information"}};
+			{ChangeUserDataHeader, "Change Information"},
+			{ FormCaptionUser, "User" },
+			{
+					FormDescription,
+					"Set a complex password 6-20 characters long - "
+							+ "numbers, latin letters and special symbols." },
+			{ FormFiledCurPassword, "Current Password" },
+			{ FormFiledNewPassword, "New Password" },
+			{ FormFiledConfPassword, "Confirm Password" },
+
+			{ RequiredErrorCurrPassword, "Please, enter your Current Password!" },
+			{ RequiredErrorNewPassword, "Please, enter New Password!" },
+			{ RequiredErrorConfPassword, "Please, confirm your New Password!" },
+			{
+					RegexpValidatorError,
+					"The password must be at least 6 characters "
+							+ "and consist of appropriate symbols" },
+			{
+					NotifDontMatch,
+					"New Password and Confirmation Password don't match,"
+							+ " please, confirm them!" },
+			{ NotifWrongCurrPassword,
+					"Please, enter your Current Password correctly!" },
+			{ NotifSuccessfulChange, "Password is changed successfully!" }
+	};
 
 	@Override
 	public Object[][] getContents() {
