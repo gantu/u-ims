@@ -14,12 +14,12 @@ public class UimsMessages_ky extends UimsMessages {
 
 			// Authenticated screen
 			{ LogoutButton, "Чык" },
-			{ LogInAsLabel, "Вы зашли как" },
+			{ LogInAsLabel, "Сиз" },
 			{ CurYearLabel, "Жыл" },
 			{ CurSemesterLabel, "Семестр" },
 			{ CurWeekLabel, "Апта" },
-			{ CurExamLabel, "Сыйнак" },
-			{ ButtonTooltip, "Биякта сыр создуну алмаштыр!" },
+			{ CurExamLabel, "Сынак" },
+			{ ButtonTooltip, "Биякта сыр сөздүнү алмаштыр!" },
 
 			// Navigation Tree Branches
 			{ TBEduProcess, "Окуу Процеси" },
@@ -60,8 +60,8 @@ public class UimsMessages_ky extends UimsMessages {
 			{ SubjectRegistrationStatus, "Катталуу Статусу" },
 			{ SubjectHoursSum, "Саатардын Саны" },
 
-			{ MoveUpButton, "Ылдый жылдыр" },
-			{ MoveDownButton, "Ойдо жылдыр" },
+			{ MoveUpButton, "Ойдо жылдыр" },
+			{ MoveDownButton, "Ылдый жылдыр" },
 			{ SaveButton, "Сактоо" },
 
 			{ NotifSumOFSubjExceed, "Саатардын суммасы 40 саатты ашпашы керек!" },
