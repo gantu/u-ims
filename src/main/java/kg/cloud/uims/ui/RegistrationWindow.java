@@ -5,6 +5,8 @@ import java.text.ParseException;
 
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbStudLess;
+import kg.cloud.uims.dao.DbStudReg;
+import kg.cloud.uims.dao.DbStudent;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.resources.RegistrationPDF;
@@ -47,27 +49,32 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 	private String subjectIDselected1;
 	private Boolean saveStatus = false;
 	private String studentId;
+	private Label studInfo = new Label();
 
 	MyVaadinApplication app;
-	 final Embedded pdfContents = new Embedded();
+	final Embedded pdfContents = new Embedded();
+
 	public RegistrationWindow(MyVaadinApplication app, String studentId,
 			String studentFullName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
 		this.setModal(true);
-		this.setCaption(app.getMessage(UimsMessages.RegistrationHeader) + " " + studentFullName);
+		this.setCaption(app.getMessage(UimsMessages.RegistrationHeader) + " "
+				+ studentFullName);
 		this.setWidth("80%");
 		this.setHeight("100%");
 		this.app = app;
 		this.studentId = studentId;
 
-		currentSubjects.setCaption(app.getMessage(UimsMessages.TableCurrentSubjects)+ " :");
+		currentSubjects.setCaption(app
+				.getMessage(UimsMessages.TableCurrentSubjects) + " :");
 		currentSubjects.setWidth("100%");
 		currentSubjects.setHeight("60%");
 		currentSubjects.setSelectable(true);
 		currentSubjects.setImmediate(true);
 		currentSubjects.setFooterVisible(true);
 
-		notTakenSubjects.setCaption(app.getMessage(UimsMessages.TableNotTakenSubjects)+" :");
+		notTakenSubjects.setCaption(app
+				.getMessage(UimsMessages.TableNotTakenSubjects) + " :");
 		notTakenSubjects.setWidth("100%");
 		notTakenSubjects.setHeight("20%");
 		notTakenSubjects.setSelectable(true);
@@ -95,20 +102,40 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
 		save.addListener((Button.ClickListener) this);
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
-		toPDF.addListener((Button.ClickListener)this);
+		toPDF.addListener((Button.ClickListener) this);
+
+		studInfo.setCaption(app.getMessage(UimsMessages.LabelStudent) + " : "
+				+ studentFullName);
+		studInfo.setImmediate(true);
 
 		controlButtons.addComponent(moveDown);
 		controlButtons.addComponent(moveUp);
 
 		controlLayout.addComponent(toPDF);
-		controlLayout.addComponent(save);
+
+		try {
+
+			DbStudReg dbStudReg = new DbStudReg();
+			dbStudReg.connect();
+			String status = dbStudReg
+					.execSQL(studentId, app.getCurrentSemester().getId(), app
+							.getCurrentYear().getId());
+			dbStudReg.close();
+			if (status.equals("0")) {
+				controlLayout.addComponent(save);
+			} else {
+				studInfo.setCaption(app.getMessage(UimsMessages.LabelStudent)
+						+ " : " + studentFullName + "(Registered)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		fillTables();
 
 		pdfContents.setSizeFull();
-        pdfContents.setType(Embedded.TYPE_BROWSER);
-		
-		Label studInfo = new Label(app.getMessage(UimsMessages.LabelStudent) + " : " + studentFullName);
+		pdfContents.setType(Embedded.TYPE_BROWSER);
+
 		mainLayout.addComponent(studInfo);
 		mainLayout.addComponent(tablesLayout);
 		mainLayout.addComponent(controlLayout);
@@ -171,10 +198,12 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							.getItemProperty(
 									app.getMessage(UimsMessages.SubjectHour))
 							.toString());
-					getWindow().showNotification(app.getMessage(UimsMessages.NotifSumOFSubjExceed));
+					getWindow().showNotification(
+							app.getMessage(UimsMessages.NotifSumOFSubjExceed));
 				}
 			} else {
-				getWindow().showNotification(app.getMessage(UimsMessages.NotifNothingSelected));
+				getWindow().showNotification(
+						app.getMessage(UimsMessages.NotifNothingSelected));
 			}
 		}
 
@@ -226,7 +255,8 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 					selectedTableItem2 = null;
 					// getWindow().showNotification("The item "+selectedTableItem2.getItemProperty(app.getMessage(UimsMessages.SubjectCode)).toString()+"will be removed");
 				} else {
-					getWindow().showNotification(app.getMessage(UimsMessages.NotifCantRemoveSubj));
+					getWindow().showNotification(
+							app.getMessage(UimsMessages.NotifCantRemoveSubj));
 				}
 			}
 
@@ -264,8 +294,17 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							}
 						}
 						saveStatus = false;
-						getWindow().showNotification(app.getMessage(UimsMessages.NotifThankYouRegistr));
+						getWindow()
+								.showNotification(
+										app.getMessage(UimsMessages.NotifThankYouRegistr));
 						dbsl.close();
+
+						DbStudReg dbStudReg = new DbStudReg();
+						dbStudReg.connect();
+						dbStudReg.editStatus(studentId, app
+								.getCurrentSemester().getId(), app
+								.getCurrentYear().getId());
+						dbStudReg.close();
 
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -281,8 +320,8 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 			}
 
 		}
-		if(source==toPDF){
-			Resource pdf=createPdf();
+		if (source == toPDF) {
+			Resource pdf = createPdf();
 			pdfContents.setSource(pdf);
 			getWindow().addComponent(pdfContents);
 		}
@@ -343,15 +382,18 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		}
 
 	}
-	
-	 private Resource createPdf() {
-	        // Here we create a new StreamResource which downloads our StreamSource,
-	        // which is our pdf.
-	        StreamResource resource = new StreamResource(new RegistrationPDF(studentId,subjectID,Integer.toString(app.getCurrentSemester().getId()),
-					Integer.toString(app.getCurrentYear().getId())), "test.pdf?" + System.currentTimeMillis(), app);
-	        // Set the right mime type
-	        resource.setMIMEType("application/pdf");
-	        return resource;
-	    }
+
+	private Resource createPdf() {
+		// Here we create a new StreamResource which downloads our StreamSource,
+		// which is our pdf.
+		StreamResource resource = new StreamResource(new RegistrationPDF(
+				studentId, subjectID, Integer.toString(app.getCurrentSemester()
+						.getId()), Integer.toString(app.getCurrentYear()
+						.getId())), "test.pdf?" + System.currentTimeMillis(),
+				app);
+		// Set the right mime type
+		resource.setMIMEType("application/pdf");
+		return resource;
+	}
 
 }
