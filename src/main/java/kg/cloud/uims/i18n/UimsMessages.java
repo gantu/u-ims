@@ -123,6 +123,8 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String TSBMySubjects = generateId();
 	public static final String TSBMySuccess = generateId();
 	public static final String TSBMyTranscript = generateId();
+	
+	public static final String FreezedMessage=generateId(); 
 
 	private static String generateId() {
 		return new Integer(ids++).toString();

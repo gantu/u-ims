@@ -234,7 +234,7 @@ public class ExportTranscriptToPDF{
         //e.setSizeFull();
         //e.setType(Embedded.TYPE_BROWSER);
         
-        resource = new StreamResource(source1, "TokenReport.pdf", app);
+        resource = new StreamResource(source1, "TokenReport.pdf"+System.currentTimeMillis(), app);
         resource.setMIMEType("application/pdf");
 
          

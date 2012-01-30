@@ -64,7 +64,7 @@ public class UimsMessages_ky extends UimsMessages {
 			{ MoveDownButton, "Ылдый жылдыр" },
 			{ SaveButton, "Сактоо" },
 
-			{ NotifSumOFSubjExceed, "Саатардын суммасы 40 саатты ашпашы керек!" },
+			{ NotifSumOFSubjExceed, "Саатардын суммасы 39 саатты ашпашы керек!" },
 			{ NotifNothingSelected, "Еч нерсе тандалган эмес." },
 			{ NotifCantRemoveSubj, "Сиз бул сабакты өчүрө албайсыз!!" },
 			{ NotifThankYouRegistr, "Рахмат, Катоо ийгиликтүү аяктады!!" },
@@ -108,7 +108,8 @@ public class UimsMessages_ky extends UimsMessages {
 							+ " пожалуйста, подтвердите их!" },
 			{ NotifWrongCurrPassword,
 					"Пожалуйста, введите текущий пароль правильно!" },
-			{ NotifSuccessfulChange, "Пароль успешно изменен." }
+			{ NotifSuccessfulChange, "Пароль успешно изменен." },
+			{FreezedMessage,"Тоңдурулган! Бул окуучу Бухгалтерияга баруусу зарыл!"}
 	};
 
 	@Override

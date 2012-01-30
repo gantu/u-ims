@@ -61,7 +61,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		this.setCaption(app.getMessage(UimsMessages.RegistrationHeader) + " "
 				+ studentFullName);
 		this.setWidth("80%");
-		this.setHeight("100%");
+		this.setHeight("90%");
 		this.app = app;
 		this.studentId = studentId;
 
@@ -150,7 +150,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 				hourSum += Integer.parseInt(selectedTableItem1.getItemProperty(
 						app.getMessage(UimsMessages.SubjectHour)).toString());
 
-				if (hourSum < 40) {
+				if (hourSum <= 39) {
 					Item item = registeredDatasource.addItem(subjectID);
 					item.getItemProperty(
 							app.getMessage(UimsMessages.SubjectCode)).setValue(
@@ -181,11 +181,13 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							app.getMessage(UimsMessages.SubjectRegistrationStatus))
 							.setValue(new String("0"));
 
-					currentSubjects
-							.setContainerDataSource(registeredDatasource);
+					/*
+					 * currentSubjects
+					 * .setContainerDataSource(registeredDatasource);
+					 */
 
 					notTakenDatasource.removeItem(subjectID);
-					notTakenSubjects.setContainerDataSource(notTakenDatasource);
+					// notTakenSubjects.setContainerDataSource(notTakenDatasource);
 					currentSubjects.setColumnFooter(
 							app.getMessage(UimsMessages.SubjectHour),
 							Integer.toString(hourSum));
@@ -249,9 +251,11 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							Integer.toString(hourSum));
 
 					registeredDatasource.removeItem(subjectIDselected1);
-					notTakenSubjects.setContainerDataSource(notTakenDatasource);
-					currentSubjects
-							.setContainerDataSource(registeredDatasource);
+					// notTakenSubjects.setContainerDataSource(notTakenDatasource);
+					/*
+					 * currentSubjects
+					 * .setContainerDataSource(registeredDatasource);
+					 */
 					selectedTableItem2 = null;
 					// getWindow().showNotification("The item "+selectedTableItem2.getItemProperty(app.getMessage(UimsMessages.SubjectCode)).toString()+"will be removed");
 				} else {
@@ -310,8 +314,8 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					currentSubjects
-							.setContainerDataSource(registeredDatasource);
+					/*currentSubjects
+							.setContainerDataSource(registeredDatasource);*/
 					save.setEnabled(false);
 
 				}
@@ -372,7 +376,6 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 					.getValue());
 			if (selectedTableItem1 != null)
 				subjectID = notTakenSubjects.getValue().toString();
-			subjectID = notTakenSubjects.getValue().toString();
 		}
 		if (property == currentSubjects) {
 			selectedTableItem2 = registeredDatasource.getItem(currentSubjects

@@ -71,7 +71,7 @@ public class UimsMessages_en extends UimsMessages {
 			{MoveDownButton, "Move down"},
 			{SaveButton, "Save"},
 
-			{NotifSumOFSubjExceed, "Sum of Subject hours can not exceed 40!"},
+			{NotifSumOFSubjExceed, "Sum of Subject hours can not exceed 39!"},
 			{NotifNothingSelected, "Nothing is selected"},
 			{NotifCantRemoveSubj, "You can not remove this Subject!"},
 			{NotifThankYouRegistr, "Thank you registration is completed!"},
@@ -118,7 +118,8 @@ public class UimsMessages_en extends UimsMessages {
 							+ " please, confirm them!" },
 			{ NotifWrongCurrPassword,
 					"Please, enter your Current Password correctly!" },
-			{ NotifSuccessfulChange, "Password is changed successfully!" }
+			{ NotifSuccessfulChange, "Password is changed successfully!" },
+			{FreezedMessage,"Freezed! This student must visit Account Services."}
 	};
 
 	@Override

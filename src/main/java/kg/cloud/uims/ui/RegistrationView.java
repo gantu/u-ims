@@ -87,7 +87,7 @@ public class RegistrationView extends VerticalLayout {
 									.getValue().toString(), fullName));
 					
 					}else{
-						getWindow().showNotification("Freezed! This student must visit Accounting Services!");
+						getWindow().showNotification(app.getMessage(UimsMessages.FreezedMessage));
 					}
 
 				}
