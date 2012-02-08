@@ -109,7 +109,7 @@ public class ExportTranscriptToPDF{
 
                     Paragraph h = new Paragraph(studDetails.get(0).getFaculty_name() +" Faculty - Department of " + studDetails.get(0).getDepartName(), title_font);
                     h.setAlignment(Element.ALIGN_CENTER);
-                    Paragraph st = new Paragraph("Transcript of " + studentFullName + "\t Date:" + df.format(new java.util.Date()), title_font);
+                    Paragraph st = new Paragraph("Transcript of " + studentFullName +  "[" + studDetails.get(0).getStRollnum() + "]\t Date:" + df.format(new java.util.Date()), title_font);
                     st.setAlignment(Element.ALIGN_CENTER);
                     document.add(h);
                     document.add(st);
