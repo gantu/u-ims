@@ -236,6 +236,34 @@ public class DbSubjects extends BaseDb {
 					result.getInt("t1.status")));
 		}
 	}
+	
+	public void execSQL_subj_inst_new(String year_id, String sem_id,
+			String rollnum) throws SQLException {
+		String sql = "select t1.id,t1.name,t1.hours,t1.code,t1.stdyear,t1.dept_id,t1.credit, t2.code, t2.name, t3.semester, "
+				+ " t5.id, t1.status from subjects as t1"
+				+ " left join department as t2 on t1.dept_id=t2.id"
+				+ " left join semester as t3 on t1.sem_id=t3.id"
+				+ " left join subj_instructor as t5 on t5.subj_id=t1.id"
+				+ " left join instructor as t4 on t4.id=t5.inst_id "
+				+ " where t4.rollnum=? and t1.sem_id=? and t5.year_id=? order by t1.name asc ;";
+
+		q = new ArrayList<Subjects>();
+
+		PreparedStatement stat = dbCon.prepareStatement(sql);
+		stat.setString(1, rollnum);
+		stat.setString(2, sem_id);
+		stat.setString(3, year_id);
+		ResultSet result = stat.executeQuery();
+		while (result.next()) {
+			q.add(new Subjects(result.getInt("t1.id"), result
+					.getString("t1.name"), result.getString("t1.hours"), result
+					.getString("t1.code"), result.getString("t2.code"), result
+					.getString("t2.name"), result.getString("t1.stdyear"),
+					result.getString("t3.semester"), result
+							.getString("t1.credit"), result.getString("t5.id"),
+					result.getInt("t1.status")));
+		}
+	}
 
 	public void execSQL_NoTakenByStudent(String studentId, String semId) throws SQLException {
 		String sql = "select t1.id,t1.code,t1.name,t1.stdyear,t1.hours,t1.credit,t1.status," +
@@ -244,7 +272,7 @@ public class DbSubjects extends BaseDb {
 				"left join department on t1.dept_id=department.id " +
 				"left join student on student.dept_id=t1.dept_id where t1.id not in " +
 				"(select less_stud.subject_id from less_stud where sem_id=? and student_id=?) " +
-				"and t1.sem_id=? and t1.status=? and student.id=?;";
+				"and t1.sem_id=? and t1.status=? and student.id=? order by t1.stdyear asc;";
 
 		q = new ArrayList<Subjects>();
 
