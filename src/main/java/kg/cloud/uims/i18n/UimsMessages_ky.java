@@ -66,8 +66,10 @@ public class UimsMessages_ky extends UimsMessages {
 
 			{ NotifSumOFSubjExceed, "Саатардын суммасы 39 саатты ашпашы керек!" },
 			{ NotifNothingSelected, "Еч нерсе тандалган эмес." },
-			{ NotifCantRemoveSubj, "Сиз бул сабакты өчүрө албайсыз!!" },
-			{ NotifThankYouRegistr, "Рахмат, Катоо ийгиликтүү аяктады!!" },
+			{ NotifCantRemoveSubj, "Сиз бул сабакты өчүрө албайсыз!" },
+			{ NotifThankYouRegistr, "Рахмат, Катоо ийгиликтүү аяктады!" },
+			{ FilterByYearLabel, "Жылга карап сүз:"},
+			{ FilterByCodeLabel, "Сабактын кодуна карап сүз:"},
 
 			// Transcript View
 			{ TranscriptHeader, "Транскрипт" },
@@ -81,6 +83,12 @@ public class UimsMessages_ky extends UimsMessages {
 			{ SuccessReportHeader, "Жетишкендиктер" },
 			{ StudentMidterm, "Мидтерм" }, { StudentFinal, "Финал" },
 			{ StudentMakeup, "Мейкап" }, { StudentAttandance, "Жоктоо" },
+			
+			//AttendanceView
+			{AttendanceHeader, "Жоктоо"},
+			{SubjectHoursPerWeek, "Часы в неделю"},
+			{GroupName, "Название группы"},
+			
 			// HelpView
 			{ HelpHeader, "Жардам" },
 			// ChangeUserDataView

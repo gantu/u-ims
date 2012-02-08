@@ -68,6 +68,8 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String NotifNothingSelected = generateId();
 	public static final String NotifCantRemoveSubj = generateId();
 	public static final String NotifThankYouRegistr = generateId();
+	public static final String FilterByYearLabel = generateId();
+	public static final String FilterByCodeLabel = generateId();
 
 	// TranscriptView
 	public static final String TranscriptHeader = generateId();
@@ -84,7 +86,13 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String StudentFinal = generateId();
 	public static final String StudentMakeup = generateId();
 	public static final String StudentAttandance = generateId();
+	
+	// AttendanceView
 
+		public static final String AttendanceHeader = generateId();
+		public static final String SubjectHoursPerWeek = generateId();
+		public static final String GroupName = generateId();
+		
 	// HelpView
 	public static final String HelpHeader = generateId();
 

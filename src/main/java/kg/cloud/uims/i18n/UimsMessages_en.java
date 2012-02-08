@@ -75,6 +75,8 @@ public class UimsMessages_en extends UimsMessages {
 			{NotifNothingSelected, "Nothing is selected"},
 			{NotifCantRemoveSubj, "You can not remove this Subject!"},
 			{NotifThankYouRegistr, "Thank you registration is completed!"},
+			{FilterByYearLabel, "Filter by year:"},
+			{FilterByCodeLabel, "Filter by subject code:"},
 			
 			// TranscriptView
 			{ TranscriptHeader, "Transcript" },
@@ -91,6 +93,12 @@ public class UimsMessages_en extends UimsMessages {
 			{ StudentFinal, "Final"},
 			{ StudentMakeup, "Makeup"},
 			{ StudentAttandance, "Attandance"},
+			
+			//AttendanceView
+			{AttendanceHeader, "Attendance"},
+			{SubjectHoursPerWeek, "Hours/Week"},
+			{GroupName, "Group Name"},
+			
 			//HelpView
 			{HelpHeader, "Help"},
 			
