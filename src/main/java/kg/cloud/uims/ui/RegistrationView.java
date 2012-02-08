@@ -9,6 +9,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.ChameleonTheme;
 
 public class RegistrationView extends VerticalLayout {
 
@@ -44,6 +45,7 @@ public class RegistrationView extends VerticalLayout {
 		groupStudentTable.setWidth("100%");
 		groupStudentTable.setSelectable(true);
 		groupStudentTable.setImmediate(true);
+		groupStudentTable.setStyleName(ChameleonTheme.TABLE_STRIPED);
 		DataContainers container = new DataContainers(app);
 
 		groupStudentTable

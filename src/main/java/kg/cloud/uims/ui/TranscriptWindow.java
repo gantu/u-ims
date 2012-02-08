@@ -7,6 +7,7 @@ import kg.cloud.uims.util.ExportTranscriptToPDF;
 
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ChameleonTheme;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
@@ -52,6 +53,7 @@ public class TranscriptWindow extends Window implements ClickListener{
 		transcriptTable.setHeight("60%");
 		transcriptTable.setFooterVisible(true);
 		transcriptTable.setCaption(app.getMessage(UimsMessages.TranscriptHeader));
+		transcriptTable.setStyleName(ChameleonTheme.TABLE_STRIPED);
 
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
 		toPDF.addListener((Button.ClickListener) this);

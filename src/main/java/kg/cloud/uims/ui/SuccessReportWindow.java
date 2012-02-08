@@ -8,6 +8,7 @@ import kg.cloud.uims.util.ExportTranscriptToPDF;
 
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ChameleonTheme;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
@@ -29,7 +30,7 @@ public class SuccessReportWindow extends Window implements ClickListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Table reportTale = new Table();
+	Table reportTable = new Table();
 
 	Button toPDF = new Button();
 	IndexedContainer reportDatasource;
@@ -54,9 +55,10 @@ public class SuccessReportWindow extends Window implements ClickListener{
 		this.curr_Sem_id=Integer.toString(app.getCurrentSemester().getId());
 		this.curr_Year_id=Integer.toString(app.getCurrentYear().getId());
 				
-		reportTale.setWidth("100%");
-		reportTale.setHeight("60%");
-		reportTale.setCaption(app.getMessage(UimsMessages.SuccessReportHeader));
+		reportTable.setWidth("100%");
+		reportTable.setHeight("60%");
+		reportTable.setCaption(app.getMessage(UimsMessages.SuccessReportHeader));
+		reportTable.setStyleName(ChameleonTheme.TABLE_STRIPED);
 
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
 		toPDF.addListener((Button.ClickListener) this);
@@ -73,12 +75,12 @@ public class SuccessReportWindow extends Window implements ClickListener{
 		infoLayout.addComponent(yearInfo,1,0);
 		infoLayout.addComponent(semInfo,2,0);
 		mainLayout.addComponent(infoLayout);
-		mainLayout.addComponent(reportTale);
+		mainLayout.addComponent(reportTable);
 		mainLayout.addComponent(toPDF);
 
 		DataContainers dc = new DataContainers(app);
 		reportDatasource = dc.getStudentSuccessReport(studentId, curr_Sem_id, curr_Year_id);
-		reportTale.setContainerDataSource(reportDatasource);
+		reportTable.setContainerDataSource(reportDatasource);
 
 		
 		addComponent(mainLayout);
