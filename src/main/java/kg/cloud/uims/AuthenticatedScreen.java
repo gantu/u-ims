@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.ui.AttendanceView;
 import kg.cloud.uims.ui.ChangeUserData;
 import kg.cloud.uims.ui.HelpView;
 import kg.cloud.uims.ui.RegistrationView;
@@ -110,10 +111,14 @@ public class AuthenticatedScreen extends VerticalLayout implements
 
 	public Tree buildTree() {
 
+		/**
+		 * ,
+				app.getMessage(UimsMessages.TSBSuccessReport)
+				
+		 * */
 		String[] supervisor = { app.getMessage(UimsMessages.TBSupervisor),
 				app.getMessage(UimsMessages.TSBRegistration),
-				app.getMessage(UimsMessages.TSBTranscript),
-				app.getMessage(UimsMessages.TSBSuccessReport) };
+				app.getMessage(UimsMessages.TSBTranscript)};
 		String[] instructor = { app.getMessage(UimsMessages.TBInstructor),
 				app.getMessage(UimsMessages.TSBAttendance),
 				app.getMessage(UimsMessages.TSBExam), };
@@ -202,6 +207,12 @@ public class AuthenticatedScreen extends VerticalLayout implements
 						// getWindow().showNotification(eventPressed);
 						horizontalPanel
 								.setSecondComponent(new SuccessReportView(app));
+
+					}else if (eventPressed.equals(app
+							.getMessage(UimsMessages.TSBAttendance))) {
+						// getWindow().showNotification(eventPressed);
+						horizontalPanel
+								.setSecondComponent(new AttendanceView(app));
 
 					}
 				}
