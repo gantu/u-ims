@@ -94,9 +94,8 @@ public class RegistrationPDF implements StreamSource {
 			
 			if (!list.isEmpty()) {
 				dbHod.connect();
-				//hod = dbHod.execSQLRD("hod", list.get(0).getStudDepID());
-				
-				
+				hod = dbHod.execSQLRD("hod", list.get(0).getStudDepID());
+							
 				float[] Thead_colsWidth = { 1.2f, 1.5f, 1.3f, 1.5f };
 				PdfPTable Thead = new PdfPTable(4);
 				Thead.setWidthPercentage(90f);
@@ -195,8 +194,7 @@ public class RegistrationPDF implements StreamSource {
 						+ instructor.getInstructorSurname(), text_font));
 				Tfoot.addCell(new Phrase(" "));
 				Tfoot.addCell(new Phrase("HOD", in_font));
-				Tfoot.addCell(new Phrase(list.get(0).getStudDepID() + " "
-						+ list.get(0).getStudDepID(), text_font));
+				Tfoot.addCell(new Phrase(hod.getInstructorName() +" " + hod.getInstructorSurname(), text_font));
 				Tfoot.addCell(new Phrase(" "));
 				document.add(Tfoot);
 				dbHod.close();
