@@ -6,26 +6,32 @@ import java.text.ParseException;
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.dao.DbStudReg;
-import kg.cloud.uims.dao.DbStudent;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.resources.RegistrationPDF;
 
+import com.vaadin.data.Container.Filter;
+import com.vaadin.data.Container.Filterable;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.data.util.filter.SimpleStringFilter;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.StreamResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.ChameleonTheme;
+import com.vaadin.ui.themes.Reindeer;
+import com.vaadin.ui.themes.Runo;
 
 public class RegistrationWindow extends Window implements Button.ClickListener,
 		Property.ValueChangeListener {
@@ -50,11 +56,12 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 	private Boolean saveStatus = false;
 	private String studentId;
 	private Label studInfo = new Label();
+	private TextField byYear = new TextField();
+	private TextField byCode = new TextField();
 
 	MyVaadinApplication app;
-	final Embedded pdfContents = new Embedded();
 
-	public RegistrationWindow(MyVaadinApplication app, String studentId,
+	public RegistrationWindow(final MyVaadinApplication app, String studentId,
 			String studentFullName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
 		this.setModal(true);
@@ -68,30 +75,33 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		currentSubjects.setCaption(app
 				.getMessage(UimsMessages.TableCurrentSubjects) + " :");
 		currentSubjects.setWidth("100%");
-		currentSubjects.setHeight("60%");
+		currentSubjects.setHeight(7, UNITS_CM);
 		currentSubjects.setSelectable(true);
 		currentSubjects.setImmediate(true);
 		currentSubjects.setFooterVisible(true);
+		currentSubjects.setStyleName(ChameleonTheme.TABLE_STRIPED);
 
 		notTakenSubjects.setCaption(app
 				.getMessage(UimsMessages.TableNotTakenSubjects) + " :");
 		notTakenSubjects.setWidth("100%");
-		notTakenSubjects.setHeight("20%");
+		notTakenSubjects.setHeight(6, UNITS_CM);
 		notTakenSubjects.setSelectable(true);
 		notTakenSubjects.setImmediate(true);
+		notTakenSubjects.setStyleName(ChameleonTheme.TABLE_STRIPED);
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		VerticalLayout tablesLayout = new VerticalLayout();
 		HorizontalLayout controlButtons = new HorizontalLayout();
 		HorizontalLayout controlLayout = new HorizontalLayout();
+		HorizontalLayout filtersLayout = new HorizontalLayout();
 
 		mainLayout.setSpacing(true);
 		tablesLayout.addComponent(notTakenSubjects);
 		tablesLayout.addComponent(controlButtons);
 		tablesLayout.addComponent(currentSubjects);
 
-		currentSubjects.addListener((ValueChangeListener) this);
-		notTakenSubjects.addListener((ValueChangeListener) this);
+		currentSubjects.addListener((Property.ValueChangeListener) this);
+		notTakenSubjects.addListener((Property.ValueChangeListener) this);
 		controlButtons.setWidth("100%");
 		controlButtons.setHeight("10%");
 
@@ -103,6 +113,48 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		save.addListener((Button.ClickListener) this);
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
 		toPDF.addListener((Button.ClickListener) this);
+
+		Label filter1Label = new Label(app.getMessage(UimsMessages.FilterByYearLabel));
+		filter1Label.setStyleName(ChameleonTheme.LABEL_BIG);
+		Label filter2Label = new Label(app.getMessage(UimsMessages.FilterByCodeLabel));
+		filter2Label.setStyleName(ChameleonTheme.LABEL_BIG);
+		byYear.setStyleName(ChameleonTheme.TEXTFIELD_SMALL);
+		byCode.setStyleName(ChameleonTheme.TEXTFIELD_SMALL);
+		byYear.addListener(new TextChangeListener() {
+
+			public void textChange(TextChangeEvent event) {
+				if (event.getText().length() > 0) {
+					Filter filter = new SimpleStringFilter(app
+							.getMessage(UimsMessages.StudyYear), event
+							.getText(), true, false);
+
+					notTakenDatasource.removeAllContainerFilters();
+					notTakenDatasource.addContainerFilter(filter);
+				} else {
+					notTakenDatasource.removeAllContainerFilters();
+				}
+				// TODO Auto-generated method stub
+
+			}
+		});
+		
+		byCode.addListener(new TextChangeListener() {
+
+			public void textChange(TextChangeEvent event) {
+				if (event.getText().length() > 0) {
+					Filter filter = new SimpleStringFilter(app
+							.getMessage(UimsMessages.SubjectCode), event
+							.getText(), true, false);
+
+					notTakenDatasource.removeAllContainerFilters();
+					notTakenDatasource.addContainerFilter(filter);
+				} else {
+					notTakenDatasource.removeAllContainerFilters();
+				}
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		studInfo.setCaption(app.getMessage(UimsMessages.LabelStudent) + " : "
 				+ studentFullName);
@@ -133,10 +185,14 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 
 		fillTables();
 
-		pdfContents.setSizeFull();
-		pdfContents.setType(Embedded.TYPE_BROWSER);
-
-		mainLayout.addComponent(studInfo);
+		//filtersLayout.setSizeFull();
+		filtersLayout.setSpacing(true);
+		filtersLayout.addComponent(studInfo);
+		filtersLayout.addComponent(filter1Label);
+		filtersLayout.addComponent(byYear);
+		filtersLayout.addComponent(filter2Label);
+		filtersLayout.addComponent(byCode);
+		mainLayout.addComponent(filtersLayout);
 		mainLayout.addComponent(tablesLayout);
 		mainLayout.addComponent(controlLayout);
 		addComponent(mainLayout);
@@ -251,7 +307,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							Integer.toString(hourSum));
 
 					registeredDatasource.removeItem(subjectIDselected1);
-					// notTakenSubjects.setContainerDataSource(notTakenDatasource);
+					notTakenSubjects.setContainerDataSource(notTakenDatasource);
 					/*
 					 * currentSubjects
 					 * .setContainerDataSource(registeredDatasource);
@@ -266,7 +322,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 
 		}
 		if (source == save) {
-			if (registeredDatasource != null) {
+			if (registeredDatasource.size() != 0) {
 				if (saveStatus) {
 					try {
 						DbStudLess dbsl = new DbStudLess();
@@ -314,8 +370,10 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					/*currentSubjects
-							.setContainerDataSource(registeredDatasource);*/
+					/*
+					 * currentSubjects
+					 * .setContainerDataSource(registeredDatasource);
+					 */
 					save.setEnabled(false);
 
 				}
@@ -326,8 +384,8 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		}
 		if (source == toPDF) {
 			Resource pdf = createPdf();
-			pdfContents.setSource(pdf);
-			getWindow().addComponent(pdfContents);
+			// pdfContents.setSource(pdf);
+			app.getMainWindow().open(pdf);
 		}
 
 	}
