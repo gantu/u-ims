@@ -30,6 +30,7 @@ public class DataContainers {
 	public String PROPERTY_DEPARTMENT_NAME;
 	public String PROPERTY_SEMESTER;
 	public String PROPERTY_STDYEAR;
+	public String PROPERTY_SUBJECT_HOURS_WEEK;
 	public String PROPERTY_SUBJECT_REGISTRATION_STATUS;
 
 	public String studContainer_PROPERTY_ACC_STATUS;
@@ -38,6 +39,8 @@ public class DataContainers {
 	public String PROPERTY_STUDENT_FINAL;
 	public String PROPERTY_STUDENT_MAKE_UP;
 	public String PROPERTY_STUDENT_ATTENDANCE;
+	
+	//public String PROPERTY_GROUP_NAME;
 
 	public DataContainers(MyVaadinApplication app) {
 		studContainer_PROPERTY_NAME = app
@@ -56,13 +59,16 @@ public class DataContainers {
 		PROPERTY_STDYEAR = app.getMessage(UimsMessages.StudyYear);
 		PROPERTY_SUBJECT_REGISTRATION_STATUS = app
 				.getMessage(UimsMessages.SubjectRegistrationStatus);
-		studContainer_PROPERTY_ACC_STATUS = app.getMessage(UimsMessages.AccountingStatus);
+		studContainer_PROPERTY_ACC_STATUS = app
+				.getMessage(UimsMessages.AccountingStatus);
 		PROPERTY_SUBJECT_AVERAGE = app.getMessage(UimsMessages.SubjectAverage);
 		PROPERTY_STUDENT_MIDTERM = app.getMessage(UimsMessages.StudentMidterm);
 		PROPERTY_STUDENT_FINAL = app.getMessage(UimsMessages.StudentFinal);
 		PROPERTY_STUDENT_MAKE_UP = app.getMessage(UimsMessages.StudentMakeup);
 		PROPERTY_STUDENT_ATTENDANCE = app
 				.getMessage(UimsMessages.StudentAttandance);
+		PROPERTY_SUBJECT_HOURS_WEEK = app.getMessage(UimsMessages.SubjectHoursPerWeek);
+		//PROPERTY_GROUP_NAME = app.getMessage(UimsMessages.GroupName);
 	}
 
 	public DataContainers() {
@@ -75,8 +81,9 @@ public class DataContainers {
 				String.class, null);
 		studentContainer.addContainerProperty(studContainer_PROPERTY_SURNAME,
 				String.class, null);
-		
-		studentContainer.addContainerProperty(studContainer_PROPERTY_ACC_STATUS, String.class,null);
+
+		studentContainer.addContainerProperty(
+				studContainer_PROPERTY_ACC_STATUS, String.class, null);
 		studentContainer.addContainerProperty(studContainer_PROPERTY_STATUS,
 				String.class, null);
 		try {
@@ -93,11 +100,13 @@ public class DataContainers {
 						studentList.get(i).getName());
 				item.getItemProperty(studContainer_PROPERTY_SURNAME).setValue(
 						studentList.get(i).getSurname());
-				
-				if(studentList.get(i).getAcc_status().equals("released"))
-					item.getItemProperty(studContainer_PROPERTY_ACC_STATUS).setValue("Can Register");
-				else 
-					item.getItemProperty(studContainer_PROPERTY_ACC_STATUS).setValue("Can not Register");
+
+				if (studentList.get(i).getAcc_status().equals("released"))
+					item.getItemProperty(studContainer_PROPERTY_ACC_STATUS)
+							.setValue("Can Register");
+				else
+					item.getItemProperty(studContainer_PROPERTY_ACC_STATUS)
+							.setValue("Can not Register");
 				item.getItemProperty(studContainer_PROPERTY_STATUS).setValue(
 						studentList.get(i).getEducation());
 
@@ -118,16 +127,14 @@ public class DataContainers {
 				null);
 		container.addContainerProperty(PROPERTY_SUBJECT_NAME, String.class,
 				null);
-		container.addContainerProperty(PROPERTY_SEMESTER, String.class,
-				null);
-		container
-				.addContainerProperty(PROPERTY_STDYEAR, String.class, null);
+		container.addContainerProperty(PROPERTY_SEMESTER, String.class, null);
+		container.addContainerProperty(PROPERTY_STDYEAR, String.class, null);
 		container.addContainerProperty(PROPERTY_SUBJECT_HOUR, String.class,
 				null);
-		container.addContainerProperty(PROPERTY_SUBJECT_CREDIT,
+		container.addContainerProperty(PROPERTY_SUBJECT_CREDIT, String.class,
+				null);
+		container.addContainerProperty(PROPERTY_SUBJECT_REGISTRATION_STATUS,
 				String.class, null);
-		container.addContainerProperty(
-				PROPERTY_SUBJECT_REGISTRATION_STATUS, String.class, null);
 		container.addContainerProperty(PROPERTY_SEMESTER, String.class, null);
 		container.addContainerProperty(PROPERTY_STDYEAR, String.class, null);
 		container.addContainerProperty(PROPERTY_SUBJECT_HOUR, String.class,
@@ -171,7 +178,7 @@ public class DataContainers {
 	}
 
 	public IndexedContainer getStudentNotTookYetSubjects(String studentId,
-			String semId){
+			String semId) {
 		IndexedContainer container = new IndexedContainer();
 		container.addContainerProperty(PROPERTY_SUBJECT_CODE, String.class,
 				null);
@@ -190,23 +197,22 @@ public class DataContainers {
 			ArrayList<Subjects> subjectList = dbSubjects.getArray();
 			dbSubjects.close();
 
-		
-		for (int i = 0; i < subjectList.size(); i++) {
-			String id = Integer.toString(subjectList.get(i).getID());
-			Item item = container.addItem(id);
-			item.getItemProperty(PROPERTY_SUBJECT_CODE).setValue(
-					subjectList.get(i).getSubjCode());
-			item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
-					subjectList.get(i).getSubjectName());
-			item.getItemProperty(PROPERTY_SEMESTER).setValue(
-					subjectList.get(i).getSemester());
-			item.getItemProperty(PROPERTY_STDYEAR).setValue(
-					subjectList.get(i).getStdYear());
-			item.getItemProperty(PROPERTY_SUBJECT_HOUR).setValue(
-					subjectList.get(i).getSubjHrs());
-			item.getItemProperty(PROPERTY_SUBJECT_CREDIT).setValue(
-					subjectList.get(i).getSubjCredit());
-		}
+			for (int i = 0; i < subjectList.size(); i++) {
+				String id = Integer.toString(subjectList.get(i).getID());
+				Item item = container.addItem(id);
+				item.getItemProperty(PROPERTY_SUBJECT_CODE).setValue(
+						subjectList.get(i).getSubjCode());
+				item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
+						subjectList.get(i).getSubjectName());
+				item.getItemProperty(PROPERTY_SEMESTER).setValue(
+						subjectList.get(i).getSemester());
+				item.getItemProperty(PROPERTY_STDYEAR).setValue(
+						subjectList.get(i).getStdYear());
+				item.getItemProperty(PROPERTY_SUBJECT_HOUR).setValue(
+						subjectList.get(i).getSubjHrs());
+				item.getItemProperty(PROPERTY_SUBJECT_CREDIT).setValue(
+						subjectList.get(i).getSubjCredit());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -286,55 +292,64 @@ public class DataContainers {
 			dbStudLess.connect();
 			dbStudLess.execSQL(stID, semID, yearID);
 			ArrayList<StudLess> subjectList = dbStudLess.getArray();
-			
 
-			for (int i = 0; i < subjectList.size(); i++) {
-				String id = Integer.toString(subjectList.get(i).getID());
-				Item item = container.addItem(id);
+			if (subjectList != null) {
+				for (int i = 0; i < subjectList.size(); i++) {
+					String id = Integer.toString(subjectList.get(i).getID());
+					Item item = container.addItem(id);
 
-				item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
-						subjectList.get(i).getSubjName());
-				item.getItemProperty(PROPERTY_SUBJECT_HOUR).setValue(
-						subjectList.get(i).getSubHour());
-				item.getItemProperty(PROPERTY_STUDENT_MIDTERM)
-				.setValue("0");
-				item.getItemProperty(PROPERTY_STUDENT_FINAL)
-				.setValue("0");
-				item.getItemProperty(PROPERTY_STUDENT_MAKE_UP)
-				.setValue("0");
-				DbExam dbExam = new DbExam();
-				dbExam.connect();
-				dbExam.execStudentExamDetails(stID, semID, yearID, subjectList
-						.get(i).getSubjID());
-				ArrayList<Exam> examList = dbExam.getArray();
-				dbExam.close();
-				Double av = dbStudLess.calcAverage_Report(stID, semID, yearID, subjectList.get(i).getSubjID());
-				if (examList != null) {
-					for (int j = 0; j < examList.size(); j++) {
-						if (examList.get(j).getExam().equals("Midterm")) {
-							item.getItemProperty(PROPERTY_STUDENT_MIDTERM)
-									.setValue(examList.get(j).getPercentage());
-						} else if (examList.get(j).getExam().equals("Final")) {
-							item.getItemProperty(PROPERTY_STUDENT_FINAL)
-									.setValue(examList.get(j).getPercentage());
-						} else if (examList.get(j).getExam().equals("MakeUp")) {
-							item.getItemProperty(PROPERTY_STUDENT_MAKE_UP)
-									.setValue(examList.get(j).getPercentage());
+					item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
+							subjectList.get(i).getSubjName());
+					item.getItemProperty(PROPERTY_SUBJECT_HOUR).setValue(
+							subjectList.get(i).getSubHour());
+					item.getItemProperty(PROPERTY_STUDENT_MIDTERM)
+							.setValue("0");
+					item.getItemProperty(PROPERTY_STUDENT_FINAL).setValue("0");
+					item.getItemProperty(PROPERTY_STUDENT_MAKE_UP)
+							.setValue("0");
+					DbExam dbExam = new DbExam();
+					dbExam.connect();
+					dbExam.execStudentExamDetails(stID, semID, yearID,
+							subjectList.get(i).getSubjID());
+					ArrayList<Exam> examList = dbExam.getArray();
+					dbExam.close();
+					Double av = dbStudLess.calcAverage_Report(stID, semID,
+							yearID, subjectList.get(i).getSubjID());
+					if (examList != null) {
+						for (int j = 0; j < examList.size(); j++) {
+							if (examList.get(j).getExam().equals("Midterm")) {
+								item.getItemProperty(PROPERTY_STUDENT_MIDTERM)
+										.setValue(
+												examList.get(j).getPercentage());
+							} else if (examList.get(j).getExam()
+									.equals("Final")) {
+								item.getItemProperty(PROPERTY_STUDENT_FINAL)
+										.setValue(
+												examList.get(j).getPercentage());
+							} else if (examList.get(j).getExam()
+									.equals("MakeUp")) {
+								item.getItemProperty(PROPERTY_STUDENT_MAKE_UP)
+										.setValue(
+												examList.get(j).getPercentage());
+							}
 						}
 					}
+
+					item.getItemProperty(PROPERTY_SUBJECT_AVERAGE).setValue(
+							Math.round(av));
+
+					DbStudent_Attendance DbAttandance = new DbStudent_Attendance();
+					DbAttandance.connect();
+					String att = Integer.toString(DbAttandance
+							.execSQL_All(stID, semID, yearID, subjectList
+									.get(i).getSubjID()));
+					DbAttandance.close();
+					dbExam.close();
+
+					item.getItemProperty(PROPERTY_STUDENT_ATTENDANCE).setValue(
+							att);
+
 				}
-				
-				item.getItemProperty(PROPERTY_SUBJECT_AVERAGE).setValue(Math.round(av));
-				
-				DbStudent_Attendance DbAttandance = new DbStudent_Attendance();
-				DbAttandance.connect();
-				String att = Integer.toString(DbAttandance.execSQL_All(stID, semID, yearID, subjectList
-						.get(i).getSubjID()));
-				DbAttandance.close();
-				dbExam.close();
-				
-				item.getItemProperty(PROPERTY_STUDENT_ATTENDANCE).setValue(att);
-				
 			}
 			dbStudLess.close();
 		} catch (Exception e) {
@@ -342,6 +357,47 @@ public class DataContainers {
 		}
 
 		return container;
+	}
+	
+	public IndexedContainer getInstructor_Lesson(String year_id, String sem_id,
+			String rollnum) {
+
+		IndexedContainer instLessContainer = new IndexedContainer();
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_CODE,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_NAME,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_STDYEAR,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_HOURS_WEEK,
+				String.class, null);
+		try {
+			DbSubjects dbSubjects = new DbSubjects();
+			dbSubjects.connect();
+			dbSubjects.execSQL_subj_inst_new(year_id, sem_id, rollnum);
+			ArrayList<Subjects> instLessList = dbSubjects.getArray();
+			dbSubjects.close();
+
+			for (int i = 0; i < instLessList.size(); i++) {
+				String id = Integer.toString(instLessList.get(i).getID());
+				Item item = instLessContainer.addItem(id);
+				item.getItemProperty(PROPERTY_SUBJECT_CODE).setValue(
+						instLessList.get(i).getSubjCode());
+				item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
+						instLessList.get(i).getSubjectName());
+				item.getItemProperty(PROPERTY_STDYEAR).setValue(
+						instLessList.get(i).getStdYear());
+				item.getItemProperty(PROPERTY_SUBJECT_HOURS_WEEK).setValue(
+						instLessList.get(i).getSubjHrs());
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		instLessContainer.sort(new Object[] { PROPERTY_STDYEAR },
+				new boolean[] { true });
+		return instLessContainer;
+
 	}
 
 }
