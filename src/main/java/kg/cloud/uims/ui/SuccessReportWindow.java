@@ -4,23 +4,17 @@ import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.util.ExportReporttoPDF;
-import kg.cloud.uims.util.ExportTranscriptToPDF;
 
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.ChameleonTheme;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.data.Item;
-
-import java.text.NumberFormat;
-import java.text.ParseException;
+import com.vaadin.ui.themes.ChameleonTheme;
 
 
 public class SuccessReportWindow extends Window implements ClickListener{
