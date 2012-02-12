@@ -112,16 +112,16 @@ public class AuthenticatedScreen extends VerticalLayout implements
 	public Tree buildTree() {
 
 		/**
-		 * ,
-				app.getMessage(UimsMessages.TSBSuccessReport)
-				
+		 * , app.getMessage(UimsMessages.TSBSuccessReport)
+		 * 
 		 * */
 		String[] supervisor = { app.getMessage(UimsMessages.TBSupervisor),
 				app.getMessage(UimsMessages.TSBRegistration),
-				app.getMessage(UimsMessages.TSBTranscript)};
+				app.getMessage(UimsMessages.TSBTranscript),
+				app.getMessage(UimsMessages.TSBSuccessReport)};
 		String[] instructor = { app.getMessage(UimsMessages.TBInstructor),
 				app.getMessage(UimsMessages.TSBAttendance),
-				app.getMessage(UimsMessages.TSBExam), };
+				app.getMessage(UimsMessages.TSBExam) };
 
 		int size = 0;
 		if (currentUser.hasRole("supervisor"))
@@ -208,11 +208,11 @@ public class AuthenticatedScreen extends VerticalLayout implements
 						horizontalPanel
 								.setSecondComponent(new SuccessReportView(app));
 
-					}else if (eventPressed.equals(app
+					} else if (eventPressed.equals(app
 							.getMessage(UimsMessages.TSBAttendance))) {
 						// getWindow().showNotification(eventPressed);
-						horizontalPanel
-								.setSecondComponent(new AttendanceView(app));
+						horizontalPanel.setSecondComponent(new AttendanceView(
+								app));
 
 					}
 				}

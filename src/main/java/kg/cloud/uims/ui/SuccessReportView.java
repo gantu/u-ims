@@ -8,7 +8,6 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ChameleonTheme;
 
 public class SuccessReportView extends VerticalLayout {
@@ -20,8 +19,7 @@ public class SuccessReportView extends VerticalLayout {
 	private MyVaadinApplication app;
 	private VerticalLayout header, body;
 	private Table groupStudentTable = new Table();
-	private Window subWindow = new Window();
-
+	
 	public SuccessReportView(MyVaadinApplication app) {
 		this.app = app;
 		setSpacing(true);
@@ -86,16 +84,6 @@ public class SuccessReportView extends VerticalLayout {
 		});
 
 		addComponent(body);
-	}
-
-	public Window callSubWindow(String tableValue) {
-
-		subWindow.setModal(true);
-		VerticalLayout layout = new VerticalLayout();
-		Label status = new Label(tableValue);
-		layout.addComponent(status);
-		subWindow.addComponent(layout);
-		return subWindow;
 	}
 
 }
