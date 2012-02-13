@@ -88,6 +88,13 @@ public class UimsMessages_ky extends UimsMessages {
 			{AttendanceHeader, "Жоктоо"},
 			{SubjectHoursPerWeek, "Часы в неделю"},
 			{GroupName, "Название группы"},
+			{TotalStudents, "Количество студентов"},
+			
+			// AttendanceWindow
+						{ButtonMakeForm, "Жоктоо формасы"},
+						{ButtonMakeReport, "Жоокто репорту"},
+						{NotifSuccesSave, "Успеваемость успешно сохранена"},
+						{NotifDbError, "Ошибка Базы Данных"},
 			
 			// HelpView
 			{ HelpHeader, "Жардам" },

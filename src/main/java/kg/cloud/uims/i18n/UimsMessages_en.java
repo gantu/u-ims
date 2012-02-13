@@ -98,6 +98,13 @@ public class UimsMessages_en extends UimsMessages {
 			{AttendanceHeader, "Attendance"},
 			{SubjectHoursPerWeek, "Hours/Week"},
 			{GroupName, "Group Name"},
+			{TotalStudents, "Total students"},
+			
+			// AttendanceWindow
+			{ButtonMakeForm, "Attendance Form"},
+			{ButtonMakeReport, "Attendance Report"},
+			{NotifSuccesSave, "Attendace is successfully saved"},
+			{NotifDbError, "Database insert error"},
 			
 			//HelpView
 			{HelpHeader, "Help"},

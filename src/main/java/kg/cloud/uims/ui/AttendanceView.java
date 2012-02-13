@@ -62,18 +62,19 @@ public class AttendanceView extends VerticalLayout {
 		instLessonTable.setFooterVisible(true);
 		instLessonTable.setStyleName(ChameleonTheme.TABLE_STRIPED);
 		DataContainers container = new DataContainers(app);
-				
+
 		IndexedContainer instLessonContainer = container.getInstructor_Lesson(
 				curr_Year_id, curr_Sem_id, currentUser.getPrincipal()
-				.toString());
+						.toString());
 
 		instLessonTable.setContainerDataSource(instLessonContainer);
-		
+
 		for (int i = 0; i < instLessonContainer.size(); i++) {
 			Item item = instLessonContainer.getItem(instLessonContainer
 					.getIdByIndex(i));
 			Object value = item.getItemProperty(
-					app.getMessage(UimsMessages.SubjectHoursPerWeek)).getValue();
+					app.getMessage(UimsMessages.SubjectHoursPerWeek))
+					.getValue();
 
 			Number amount;
 			try {
@@ -85,9 +86,8 @@ public class AttendanceView extends VerticalLayout {
 				e.printStackTrace();
 			}
 		}
-		
-		instLessonTable.setColumnFooter(
-				app.getMessage(UimsMessages.StudyYear),
+
+		instLessonTable.setColumnFooter(app.getMessage(UimsMessages.StudyYear),
 				app.getMessage(UimsMessages.SubjectHoursSum));
 		instLessonTable.setColumnFooter(
 				app.getMessage(UimsMessages.SubjectHoursPerWeek),
@@ -110,11 +110,9 @@ public class AttendanceView extends VerticalLayout {
 							.getItemProperty(
 									app.getMessage(UimsMessages.SubjectName))
 							.getValue().toString();
-					/*getWindow().addWindow(
-							new SuccessReportWindow(app, groupStudentTable
-									.getValue().toString(), fullName));*/
-					getWindow().showNotification(SubjName);
-
+					getWindow().addWindow(
+							new AttendanceWindow(app, instLessonTable
+									.getValue().toString(), SubjName));
 				}
 			}
 		});

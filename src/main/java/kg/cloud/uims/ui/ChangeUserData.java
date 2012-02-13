@@ -38,8 +38,6 @@ public class ChangeUserData extends VerticalLayout implements
 	private FormLayout body;
 	private Form userForm;
 
-	private Logger logger = Logger.getLogger("MyLog");
-	private FileHandler fh;
 
 	public ChangeUserData(MyVaadinApplication app) {
 		this.app = app;
@@ -149,26 +147,7 @@ public class ChangeUserData extends VerticalLayout implements
 						getWindow()
 								.showNotification(
 										app.getMessage(UimsMessages.NotifSuccessfulChange));
-						try {
-
-							// This block configure the logger with handler and
-							// formatter
-							fh = new FileHandler(
-									"home/alex/images/MyLogFile.log");
-							logger.addHandler(fh);
-							// logger.setLevel(Level.ALL);
-							SimpleFormatter formatter = new SimpleFormatter();
-							fh.setFormatter(formatter);
-
-							// the following statement is used to log any
-							// messages
-							logger.info("My first log");
-
-						} catch (SecurityException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						
 					} else {
 						getWindow()
 								.showNotification(

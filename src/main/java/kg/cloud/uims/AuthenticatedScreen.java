@@ -118,7 +118,8 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		 * */
 		String[] supervisor = { app.getMessage(UimsMessages.TBSupervisor),
 				app.getMessage(UimsMessages.TSBRegistration),
-				app.getMessage(UimsMessages.TSBTranscript)};
+				app.getMessage(UimsMessages.TSBTranscript),
+				app.getMessage(UimsMessages.TSBSuccessReport)};
 		String[] instructor = { app.getMessage(UimsMessages.TBInstructor),
 				app.getMessage(UimsMessages.TSBAttendance),
 				app.getMessage(UimsMessages.TSBExam), };

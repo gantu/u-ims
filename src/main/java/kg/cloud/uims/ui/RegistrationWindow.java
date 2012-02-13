@@ -63,6 +63,16 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 
 	public RegistrationWindow(final MyVaadinApplication app, String studentId,
 			String studentFullName) {
+		/*
+		 * first check of registration status
+		 */
+		if(app.getCurrentSemester().getRegStatus()==0){
+			notTakenSubjects.setReadOnly(true);
+			currentSubjects.setReadOnly(true);
+			save.setReadOnly(true);
+			moveDown.setReadOnly(true);
+			moveUp.setReadOnly(true);
+		}
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
 		this.setModal(true);
 		this.setCaption(app.getMessage(UimsMessages.RegistrationHeader) + " "
@@ -88,6 +98,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		notTakenSubjects.setSelectable(true);
 		notTakenSubjects.setImmediate(true);
 		notTakenSubjects.setStyleName(ChameleonTheme.TABLE_STRIPED);
+		notTakenSubjects.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		VerticalLayout tablesLayout = new VerticalLayout();
@@ -104,6 +115,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		notTakenSubjects.addListener((Property.ValueChangeListener) this);
 		controlButtons.setWidth("100%");
 		controlButtons.setHeight("10%");
+		controlLayout.setSpacing(true);
 
 		moveDown.setCaption(app.getMessage(UimsMessages.MoveDownButton));
 		moveDown.addListener((Button.ClickListener) this);
@@ -237,10 +249,10 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 							app.getMessage(UimsMessages.SubjectRegistrationStatus))
 							.setValue(new String("0"));
 
-					/*
-					 * currentSubjects
-					 * .setContainerDataSource(registeredDatasource);
-					 */
+					
+					 currentSubjects
+					 .setContainerDataSource(registeredDatasource);
+					 
 
 					notTakenDatasource.removeItem(subjectID);
 					// notTakenSubjects.setContainerDataSource(notTakenDatasource);
@@ -426,6 +438,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 				Integer.toString(hourSum));
 
 	}
+	
 
 	public void valueChange(ValueChangeEvent event) {
 		Property property = event.getProperty();

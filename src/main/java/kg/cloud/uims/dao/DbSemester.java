@@ -25,7 +25,7 @@ public class DbSemester extends BaseDb {
         PreparedStatement stat = dbCon.prepareStatement(sql);
         ResultSet result = stat.executeQuery();
         while (result.next()) {
-            q.add(new Semester(result.getInt("id"),result.getInt("curr"),result.getString("semester")));
+            q.add(new Semester(result.getInt("id"),result.getInt("curr"),result.getString("semester"),result.getInt("registration_status")));
         }
     }
 

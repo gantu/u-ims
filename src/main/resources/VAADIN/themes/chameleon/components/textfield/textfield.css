@@ -38,6 +38,10 @@ input.v-textfield-focus,
 textarea.v-textarea-focus {
 	background-color: #fffce1;
 	}
+input.v-textfield-error,
+textarea.v-textarea-error {
+	background-color: #C8201C;
+	}
 
 
 /*******************************************************************************
