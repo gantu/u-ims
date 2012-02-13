@@ -67,6 +67,7 @@ public class AuthenticatedScreen extends VerticalLayout implements
 				+ app.getMessage(UimsMessages.LogInAsLabel) + ": </b>");
 		logLabel.setContentMode(Label.CONTENT_XHTML);
 
+	
 		ThemeResource iconUser = new ThemeResource("../runo/icons/16/user.png");
 
 		Button userDetails = new Button(currentUser.getPrincipal().toString());

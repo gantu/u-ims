@@ -2,6 +2,10 @@ package kg.cloud.uims.i18n;
 
 public class UimsMessages_ky extends UimsMessages {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static final Object[][] contents_ky = {
 			{ OkKey, "Мейли" },
 			{ CancelKey, "Жок" },
