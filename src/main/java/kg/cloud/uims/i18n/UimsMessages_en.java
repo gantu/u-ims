@@ -134,7 +134,8 @@ public class UimsMessages_en extends UimsMessages {
 			{ NotifWrongCurrPassword,
 					"Please, enter your Current Password correctly!" },
 			{ NotifSuccessfulChange, "Password is changed successfully!" },
-			{FreezedMessage,"Freezed! This student must visit Account Services."}
+			{FreezedMessage,"Freezed! This student must visit Account Services."},
+			{StatisticsMessage,"Statistics"}
 	};
 
 	@Override

@@ -63,14 +63,15 @@ public class RegistrationView extends VerticalLayout {
 			public void valueChange(ValueChangeEvent event) {
 
 				if (null == event.getProperty().getValue()) {
-					getWindow().showNotification(app.getMessage(UimsMessages.NotifNothingSelected));
+					getWindow().showNotification(
+							app.getMessage(UimsMessages.NotifNothingSelected));
 				} else {
 					String accountingStatus = groupStudentTable
 							.getItem(groupStudentTable.getValue())
 							.getItemProperty(
 									app.getMessage(UimsMessages.AccountingStatus))
 							.getValue().toString();
-					
+
 					String fullName = groupStudentTable
 							.getItem(groupStudentTable.getValue())
 							.getItemProperty(
@@ -83,13 +84,14 @@ public class RegistrationView extends VerticalLayout {
 											app.getMessage(UimsMessages.RegistrationStudentSurname))
 									.getValue();
 
-					if(accountingStatus.equals("Can Register")){
-					getWindow().addWindow(
-							new RegistrationWindow(app, groupStudentTable
-									.getValue().toString(), fullName));
-					
-					}else{
-						getWindow().showNotification(app.getMessage(UimsMessages.FreezedMessage));
+					if (accountingStatus.equals("Can Register")) {
+						getWindow().addWindow(
+								new RegistrationWindow(app, groupStudentTable
+										.getValue().toString(), fullName));
+
+					} else {
+						getWindow().showNotification(
+								app.getMessage(UimsMessages.FreezedMessage));
 					}
 
 				}
@@ -97,16 +99,6 @@ public class RegistrationView extends VerticalLayout {
 		});
 
 		addComponent(body);
-	}
-
-	public Window callSubWindow(String tableValue) {
-
-		subWindow.setModal(true);
-		VerticalLayout layout = new VerticalLayout();
-		Label status = new Label(tableValue);
-		layout.addComponent(status);
-		subWindow.addComponent(layout);
-		return subWindow;
 	}
 
 }

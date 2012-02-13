@@ -87,14 +87,4 @@ public class TranscriptView extends VerticalLayout {
 		addComponent(body);
 	}
 
-	public Window callSubWindow(String tableValue) {
-
-		subWindow.setModal(true);
-		VerticalLayout layout = new VerticalLayout();
-		Label status = new Label(tableValue);
-		layout.addComponent(status);
-		subWindow.addComponent(layout);
-		return subWindow;
-	}
-
 }
