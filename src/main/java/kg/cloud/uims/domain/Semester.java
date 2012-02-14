@@ -18,6 +18,7 @@ public class Semester implements Serializable {
 	private int id;
 	private String semester;
 	private int current;
+	private int registrationStatus;
 
 	public Semester() {
 	}
@@ -26,6 +27,13 @@ public class Semester implements Serializable {
 		this.id = i;
 		this.current = c;
 		this.semester = sem;
+	}
+	
+	public Semester(int i, int c, String sem, int rt) {
+		this.id = i;
+		this.current = c;
+		this.semester = sem;
+		this.registrationStatus=rt;
 	}
 
 	public String getSemester() {
@@ -38,6 +46,10 @@ public class Semester implements Serializable {
 
 	public int getId() {
 		return id;
+	}
+	
+	public int getRegStatus() {
+		return registrationStatus;
 	}
 
 	public void setId(int id) {

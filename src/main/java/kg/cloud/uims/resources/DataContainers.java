@@ -13,9 +13,12 @@ import kg.cloud.uims.domain.StudLess;
 import kg.cloud.uims.domain.Student;
 import kg.cloud.uims.domain.Subjects;
 import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.ui.TextFieldValidated;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.data.validator.IntegerValidator;
+import com.vaadin.ui.TextField;
 
 public class DataContainers {
 	public String studContainer_PROPERTY_NAME;
@@ -39,10 +42,13 @@ public class DataContainers {
 	public String PROPERTY_STUDENT_FINAL;
 	public String PROPERTY_STUDENT_MAKE_UP;
 	public String PROPERTY_STUDENT_ATTENDANCE;
+
+	public String PROPERTY_GROUP_NAME;
 	
-	//public String PROPERTY_GROUP_NAME;
+	private MyVaadinApplication app;
 
 	public DataContainers(MyVaadinApplication app) {
+		this.app = app;
 		studContainer_PROPERTY_NAME = app
 				.getMessage(UimsMessages.RegistrationStudentName);
 		studContainer_PROPERTY_SURNAME = app
@@ -67,8 +73,9 @@ public class DataContainers {
 		PROPERTY_STUDENT_MAKE_UP = app.getMessage(UimsMessages.StudentMakeup);
 		PROPERTY_STUDENT_ATTENDANCE = app
 				.getMessage(UimsMessages.StudentAttandance);
-		PROPERTY_SUBJECT_HOURS_WEEK = app.getMessage(UimsMessages.SubjectHoursPerWeek);
-		//PROPERTY_GROUP_NAME = app.getMessage(UimsMessages.GroupName);
+		PROPERTY_SUBJECT_HOURS_WEEK = app
+				.getMessage(UimsMessages.SubjectHoursPerWeek);
+		PROPERTY_GROUP_NAME = app.getMessage(UimsMessages.GroupName);
 	}
 
 	public DataContainers() {
@@ -358,7 +365,7 @@ public class DataContainers {
 
 		return container;
 	}
-	
+
 	public IndexedContainer getInstructor_Lesson(String year_id, String sem_id,
 			String rollnum) {
 
@@ -367,8 +374,10 @@ public class DataContainers {
 				String.class, null);
 		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_NAME,
 				String.class, null);
-		instLessContainer.addContainerProperty(PROPERTY_STDYEAR,
+		instLessContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
 				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_STDYEAR, String.class,
+				null);
 		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_HOURS_WEEK,
 				String.class, null);
 		try {
@@ -385,6 +394,8 @@ public class DataContainers {
 						instLessList.get(i).getSubjCode());
 				item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
 						instLessList.get(i).getSubjectName());
+				item.getItemProperty(PROPERTY_DEPARTMENT_CODE).setValue(
+						instLessList.get(i).getDepartment());
 				item.getItemProperty(PROPERTY_STDYEAR).setValue(
 						instLessList.get(i).getStdYear());
 				item.getItemProperty(PROPERTY_SUBJECT_HOURS_WEEK).setValue(
@@ -394,9 +405,51 @@ public class DataContainers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		instLessContainer.sort(new Object[] { PROPERTY_STDYEAR },
+		instLessContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE, PROPERTY_STDYEAR },
 				new boolean[] { true });
 		return instLessContainer;
+
+	}
+
+	public IndexedContainer getSubjectStudList(String subj_id, String yearID,
+			String semID) {
+
+		IndexedContainer studListContainer = new IndexedContainer();
+		studListContainer.addContainerProperty(studContainer_PROPERTY_NAME,
+				String.class, null);
+		studListContainer.addContainerProperty(studContainer_PROPERTY_SURNAME,
+				String.class, null);
+		studListContainer.addContainerProperty(PROPERTY_GROUP_NAME,
+				String.class, null);
+		studListContainer.addContainerProperty(PROPERTY_STUDENT_ATTENDANCE,
+				TextFieldValidated.class, null);
+
+		try {
+			DbStudLess dbStudLess = new DbStudLess();
+			dbStudLess.connect();
+			dbStudLess.execSQL_Subject(subj_id, yearID, semID);
+			ArrayList<StudLess> studLessList = dbStudLess.getArray();
+			dbStudLess.close();
+
+			for (int i = 0; i < studLessList.size(); i++) {
+				String id = Integer.toString(studLessList.get(i).getStudID());
+				Item item = studListContainer.addItem(id);
+				item.getItemProperty(studContainer_PROPERTY_NAME).setValue(
+						studLessList.get(i).getStudName());
+				item.getItemProperty(studContainer_PROPERTY_SURNAME).setValue(
+						studLessList.get(i).getStudSurname());
+				item.getItemProperty(PROPERTY_GROUP_NAME).setValue(
+						studLessList.get(i).getGrpName());
+				TextFieldValidated attendance = new TextFieldValidated(app);
+				item.getItemProperty(PROPERTY_STUDENT_ATTENDANCE).setValue(
+						attendance);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		studListContainer.sort(new Object[] { studContainer_PROPERTY_NAME },
+				new boolean[] { true });
+		return studListContainer;
 
 	}
 

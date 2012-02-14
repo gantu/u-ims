@@ -92,6 +92,16 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 		public static final String AttendanceHeader = generateId();
 		public static final String SubjectHoursPerWeek = generateId();
 		public static final String GroupName = generateId();
+		public static final String TotalStudents = generateId();
+		
+		// AttendanceWindow
+		public static final String ButtonMakeForm = generateId();
+		public static final String ButtonMakeReport = generateId();
+		public static final String NotifSuccesSave = generateId();
+		public static final String NotifDbError = generateId();
+		public static final String NotifNegative = generateId();
+		public static final String NotifWrongNum = generateId();
+		
 		
 	// HelpView
 	public static final String HelpHeader = generateId();

@@ -139,7 +139,7 @@ public class DbStudent_Attendance extends BaseDb {
         statement.executeUpdate();
     }
     
-    public void insertAttendance(String subject_id, String year_id, String semester_id,
+    public int insertAttendance(String subject_id, String year_id, String semester_id,
             String week_id, String student_id, String att) throws SQLException{
         query = "insert ignore into attendance(subject_id, year_id, semester_id, weeks_id, student_id, attendance) values(?,?,?,?,?,?);";
         PreparedStatement statement = dbCon.prepareStatement(query);
@@ -149,7 +149,9 @@ public class DbStudent_Attendance extends BaseDb {
         statement.setString(4,week_id);
         statement.setString(5,student_id);
         statement.setString(6,att);
-        statement.executeUpdate();
+        int p=statement.executeUpdate();
+     
+        return p;
     }
     
     

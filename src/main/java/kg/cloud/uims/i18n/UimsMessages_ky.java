@@ -2,6 +2,10 @@ package kg.cloud.uims.i18n;
 
 public class UimsMessages_ky extends UimsMessages {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static final Object[][] contents_ky = {
 			{ OkKey, "Мейли" },
 			{ CancelKey, "Жок" },
@@ -88,6 +92,15 @@ public class UimsMessages_ky extends UimsMessages {
 			{AttendanceHeader, "Жоктоо"},
 			{SubjectHoursPerWeek, "Часы в неделю"},
 			{GroupName, "Название группы"},
+			{TotalStudents, "Количество студентов"},
+			
+			// AttendanceWindow
+						{ButtonMakeForm, "Жоктоо формасы"},
+						{ButtonMakeReport, "Жоокто репорту"},
+						{NotifSuccesSave, "Успеваемость успешно сохранена"},
+						{NotifDbError, "Ошибка! Вы уже добавили успеваемость"},
+						{NotifNegative, "Числа не могут быть негативными"},
+						{NotifWrongNum, "Неправильное значение! Пожалуйста, проверьте поля"},
 			
 			// HelpView
 			{ HelpHeader, "Жардам" },
