@@ -99,6 +99,8 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 		public static final String ButtonMakeReport = generateId();
 		public static final String NotifSuccesSave = generateId();
 		public static final String NotifDbError = generateId();
+		public static final String NotifNegative = generateId();
+		public static final String NotifWrongNum = generateId();
 		
 		
 	// HelpView

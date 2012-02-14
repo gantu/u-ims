@@ -98,7 +98,9 @@ public class UimsMessages_ky extends UimsMessages {
 						{ButtonMakeForm, "Жоктоо формасы"},
 						{ButtonMakeReport, "Жоокто репорту"},
 						{NotifSuccesSave, "Успеваемость успешно сохранена"},
-						{NotifDbError, "Ошибка Базы Данных"},
+						{NotifDbError, "Ошибка! Вы уже добавили успеваемость"},
+						{NotifNegative, "Числа не могут быть негативными"},
+						{NotifWrongNum, "Неправильное значение! Пожалуйста, проверьте поля"},
 			
 			// HelpView
 			{ HelpHeader, "Жардам" },

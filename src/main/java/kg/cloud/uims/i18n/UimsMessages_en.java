@@ -51,7 +51,7 @@ public class UimsMessages_en extends UimsMessages {
 			{ RegistrationStudentName, "First Name" },
 			{ RegistrationStudentSurname, "Last Name" },
 			{ RegistrationStudentEduStatus, "Education Status" },
-			{AccountingStatus,"Accounting Status"},
+			{ AccountingStatus,"Accounting Status"},
 
 			{TableNotTakenSubjects, "Not Taken Subjects"},
 			{TableCurrentSubjects, "Current Subjects"},
@@ -104,7 +104,9 @@ public class UimsMessages_en extends UimsMessages {
 			{ButtonMakeForm, "Attendance Form"},
 			{ButtonMakeReport, "Attendance Report"},
 			{NotifSuccesSave, "Attendace is successfully saved"},
-			{NotifDbError, "Database insert error"},
+			{NotifDbError, "Error! You have already added the attendance!"},
+			{NotifNegative, "The numbers can not be negative"},
+			{NotifWrongNum, "Wrong value! Please check the fields"},
 			
 			//HelpView
 			{HelpHeader, "Help"},
