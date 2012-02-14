@@ -21,8 +21,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 
-public class AttendanceWindow extends Window implements Button.ClickListener,
-		Property.ValueChangeListener {
+public class AttendanceWindow extends Window implements Button.ClickListener {
 
 	/**
 	 * 
@@ -31,7 +30,6 @@ public class AttendanceWindow extends Window implements Button.ClickListener,
 
 	Table studentTable = new Table();
 
-	Button toPDF = new Button();
 	Button makeForm = new Button();
 	Button save = new Button();
 	Button report = new Button();
@@ -42,7 +40,9 @@ public class AttendanceWindow extends Window implements Button.ClickListener,
 	private String subjectName = null;
 	private String curr_Sem_id, curr_Year_id, curr_Week_id;
 	private Item selectedTableItem = null;
-	private boolean status;
+	private int status=0;
+	private String errNotif = "";
+
 	public AttendanceWindow(MyVaadinApplication app, String subj_Id,
 			String subjName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
@@ -64,12 +64,8 @@ public class AttendanceWindow extends Window implements Button.ClickListener,
 		studentTable.setCaption(app.getMessage(UimsMessages.AttendanceHeader));
 		studentTable.addStyleName(ChameleonTheme.TABLE_STRIPED);
 		studentTable.setFooterVisible(true);
-		studentTable.setSelectable(true);
-		studentTable.addListener((Property.ValueChangeListener) this);
-		studentTable.setValidationVisible(true);
+		studentTable.setSelectable(false);
 
-		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
-		toPDF.addListener((Button.ClickListener) this);
 		makeForm.setCaption(app.getMessage(UimsMessages.ButtonMakeForm));
 		makeForm.addListener((Button.ClickListener) this);
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
@@ -93,7 +89,6 @@ public class AttendanceWindow extends Window implements Button.ClickListener,
 		infoLayout.addComponent(studInfo, 0, 0);
 		infoLayout.addComponent(yearInfo, 1, 0);
 		infoLayout.addComponent(semInfo, 2, 0);
-		buttonLayout.addComponent(toPDF);
 		buttonLayout.addComponent(makeForm);
 		buttonLayout.addComponent(report);
 		buttonLayout.addComponent(save);
@@ -118,14 +113,7 @@ public class AttendanceWindow extends Window implements Button.ClickListener,
 
 	public void buttonClick(ClickEvent event) {
 		final Button source = event.getButton();
-		if (source == toPDF) {
-			// studentTable.commit();
-			if (studentTable.isValid()) {
-				getWindow().showNotification("Valid");
-			} else {
-				getWindow().showNotification("Wrong");
-			}
-		}
+
 		if (source == makeForm) {
 			new MakeAttendanceForm(app, subject_id);
 		}
@@ -133,69 +121,66 @@ public class AttendanceWindow extends Window implements Button.ClickListener,
 			new MakeAttendanceReport(app, subject_id, subjectName);
 		}
 		if (source == save) {
-			try {
-				for (int i = 0; i < studentDatasource.size(); i++) {
-					Item item = studentDatasource.getItem(studentDatasource
-							.getIdByIndex(i));
-					Object currentAttendance = item
-							.getItemProperty(
-									app.getMessage(UimsMessages.StudentAttandance))
-							.getValue();
-					
-					
-				}
-				DbStudent_Attendance dbStAtt = new DbStudent_Attendance();
-				dbStAtt.connect();
-
-				for (int i = 0; i < studentDatasource.size(); i++) {
-					Item item = studentDatasource.getItem(studentDatasource
-							.getIdByIndex(i));
-					String stud_id = studentDatasource.getIdByIndex(i)
-							.toString();
-					String currentAttendance = item
-							.getItemProperty(
-									app.getMessage(UimsMessages.StudentAttandance))
-							.getValue().toString();
-					if (currentAttendance == null
-							|| currentAttendance.equals("")) {
-						currentAttendance = "0";
+			for (int i = 0; i < studentDatasource.size(); i++) {
+				Item item = studentDatasource.getItem(studentDatasource
+						.getIdByIndex(i));
+				String currentAttendance = item
+						.getItemProperty(
+								app.getMessage(UimsMessages.StudentAttandance))
+						.getValue().toString();
+				if (!currentAttendance.equals("")) {
+					try {
+						if (Integer.parseInt(currentAttendance) < 0) {
+							errNotif = app
+									.getMessage(UimsMessages.NotifNegative);
+						}
+					} catch (Exception e) {
+						errNotif = app.getMessage(UimsMessages.NotifWrongNum);
 					}
-					dbStAtt.insertAttendance(subject_id, curr_Year_id,
-							curr_Sem_id, curr_Week_id, stud_id,
-							currentAttendance);
 				}
-				dbStAtt.close();
-				status = true;
-			} catch (Exception e) {
-				e.printStackTrace();
-				status = false;
-			} finally {
-				if (status) {
-					getWindow().showNotification(app.getMessage(UimsMessages.NotifSuccesSave));
-				} else {
-					getWindow().showNotification(app.getMessage(UimsMessages.NotifDbError));
+
+			}
+			if (errNotif.equals("")) {
+				try {
+
+					DbStudent_Attendance dbStAtt = new DbStudent_Attendance();
+					dbStAtt.connect();
+
+					for (int i = 0; i < studentDatasource.size(); i++) {
+						Item item = studentDatasource.getItem(studentDatasource
+								.getIdByIndex(i));
+						String stud_id = studentDatasource.getIdByIndex(i)
+								.toString();
+						String currentAttendance = item
+								.getItemProperty(
+										app.getMessage(UimsMessages.StudentAttandance))
+								.getValue().toString();
+						if (currentAttendance == null
+								|| currentAttendance.equals("")) {
+							currentAttendance = "0";
+						}
+						status=dbStAtt.insertAttendance(subject_id, curr_Year_id,
+								curr_Sem_id, curr_Week_id, stud_id,
+								currentAttendance);
+					}
+					dbStAtt.close();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (status!=0) {
+						getWindow().showNotification(
+								app.getMessage(UimsMessages.NotifSuccesSave));
+					} else {
+						getWindow().showNotification(
+								app.getMessage(UimsMessages.NotifDbError));
+					}
 				}
+			} else {
+				getWindow().showNotification(errNotif);
+				errNotif = "";
 			}
 		}
 	}
 
-	public void valueChange(ValueChangeEvent event) {
-		Property property = event.getProperty();
-		if (property == studentTable) {
-
-			selectedTableItem = studentDatasource.getItem(studentTable
-					.getValue());
-			if (selectedTableItem != null) {
-				String str = studentTable.getValue().toString();
-				getWindow()
-						.showNotification(
-								selectedTableItem
-										.getItemProperty(
-												app.getMessage(UimsMessages.StudentAttandance))
-										.getValue().toString());
-
-			}
-
-		}
-	}
 }
