@@ -64,7 +64,7 @@ public class UimsMessages_ky extends UimsMessages {
 			{ SubjectRegistrationStatus, "Катталуу Статусу" },
 			{ SubjectHoursSum, "Саатардын Саны" },
 
-			{ MoveUpButton, "Ойдо жылдыр" },
+			{ MoveUpButton, "Өйдө жылдыр" },
 			{ MoveDownButton, "Ылдый жылдыр" },
 			{ SaveButton, "Сактоо" },
 
@@ -90,17 +90,17 @@ public class UimsMessages_ky extends UimsMessages {
 			
 			//AttendanceView
 			{AttendanceHeader, "Жоктоо"},
-			{SubjectHoursPerWeek, "Часы в неделю"},
-			{GroupName, "Название группы"},
-			{TotalStudents, "Количество студентов"},
+			{SubjectHoursPerWeek, "Апталык саат саны"},
+			{GroupName, "Группанын аты"},
+			{TotalStudents, "Студенттердин саны"},
 			
 			// AttendanceWindow
 						{ButtonMakeForm, "Жоктоо формасы"},
-						{ButtonMakeReport, "Жоокто репорту"},
-						{NotifSuccesSave, "Успеваемость успешно сохранена"},
-						{NotifDbError, "Ошибка! Вы уже добавили успеваемость"},
-						{NotifNegative, "Числа не могут быть негативными"},
-						{NotifWrongNum, "Неправильное значение! Пожалуйста, проверьте поля"},
+						{ButtonMakeReport, "Жоктоо рапорту"},
+						{NotifSuccesSave, "Рахмат! Ийгиликтүү жоктодуңуз!"},
+						{NotifDbError, "Ката! Сиз жоктогонсуз!"},
+						{NotifNegative, "Терс сан жазууга болбоит!"},
+						{NotifWrongNum, "Туура эмес, кайра текшериңиз."},
 			
 			// HelpView
 			{ HelpHeader, "Жардам" },
