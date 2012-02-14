@@ -13,6 +13,7 @@ import kg.cloud.uims.domain.StudLess;
 import kg.cloud.uims.domain.Student;
 import kg.cloud.uims.domain.Subjects;
 import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.ui.TextFieldValidated;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
@@ -43,8 +44,11 @@ public class DataContainers {
 	public String PROPERTY_STUDENT_ATTENDANCE;
 
 	public String PROPERTY_GROUP_NAME;
+	
+	private MyVaadinApplication app;
 
 	public DataContainers(MyVaadinApplication app) {
+		this.app = app;
 		studContainer_PROPERTY_NAME = app
 				.getMessage(UimsMessages.RegistrationStudentName);
 		studContainer_PROPERTY_SURNAME = app
@@ -418,7 +422,7 @@ public class DataContainers {
 		studListContainer.addContainerProperty(PROPERTY_GROUP_NAME,
 				String.class, null);
 		studListContainer.addContainerProperty(PROPERTY_STUDENT_ATTENDANCE,
-				TextField.class, null);
+				TextFieldValidated.class, null);
 
 		try {
 			DbStudLess dbStudLess = new DbStudLess();
@@ -436,11 +440,7 @@ public class DataContainers {
 						studLessList.get(i).getStudSurname());
 				item.getItemProperty(PROPERTY_GROUP_NAME).setValue(
 						studLessList.get(i).getGrpName());
-				TextField attendance = new TextField();
-				attendance.setWidth("25%");
-				attendance.addValidator(new IntegerValidator("Wrong"));
-				attendance.setImmediate(true);
-				//TextFieldWithValidator attendance = new TextFieldWithValidator();
+				TextFieldValidated attendance = new TextFieldValidated(app);
 				item.getItemProperty(PROPERTY_STUDENT_ATTENDANCE).setValue(
 						attendance);
 			}
