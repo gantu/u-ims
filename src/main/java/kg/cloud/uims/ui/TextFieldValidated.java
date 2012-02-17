@@ -31,11 +31,17 @@ public class TextFieldValidated extends TextField{
 			// The isValid() method returns simply a boolean value, so
 		    // it can not return an error message.
 		    public boolean isValid(Object value) {
-		        if (value == null || !(value instanceof String)) {
+		    	int number;
+		    	try{
+		    		number=Integer.parseInt(value.toString());
+		    	} catch (Exception e) {
+					return false;
+				}
+		        if (number<0 || number>99) {
 		            return false;
 		        }
 
-		        return ((String) value).matches("[0-9]{0,2}");
+		        return true;
 		    }
 
 		    // Upon failure, the validate() method throws an exception
