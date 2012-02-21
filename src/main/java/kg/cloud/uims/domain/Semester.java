@@ -63,5 +63,9 @@ public class Semester implements Serializable {
 	public void setCurrent(int current) {
 		this.current = current;
 	}
+	
+	public void setRegStatus(int rs) {
+		this.registrationStatus = rs;
+	}
 
 }
