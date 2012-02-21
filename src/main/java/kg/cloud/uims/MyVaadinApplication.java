@@ -138,7 +138,7 @@ public class MyVaadinApplication extends Application implements
 	}
 
 	public void workingDetails(String username) throws Exception {
-		String query = "select y.id,y.year,s.id,s.semester,w.id,w.week,e.exam_id,e.exam_name,"
+		String query = "select y.id,y.year,s.id,s.semester,s.registration_status,w.id,w.week,e.exam_id,e.exam_name,"
 				+ "e.percentage,inst.faculty_id,inst.dept_id,inst.group_id, inst.name, inst.surname, u.status from year as y,"
 				+ "semester as s,weeks as w,exam as e, instructor as inst, "
 				+ "users as u where inst.rollnum=u.user_name and y.curr=? and "
@@ -165,6 +165,7 @@ public class MyVaadinApplication extends Application implements
 			currentSemester.setId(result.getInt("s.id"));
 			currentSemester.setSemester(result.getString("s.semester"));
 			currentSemester.setCurrent(1);
+			currentSemester.setRegStatus(result.getInt("s.registration_status"));
 			currentWeek.setId(result.getInt("w.id"));
 			currentWeek.setWeek(result.getString("w.week"));
 			currentWeek.setCurrent(1);
