@@ -1,11 +1,13 @@
 package kg.cloud.uims.ui;
 
 import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.dao.DbStudent_Attendance;
+import kg.cloud.uims.dao.DbSubjExam;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
-import kg.cloud.uims.util.MakeAttendanceForm;
-import kg.cloud.uims.util.MakeAttendanceReport;
+import kg.cloud.uims.util.MakeAverageList;
+import kg.cloud.uims.util.MakeExamMarksReport;
+import kg.cloud.uims.util.MakeResultList;
+import kg.cloud.uims.util.MakeSignatureList;
 
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.ChameleonTheme;
@@ -19,7 +21,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.data.Item;
 
-public class AttendanceWindow extends Window implements Button.ClickListener {
+public class ExamWindow extends Window implements Button.ClickListener {
 
 	/**
 	 * 
@@ -28,23 +30,26 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 
 	Table studentTable = new Table();
 
-	Button makeForm = new Button();
+	Button signList = new Button();
 	Button save = new Button();
-	Button report = new Button();
+	Button resultList = new Button();
+	Button midMarks = new Button();
+	Button finMarks = new Button();
+	Button makeUpMarks = new Button();
+	Button avReport = new Button();
 	IndexedContainer studentDatasource;
 	MyVaadinApplication app;
 
 	private String subject_id = null;
 	private String subjectName = null;
-	private String curr_Sem_id, curr_Year_id, curr_Week_id;
-	private int status=0;
+	private String curr_Sem_id, curr_Year_id, curr_Exam_id;
+	private int status = 0;
 	private String errNotif = "";
 
-	public AttendanceWindow(MyVaadinApplication app, String subj_Id,
-			String subjName) {
+	public ExamWindow(MyVaadinApplication app, String subj_Id, String subjName) {
 		// super(app.getMessage(UimsMessages.RegistrationHeader+" : "+studentFullName));
 		this.setModal(true);
-		this.setCaption(app.getMessage(UimsMessages.AttendanceHeader) + ": "
+		this.setCaption(app.getMessage(UimsMessages.ExamHeader) + ": "
 				+ subjName);
 		this.setWidth("80%");
 		this.setHeight("95%");
@@ -53,7 +58,7 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 		this.subjectName = subjName;
 		this.curr_Sem_id = Integer.toString(app.getCurrentSemester().getId());
 		this.curr_Year_id = Integer.toString(app.getCurrentYear().getId());
-		this.curr_Week_id = Integer.toString(app.getCurrentWeek().getId());
+		this.curr_Exam_id = Integer.toString(app.getCurrentExam().getID());
 
 		studentTable.setWidth("100%");
 		studentTable.setHeight("60%");
@@ -63,12 +68,20 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 		studentTable.setFooterVisible(true);
 		studentTable.setSelectable(false);
 
-		makeForm.setCaption(app.getMessage(UimsMessages.ButtonMakeForm));
-		makeForm.addListener((Button.ClickListener) this);
+		signList.setCaption("Signature List");
+		signList.addListener((Button.ClickListener) this);
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
 		save.addListener((Button.ClickListener) this);
-		report.setCaption(app.getMessage(UimsMessages.ButtonMakeReport));
-		report.addListener((Button.ClickListener) this);
+		resultList.setCaption("Result List");
+		resultList.addListener((Button.ClickListener) this);
+		midMarks.setCaption("Midterm");
+		midMarks.addListener((Button.ClickListener) this);
+		finMarks.setCaption("Final");
+		finMarks.addListener((Button.ClickListener) this);
+		makeUpMarks.setCaption("MakeUp");
+		makeUpMarks.addListener((Button.ClickListener) this);
+		avReport.setCaption("Average Report");
+		avReport.addListener((Button.ClickListener) this);
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		GridLayout infoLayout = new GridLayout(3, 1);
@@ -86,15 +99,26 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 		infoLayout.addComponent(studInfo, 0, 0);
 		infoLayout.addComponent(yearInfo, 1, 0);
 		infoLayout.addComponent(semInfo, 2, 0);
-		buttonLayout.addComponent(makeForm);
-		buttonLayout.addComponent(report);
+		buttonLayout.addComponent(signList);
+		buttonLayout.addComponent(resultList);
+		if (curr_Exam_id.equals("1")) {
+			finMarks.setEnabled(false);
+			makeUpMarks.setEnabled(false);
+		}
+		if (curr_Exam_id.equals("2")) {
+			makeUpMarks.setEnabled(false);
+		}
+		buttonLayout.addComponent(midMarks);
+		buttonLayout.addComponent(finMarks);
+		buttonLayout.addComponent(makeUpMarks);
+		buttonLayout.addComponent(avReport);
 		buttonLayout.addComponent(save);
 		mainLayout.addComponent(infoLayout);
 		mainLayout.addComponent(studentTable);
 		mainLayout.addComponent(buttonLayout);
 
 		DataContainers dc = new DataContainers(app);
-		studentDatasource = dc.getAttSubjectStudList(subject_id, curr_Year_id,
+		studentDatasource = dc.getExamSubjectStudList(subject_id, curr_Year_id,
 				curr_Sem_id);
 		studentTable.setContainerDataSource(studentDatasource);
 
@@ -111,11 +135,23 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 	public void buttonClick(ClickEvent event) {
 		final Button source = event.getButton();
 
-		if (source == makeForm) {
-			new MakeAttendanceForm(app, subject_id);
+		if (source == signList) {
+			new MakeSignatureList(app, subject_id);
 		}
-		if (source == report) {
-			new MakeAttendanceReport(app, subject_id, subjectName);
+		if (source == resultList) {
+			new MakeResultList(app, subject_id);
+		}
+		if (source == midMarks) {
+			new MakeExamMarksReport(app, subject_id, "1", "Midterm");
+		}
+		if (source == finMarks) {
+			new MakeExamMarksReport(app, subject_id, "2", "Final");
+		}
+		if (source == makeUpMarks) {
+			new MakeExamMarksReport(app, subject_id, "3", "MakeUp");
+		}
+		if (source == avReport) {
+			new MakeAverageList(app, subject_id);
 		}
 		if (source == save) {
 			for (int i = 0; i < studentDatasource.size(); i++) {
@@ -123,13 +159,17 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 						.getIdByIndex(i));
 				String currentAttendance = item
 						.getItemProperty(
-								app.getMessage(UimsMessages.StudentAttandance))
+								app.getMessage(UimsMessages.StudentMark))
 						.getValue().toString();
 				if (!currentAttendance.equals("")) {
 					try {
 						if (Integer.parseInt(currentAttendance) < 0) {
 							errNotif = app
 									.getMessage(UimsMessages.NotifNegative);
+						}
+						if (Integer.parseInt(currentAttendance) > 100) {
+							errNotif = app
+									.getMessage(UimsMessages.NotifBigger100);
 						}
 					} catch (Exception e) {
 						errNotif = app.getMessage(UimsMessages.NotifWrongNum);
@@ -140,32 +180,31 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 			if (errNotif.equals("")) {
 				try {
 
-					DbStudent_Attendance dbStAtt = new DbStudent_Attendance();
-					dbStAtt.connect();
+					DbSubjExam dbSubjExam = new DbSubjExam();
+					dbSubjExam.connect();
 
 					for (int i = 0; i < studentDatasource.size(); i++) {
 						Item item = studentDatasource.getItem(studentDatasource
 								.getIdByIndex(i));
-						String stud_id = studentDatasource.getIdByIndex(i)
+						String stud_less_id = studentDatasource.getIdByIndex(i)
 								.toString();
-						String currentAttendance = item
+						String mark = item
 								.getItemProperty(
-										app.getMessage(UimsMessages.StudentAttandance))
+										app.getMessage(UimsMessages.StudentMark))
 								.getValue().toString();
-						if (currentAttendance == null
-								|| currentAttendance.equals("")) {
-							currentAttendance = "0";
+						if (mark == null || mark.equals("")) {
+							mark = "0";
 						}
-						status=dbStAtt.insertAttendance(subject_id, curr_Year_id,
-								curr_Sem_id, curr_Week_id, stud_id,
-								currentAttendance);
+
+						status = dbSubjExam.insertSQL(stud_less_id,
+								curr_Exam_id, mark);
 					}
-					dbStAtt.close();
+					dbSubjExam.close();
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					if (status!=0) {
+					if (status != 0) {
 						getWindow().showNotification(
 								app.getMessage(UimsMessages.NotifSuccesSave));
 					} else {

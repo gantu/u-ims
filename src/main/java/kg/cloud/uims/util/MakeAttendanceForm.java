@@ -76,7 +76,7 @@ public class MakeAttendanceForm {
 						dbInstructor.connect();
 						dbInstructor.execSQL_byRole(currentUser.getPrincipal().toString());
 						inst = dbInstructor.getArray();
-						dbStudLess.close();
+						dbInstructor.close();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

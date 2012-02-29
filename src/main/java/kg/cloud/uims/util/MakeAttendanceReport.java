@@ -81,10 +81,10 @@ public class MakeAttendanceReport {
 						dbInstructor.connect();
 						dbInstructor.execSQL_byRole(currentUser.getPrincipal().toString());
 						ArrayList<Instructor> inst = dbInstructor.getArray();
-						dbStudLess.close();
+						dbInstructor.close();
 					
-						DbStudent_Attendance DbAttandance = new DbStudent_Attendance();
-						DbAttandance.connect();
+						DbStudent_Attendance dbAttandance = new DbStudent_Attendance();
+						dbAttandance.connect();
 
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
@@ -153,7 +153,7 @@ public class MakeAttendanceReport {
 		                
 		                for (int i = 0; i < studLessList.size(); i++) {
 		                	String student_id = Integer.toString(studLessList.get(i).getStudID());
-		                	int att = DbAttandance.execSQL_All(student_id, curr_Sem_id,
+		                	int att = dbAttandance.execSQL_All(student_id, curr_Sem_id,
 		                			curr_Year_id, Integer.parseInt(subjectId));
 		                	
 		                	Tbody.addCell(new Phrase(Integer.toString(i + 1), text_font));
@@ -170,9 +170,7 @@ public class MakeAttendanceReport {
 		                        Tbody.addCell(new Phrase("OK", text_font));
 		                    }
 		                }
-		                DbAttandance.close();
-		                
-		                
+
 		                document.add(Tbody);
 		                document.add(new Paragraph(15, " "));
 
@@ -189,7 +187,7 @@ public class MakeAttendanceReport {
 		            } else {
 		                document.add(new Phrase("no records found", warning));
 		            }
-		            
+		            dbAttandance.close();
 		            document.close();
 
 				} catch (DocumentException ex) {

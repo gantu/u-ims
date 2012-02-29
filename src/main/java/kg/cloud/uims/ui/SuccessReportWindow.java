@@ -115,7 +115,7 @@ public class SuccessReportWindow extends Window implements ClickListener {
 		final Button source = event.getButton();
 		if (source == toPDF) {
 			new ExportReporttoPDF(app, studentId, studentFullName,
-					reportDatasource);
+					reportDatasource, year_name, sem_name);
 		}
 	}
 

@@ -37,7 +37,7 @@ public class TextFieldValidated extends TextField{
 		    	} catch (Exception e) {
 					return false;
 				}
-		        if (number<0 || number>99) {
+		        if (number<0 || number>100) {
 		            return false;
 		        }
 

@@ -8,7 +8,6 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ChameleonTheme;
 
 public class TranscriptView extends VerticalLayout {
@@ -20,7 +19,6 @@ public class TranscriptView extends VerticalLayout {
 	private MyVaadinApplication app;
 	private VerticalLayout header, body;
 	private Table groupStudentTable = new Table();
-	private Window subWindow = new Window();
 
 	public TranscriptView(MyVaadinApplication app) {
 		this.app = app;

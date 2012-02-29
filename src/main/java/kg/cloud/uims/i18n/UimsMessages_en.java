@@ -101,12 +101,20 @@ public class UimsMessages_en extends UimsMessages {
 			{TotalStudents, "Total students"},
 			
 			// AttendanceWindow
+			{ListOfStudents, "List of students:"},
 			{ButtonMakeForm, "Attendance Form"},
 			{ButtonMakeReport, "Attendance Report"},
 			{NotifSuccesSave, "Attendace is successfully saved"},
-			{NotifDbError, "Error! You have already added the attendance!"},
+			{NotifDbError, "Error! You have already saved the inputs"},
 			{NotifNegative, "The numbers can not be negative"},
 			{NotifWrongNum, "Wrong value! Please check the fields"},
+			
+			// ExamView
+			{ExamHeader, "Exam"},
+			
+			// ExamWindow
+			{StudentMark, "Mark"},
+			{NotifBigger100, "The marks can not be bigger than 100"},
 			
 			//HelpView
 			{HelpHeader, "Help"},

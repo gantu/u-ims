@@ -41,17 +41,19 @@ public class ExportReporttoPDF {
 	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
 
 	private String studentId = null;
-	private String studentFullName = null;
+	private String studentFullName, year_name, sem_name = null;
 	private ArrayList<Student> studDetails;
 	private IndexedContainer reportDatasource;
 	private MyVaadinApplication app;
 
 	public ExportReporttoPDF(final MyVaadinApplication app, String sid,
-			String stud_fname, IndexedContainer repDatasource) {
+			String stud_fname, IndexedContainer repDatasource, String year_n, String sem_n) {
 		this.app = app;
 		this.studentId = sid;
 		this.studentFullName = stud_fname;
 		this.reportDatasource = repDatasource;
+		this.year_name = year_n;
+		this.sem_name = sem_n;
 
 		source1 = new StreamResource.StreamSource() {
 
@@ -117,11 +119,9 @@ public class ExportReporttoPDF {
 					Thead.addCell(new Phrase("Student:", in_font));
 					Thead.addCell(new Phrase(studentFullName, text_font));
 					Thead.addCell(new Phrase("Academic Year:", in_font));
-					Thead.addCell(new Phrase(app.getCurrentYear().getYear(),
-							text_font));
+					Thead.addCell(new Phrase(year_name,	text_font));
 					Thead.addCell(new Phrase("Semester:", in_font));
-					Thead.addCell(new Phrase(app.getCurrentSemester()
-							.getSemester(), text_font));
+					Thead.addCell(new Phrase(sem_name, text_font));
 					document.add(Thead);
 					document.add(new Paragraph(10, " "));
 

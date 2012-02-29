@@ -44,7 +44,9 @@ public class DataContainers {
 	public String PROPERTY_STUDENT_ATTENDANCE;
 
 	public String PROPERTY_GROUP_NAME;
-	
+
+	public String PROPERTY_STUDENT_MARK;
+
 	private MyVaadinApplication app;
 
 	public DataContainers(MyVaadinApplication app) {
@@ -76,6 +78,7 @@ public class DataContainers {
 		PROPERTY_SUBJECT_HOURS_WEEK = app
 				.getMessage(UimsMessages.SubjectHoursPerWeek);
 		PROPERTY_GROUP_NAME = app.getMessage(UimsMessages.GroupName);
+		PROPERTY_STUDENT_MARK = app.getMessage(UimsMessages.StudentMark);
 	}
 
 	public DataContainers() {
@@ -300,6 +303,12 @@ public class DataContainers {
 			dbStudLess.execSQL(stID, semID, yearID);
 			ArrayList<StudLess> subjectList = dbStudLess.getArray();
 
+			DbExam dbExam = new DbExam();
+			dbExam.connect();
+
+			DbStudent_Attendance dbAttandance = new DbStudent_Attendance();
+			dbAttandance.connect();
+
 			if (subjectList != null) {
 				for (int i = 0; i < subjectList.size(); i++) {
 					String id = Integer.toString(subjectList.get(i).getID());
@@ -314,12 +323,11 @@ public class DataContainers {
 					item.getItemProperty(PROPERTY_STUDENT_FINAL).setValue("0");
 					item.getItemProperty(PROPERTY_STUDENT_MAKE_UP)
 							.setValue("0");
-					DbExam dbExam = new DbExam();
-					dbExam.connect();
+
 					dbExam.execStudentExamDetails(stID, semID, yearID,
 							subjectList.get(i).getSubjID());
 					ArrayList<Exam> examList = dbExam.getArray();
-					dbExam.close();
+
 					Double av = dbStudLess.calcAverage_Report(stID, semID,
 							yearID, subjectList.get(i).getSubjID());
 					if (examList != null) {
@@ -345,13 +353,9 @@ public class DataContainers {
 					item.getItemProperty(PROPERTY_SUBJECT_AVERAGE).setValue(
 							Math.round(av));
 
-					DbStudent_Attendance DbAttandance = new DbStudent_Attendance();
-					DbAttandance.connect();
-					String att = Integer.toString(DbAttandance
+					String att = Integer.toString(dbAttandance
 							.execSQL_All(stID, semID, yearID, subjectList
 									.get(i).getSubjID()));
-					DbAttandance.close();
-					dbExam.close();
 
 					item.getItemProperty(PROPERTY_STUDENT_ATTENDANCE).setValue(
 							att);
@@ -359,6 +363,9 @@ public class DataContainers {
 				}
 			}
 			dbStudLess.close();
+			dbAttandance.close();
+			dbExam.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -405,14 +412,14 @@ public class DataContainers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		instLessContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE, PROPERTY_STDYEAR },
-				new boolean[] { true });
+		instLessContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE,
+				PROPERTY_STDYEAR }, new boolean[] { true });
 		return instLessContainer;
 
 	}
 
-	public IndexedContainer getSubjectStudList(String subj_id, String yearID,
-			String semID) {
+	public IndexedContainer getAttSubjectStudList(String subj_id,
+			String yearID, String semID) {
 
 		IndexedContainer studListContainer = new IndexedContainer();
 		studListContainer.addContainerProperty(studContainer_PROPERTY_NAME,
@@ -444,6 +451,70 @@ public class DataContainers {
 				item.getItemProperty(PROPERTY_STUDENT_ATTENDANCE).setValue(
 						attendance);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		studListContainer.sort(new Object[] { studContainer_PROPERTY_NAME },
+				new boolean[] { true });
+		return studListContainer;
+
+	}
+
+	public IndexedContainer getExamSubjectStudList(String subj_id,
+			String yearID, String semID) {
+
+		IndexedContainer studListContainer = new IndexedContainer();
+		studListContainer.addContainerProperty(studContainer_PROPERTY_NAME,
+				String.class, null);
+		studListContainer.addContainerProperty(studContainer_PROPERTY_SURNAME,
+				String.class, null);
+		studListContainer.addContainerProperty(PROPERTY_GROUP_NAME,
+				String.class, null);
+		studListContainer.addContainerProperty(PROPERTY_STUDENT_MARK,
+				TextFieldValidated.class, null);
+
+		try {
+			DbStudLess dbStudLess = new DbStudLess();
+			dbStudLess.connect();
+			dbStudLess.execSQL_Exam(subj_id, yearID, semID);
+			ArrayList<StudLess> studLessList = dbStudLess.getArray();
+
+			for (int i = 0; i < studLessList.size(); i++) {
+				if ((app.getCurrentExam().getID() == 1)
+						|| (app.getCurrentExam().getID() == 2)) {
+					String id = Integer.toString(studLessList.get(i).getID());
+					Item item = studListContainer.addItem(id);
+					item.getItemProperty(studContainer_PROPERTY_NAME).setValue(
+							studLessList.get(i).getStudName());
+					item.getItemProperty(studContainer_PROPERTY_SURNAME)
+							.setValue(studLessList.get(i).getStudSurname());
+					item.getItemProperty(PROPERTY_GROUP_NAME).setValue(
+							studLessList.get(i).getGrpName());
+					TextFieldValidated attendance = new TextFieldValidated(app);
+					item.getItemProperty(PROPERTY_STUDENT_MARK).setValue(
+							attendance);
+				} else {
+					if ((dbStudLess.calcAverage_Report(
+							Integer.toString(studLessList.get(i).getStudID()),
+							semID, yearID, Integer.parseInt(subj_id))) < 49.5) {
+						String id = Integer.toString(studLessList.get(i)
+								.getID());
+						Item item = studListContainer.addItem(id);
+						item.getItemProperty(studContainer_PROPERTY_NAME)
+								.setValue(studLessList.get(i).getStudName());
+						item.getItemProperty(studContainer_PROPERTY_SURNAME)
+								.setValue(studLessList.get(i).getStudSurname());
+						item.getItemProperty(PROPERTY_GROUP_NAME).setValue(
+								studLessList.get(i).getGrpName());
+						TextFieldValidated attendance = new TextFieldValidated(
+								app);
+						item.getItemProperty(PROPERTY_STUDENT_MARK).setValue(
+								attendance);
+
+					}
+				}
+			}
+			dbStudLess.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

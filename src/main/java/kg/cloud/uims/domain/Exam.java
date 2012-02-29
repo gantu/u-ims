@@ -42,10 +42,6 @@ public class Exam implements Serializable{
         return percentage;
     }
 
-	public int getId() {
-		return id;
-	}
-
 	public void setId(int id) {
 		this.id = id;
 	}

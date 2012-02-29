@@ -86,23 +86,30 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String StudentFinal = generateId();
 	public static final String StudentMakeup = generateId();
 	public static final String StudentAttandance = generateId();
-	
+
 	// AttendanceView
 
-		public static final String AttendanceHeader = generateId();
-		public static final String SubjectHoursPerWeek = generateId();
-		public static final String GroupName = generateId();
-		public static final String TotalStudents = generateId();
-		
-		// AttendanceWindow
-		public static final String ButtonMakeForm = generateId();
-		public static final String ButtonMakeReport = generateId();
-		public static final String NotifSuccesSave = generateId();
-		public static final String NotifDbError = generateId();
-		public static final String NotifNegative = generateId();
-		public static final String NotifWrongNum = generateId();
-		
-		
+	public static final String AttendanceHeader = generateId();
+	public static final String SubjectHoursPerWeek = generateId();
+	public static final String GroupName = generateId();
+	public static final String TotalStudents = generateId();
+
+	// AttendanceWindow
+	public static final String ListOfStudents = generateId();
+	public static final String ButtonMakeForm = generateId();
+	public static final String ButtonMakeReport = generateId();
+	public static final String NotifSuccesSave = generateId();
+	public static final String NotifDbError = generateId();
+	public static final String NotifNegative = generateId();
+	public static final String NotifWrongNum = generateId();
+
+	// ExamView
+	public static final String ExamHeader = generateId();
+
+	// ExamWindow
+	public static final String StudentMark = generateId();
+	public static final String NotifBigger100 = generateId();
+
 	// HelpView
 	public static final String HelpHeader = generateId();
 
@@ -141,10 +148,10 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String TSBMySubjects = generateId();
 	public static final String TSBMySuccess = generateId();
 	public static final String TSBMyTranscript = generateId();
-	
-	public static final String FreezedMessage=generateId(); 
-	
-	public static final String StatisticsMessage=generateId();
+
+	public static final String FreezedMessage = generateId();
+
+	public static final String StatisticsMessage = generateId();
 
 	private static String generateId() {
 		return new Integer(ids++).toString();

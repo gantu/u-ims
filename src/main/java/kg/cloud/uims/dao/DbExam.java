@@ -6,7 +6,6 @@ import java.sql.*;
 import java.util.*;
 
 import kg.cloud.uims.domain.Exam;
-import kg.cloud.uims.domain.Group;
 
 public class DbExam extends BaseDb {
     public ArrayList<Exam> q;

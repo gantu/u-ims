@@ -16,9 +16,10 @@ import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ChameleonTheme;
 
-public class AttendanceView extends VerticalLayout {
+public class ExamView extends VerticalLayout {
 
 	/**
 	 * 
@@ -31,7 +32,7 @@ public class AttendanceView extends VerticalLayout {
 	private String curr_Sem_id, curr_Year_id;
 	private int hourSum;
 
-	public AttendanceView(MyVaadinApplication app) {
+	public ExamView(MyVaadinApplication app) {
 		this.app = app;
 		setSpacing(true);
 		buildHeader();
@@ -42,7 +43,7 @@ public class AttendanceView extends VerticalLayout {
 	public void buildHeader() {
 		header = new VerticalLayout();
 		Label headerLabel = new Label("<h1>"
-				+ app.getMessage(UimsMessages.AttendanceHeader) + "</h1>");
+				+ app.getMessage(UimsMessages.ExamHeader) + "</h1>");
 		headerLabel.setContentMode(Label.CONTENT_XHTML);
 		headerLabel.setSizeFull();
 		header.addComponent(headerLabel);
@@ -109,7 +110,7 @@ public class AttendanceView extends VerticalLayout {
 									app.getMessage(UimsMessages.SubjectName))
 							.getValue().toString();
 					getWindow().addWindow(
-							new AttendanceWindow(app, instLessonTable
+							new ExamWindow(app, instLessonTable
 									.getValue().toString(), SubjName));
 				}
 			}

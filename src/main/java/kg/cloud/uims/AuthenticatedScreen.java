@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.ui.AttendanceView;
 import kg.cloud.uims.ui.ChangeUserData;
+import kg.cloud.uims.ui.ExamView;
 import kg.cloud.uims.ui.HelpView;
 import kg.cloud.uims.ui.RegistrationView;
 import kg.cloud.uims.ui.SuccessReportView;
@@ -122,7 +123,8 @@ public class AuthenticatedScreen extends VerticalLayout implements
 				app.getMessage(UimsMessages.TSBSuccessReport)};
 		String[] instructor = { app.getMessage(UimsMessages.TBInstructor),
 				app.getMessage(UimsMessages.TSBAttendance),
-				app.getMessage(UimsMessages.TSBExam) };
+				app.getMessage(UimsMessages.TSBExam) 
+				};
 
 		int size = 0;
 		if (currentUser.hasRole("supervisor"))
@@ -213,6 +215,12 @@ public class AuthenticatedScreen extends VerticalLayout implements
 							.getMessage(UimsMessages.TSBAttendance))) {
 						// getWindow().showNotification(eventPressed);
 						horizontalPanel.setSecondComponent(new AttendanceView(
+								app));
+
+					} else if (eventPressed.equals(app
+							.getMessage(UimsMessages.TSBExam))) {
+						// getWindow().showNotification(eventPressed);
+						horizontalPanel.setSecondComponent(new ExamView(
 								app));
 
 					}

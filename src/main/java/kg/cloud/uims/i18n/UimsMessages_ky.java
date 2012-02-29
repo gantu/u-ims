@@ -72,8 +72,8 @@ public class UimsMessages_ky extends UimsMessages {
 			{ NotifNothingSelected, "Еч нерсе тандалган эмес." },
 			{ NotifCantRemoveSubj, "Сиз бул сабакты өчүрө албайсыз!" },
 			{ NotifThankYouRegistr, "Рахмат, Катоо ийгиликтүү аяктады!" },
-			{ FilterByYearLabel, "Жылга карап сүз:"},
-			{ FilterByCodeLabel, "Сабактын кодуна карап сүз:"},
+			{ FilterByYearLabel, "Жылга карап сүз:" },
+			{ FilterByCodeLabel, "Сабактын кодуна карап сүз:" },
 
 			// Transcript View
 			{ TranscriptHeader, "Транскрипт" },
@@ -83,25 +83,36 @@ public class UimsMessages_ky extends UimsMessages {
 			{ ButtonMakePDF, "PDFке айлант " },
 
 			// SuccessReportView
-			{ LabelYear, "Академик жылы" }, { LabelSemester, "Семестр" },
+			{ LabelYear, "Академик жылы" },
+			{ LabelSemester, "Семестр" },
 			{ SuccessReportHeader, "Жетишкендиктер" },
-			{ StudentMidterm, "Мидтерм" }, { StudentFinal, "Финал" },
-			{ StudentMakeup, "Мейкап" }, { StudentAttandance, "Жоктоо" },
-			
-			//AttendanceView
-			{AttendanceHeader, "Жоктоо"},
-			{SubjectHoursPerWeek, "Апталык саат саны"},
-			{GroupName, "Группанын аты"},
-			{TotalStudents, "Студенттердин саны"},
-			
+			{ StudentMidterm, "Мидтерм" },
+			{ StudentFinal, "Финал" },
+			{ StudentMakeup, "Мейкап" },
+			{ StudentAttandance, "Жоктоо" },
+
+			// AttendanceView
+			{ AttendanceHeader, "Жоктоо" },
+			{ SubjectHoursPerWeek, "Апталык саат саны" },
+			{ GroupName, "Группанын аты" },
+			{ TotalStudents, "Студенттердин саны" },
+
 			// AttendanceWindow
-						{ButtonMakeForm, "Жоктоо формасы"},
-						{ButtonMakeReport, "Жоктоо рапорту"},
-						{NotifSuccesSave, "Рахмат! Ийгиликтүү жоктодуңуз!"},
-						{NotifDbError, "Ката! Сиз жоктогонсуз!"},
-						{NotifNegative, "Терс сан жазууга болбоит!"},
-						{NotifWrongNum, "Туура эмес, кайра текшериңиз."},
+			{ListOfStudents, "Студенттердин тизмеси:"},
+			{ ButtonMakeForm, "Жоктоо формасы" },
+			{ ButtonMakeReport, "Жоктоо рапорту" },
+			{ NotifSuccesSave, "Рахмат! Ийгиликтүү жоктодуңуз!" },
+			{ NotifDbError, "Ката! Буга чейин сиздин маалыматыныз сакталган" },
+			{ NotifNegative, "Терс сан жазууга болбоит!" },
+			{ NotifWrongNum, "Туура эмес, кайра текшериңиз." },
 			
+			// ExamView
+			{ ExamHeader, "Сынак" },
+			
+			// ExamWindow
+						{StudentMark, "Баасы"},
+						{NotifBigger100, "Оценка не может быть выше 100"},
+
 			// HelpView
 			{ HelpHeader, "Жардам" },
 			// ChangeUserDataView
@@ -130,8 +141,8 @@ public class UimsMessages_ky extends UimsMessages {
 			{ NotifWrongCurrPassword,
 					"Пожалуйста, введите текущий пароль правильно!" },
 			{ NotifSuccessfulChange, "Пароль успешно изменен." },
-			{FreezedMessage,"Тоңдурулган! Бул окуучу Бухгалтерияга баруусу зарыл!"}
-	};
+			{ FreezedMessage,
+					"Тоңдурулган! Бул окуучу Бухгалтерияга баруусу зарыл!" } };
 
 	@Override
 	public Object[][] getContents() {

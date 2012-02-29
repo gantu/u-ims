@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DbStudReg extends BaseDb {
-	private String status = "pusto";
+	private String status;
 
 	public DbStudReg() throws Exception {
 		super();
