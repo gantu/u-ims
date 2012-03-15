@@ -47,7 +47,8 @@ public class ExportReporttoPDF {
 	private MyVaadinApplication app;
 
 	public ExportReporttoPDF(final MyVaadinApplication app, String sid,
-			String stud_fname, IndexedContainer repDatasource, String year_n, String sem_n) {
+			String stud_fname, IndexedContainer repDatasource, String year_n,
+			String sem_n) {
 		this.app = app;
 		this.studentId = sid;
 		this.studentFullName = stud_fname;
@@ -66,18 +67,14 @@ public class ExportReporttoPDF {
 			public InputStream getStream() {
 
 				buffer = new ByteArrayOutputStream();
+
 				try {
 
-					try {
-
-						DbStudent dbStud = new DbStudent();
-						dbStud.connect();
-						dbStud.execSQL(studentId);
-						studDetails = dbStud.getArray();
-						dbStud.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					DbStudent dbStud = new DbStudent();
+					dbStud.connect();
+					dbStud.execSQL(studentId);
+					studDetails = dbStud.getArray();
+					dbStud.close();
 
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
@@ -119,7 +116,7 @@ public class ExportReporttoPDF {
 					Thead.addCell(new Phrase("Student:", in_font));
 					Thead.addCell(new Phrase(studentFullName, text_font));
 					Thead.addCell(new Phrase("Academic Year:", in_font));
-					Thead.addCell(new Phrase(year_name,	text_font));
+					Thead.addCell(new Phrase(year_name, text_font));
 					Thead.addCell(new Phrase("Semester:", in_font));
 					Thead.addCell(new Phrase(sem_name, text_font));
 					document.add(Thead);
@@ -195,17 +192,12 @@ public class ExportReporttoPDF {
 						document.add(new Phrase("no records found"));
 					}
 
-					document.close();
-
-				} catch (DocumentException ex) {
-					// Logger.getLogger(ReportEngine.class.getName()).log(Level.SEVERE,
-					// null, ex);
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {
 					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} finally {
+					if (document != null) {
+						document.close();
+					}
 				}
 
 				b = buffer.toByteArray();

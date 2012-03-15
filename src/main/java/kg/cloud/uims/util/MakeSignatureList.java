@@ -61,99 +61,112 @@ public class MakeSignatureList {
 			public InputStream getStream() {
 
 				buffer = new ByteArrayOutputStream();
+
 				try {
 
-					try {
+					DbStudLess dbStudLess = new DbStudLess();
+					dbStudLess.connect();
+					dbStudLess.execSQL_Exam(subjectId, year_id, sem_id);
+					studLessList = dbStudLess.getArray();
 
-						DbStudLess dbStudLess = new DbStudLess();
-						dbStudLess.connect();
-						dbStudLess.execSQL_Exam(subjectId, year_id, sem_id);
-						studLessList = dbStudLess.getArray();
+					DbInstructor dbInstructor = new DbInstructor();
+					dbInstructor.connect();
+					dbInstructor.execSQL_byRole(currentUser.getPrincipal()
+							.toString());
+					inst = dbInstructor.getArray();
+					dbInstructor.close();
 
-						DbInstructor dbInstructor = new DbInstructor();
-						dbInstructor.connect();
-						dbInstructor.execSQL_byRole(currentUser.getPrincipal()
-								.toString());
-						inst = dbInstructor.getArray();
-						dbInstructor.close();
+					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
-						PdfWriter writer = PdfWriter.getInstance(document,
-								buffer);
+					document.open();
 
-						document.open();
+					PdfContentByte punder = writer.getDirectContentUnder();
+					img = Image.getInstance("/usr/local/images/iaauLogoT.png");
+					img.setAbsolutePosition(
+							document.getPageSize().getWidth() / 4, document
+									.getPageSize().getHeight() / 3);
+					img.scaleAbsolute(300, 300);
 
-						PdfContentByte punder = writer.getDirectContentUnder();
-						img = Image
-								.getInstance("/usr/local/images/iaauLogoT.png");
-						img.setAbsolutePosition(document.getPageSize()
-								.getWidth() / 4, document.getPageSize()
-								.getHeight() / 3);
-						img.scaleAbsolute(300, 300);
+					punder.addImage(img);
 
-						punder.addImage(img);
+					Font big_font = new Font(Font.COURIER, 19, Font.BOLD);
+					big_font.setColor(new Color(0x92, 0x90, 0x83));
+					Font title_font = new Font(Font.COURIER, 13, Font.BOLD);
+					title_font.setColor(new Color(0x92, 0x90, 0x83));
+					Font warning = new Font(Font.COURIER, 10, Font.BOLD);
+					warning.setColor(new Color(0xFF, 0x00, 0x00));
+					Font in_font = new Font(Font.COURIER, 12, Font.BOLD);
+					Font text_font = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL);
 
-						Font big_font = new Font(Font.COURIER, 19, Font.BOLD);
-						big_font.setColor(new Color(0x92, 0x90, 0x83));
-						Font title_font = new Font(Font.COURIER, 13, Font.BOLD);
-						title_font.setColor(new Color(0x92, 0x90, 0x83));
-						Font warning = new Font(Font.COURIER, 10, Font.BOLD);
-						warning.setColor(new Color(0xFF, 0x00, 0x00));
-						Font in_font = new Font(Font.COURIER, 12, Font.BOLD);
-						Font text_font = new Font(Font.TIMES_ROMAN, 10,
-								Font.NORMAL);
+					Paragraph iaau = new Paragraph(
+							"INTERNATIONAL ATATURK ALATOO UNIVERSITY",
+							title_font);
+					iaau.setAlignment(Element.ALIGN_CENTER);
+					Paragraph sif = new Paragraph("EXAMINATION SIGNATURE LIST",
+							big_font);
+					sif.setAlignment(Element.ALIGN_CENTER);
+					document.add(iaau);
+					document.add(sif);
+					document.add(new Paragraph(10, " "));
 
-						Paragraph iaau = new Paragraph(
-								"INTERNATIONAL ATATURK ALATOO UNIVERSITY",
-								title_font);
-						iaau.setAlignment(Element.ALIGN_CENTER);
-						Paragraph sif = new Paragraph(
-								"EXAMINATION SIGNATURE LIST", big_font);
-						sif.setAlignment(Element.ALIGN_CENTER);
-						document.add(iaau);
-						document.add(sif);
+					if (!studLessList.isEmpty()) {
+
+						float[] Thead_colsWidth = { 1f, 1f };
+						PdfPTable Thead = new PdfPTable(2);
+						Thead.setWidthPercentage(90f);
+						Thead.setWidths(Thead_colsWidth);
+						Thead.getDefaultCell().setBorder(0);
+						Thead.addCell(new Phrase("Department: "
+								+ studLessList.get(0).getStudDepartment(),
+								in_font));
+						Thead.addCell(new Phrase("Subject: "
+								+ studLessList.get(0).getSubjName(), in_font));
+						Thead.addCell(new Phrase("Academic Year: "
+								+ app.getCurrentYear().getYear(), in_font));
+						Thead.addCell(new Phrase("Semester: "
+								+ app.getCurrentSemester().getSemester(),
+								in_font));
+						Thead.addCell(new Phrase("Examination: "
+								+ app.getCurrentExam().getExam(), in_font));
+						Thead.addCell(new Phrase("Date: ", in_font));
+						document.add(Thead);
 						document.add(new Paragraph(10, " "));
 
-						if (!studLessList.isEmpty()) {
+						float[] Tbody_colsWidth = { 0.1f, 1f, 0.5f, 0.5f, 0.4f,
+								0.6f };
+						PdfPTable Tbody = new PdfPTable(6);
+						Tbody.setWidthPercentage(90f);
+						Tbody.setWidths(Tbody_colsWidth);
+						Tbody.getDefaultCell().setFixedHeight(16);
+						Tbody.addCell(new Phrase("#", in_font));
+						Tbody.addCell(new Phrase("Name Surname", in_font));
+						Tbody.addCell(new Phrase("Group", in_font));
+						Tbody.addCell(new Phrase("Signature", in_font));
+						Tbody.addCell(new Phrase("Papers", in_font));
+						Tbody.addCell(new Phrase("Remark", in_font));
 
-							float[] Thead_colsWidth = { 1f, 1f };
-							PdfPTable Thead = new PdfPTable(2);
-							Thead.setWidthPercentage(90f);
-							Thead.setWidths(Thead_colsWidth);
-							Thead.getDefaultCell().setBorder(0);
-							Thead.addCell(new Phrase("Department: "
-									+ studLessList.get(0).getStudDepartment(),
-									in_font));
-							Thead.addCell(new Phrase("Subject: "
-									+ studLessList.get(0).getSubjName(),
-									in_font));
-							Thead.addCell(new Phrase("Academic Year: "
-									+ app.getCurrentYear().getYear(), in_font));
-							Thead.addCell(new Phrase("Semester: "
-									+ app.getCurrentSemester().getSemester(),
-									in_font));
-							Thead.addCell(new Phrase("Examination: "
-									+ app.getCurrentExam().getExam(), in_font));
-							Thead.addCell(new Phrase("Date: ", in_font));
-							document.add(Thead);
-							document.add(new Paragraph(10, " "));
-
-							float[] Tbody_colsWidth = { 0.1f, 1f, 0.5f, 0.5f,
-									0.4f, 0.6f };
-							PdfPTable Tbody = new PdfPTable(6);
-							Tbody.setWidthPercentage(90f);
-							Tbody.setWidths(Tbody_colsWidth);
-							Tbody.getDefaultCell().setFixedHeight(16);
-							Tbody.addCell(new Phrase("#", in_font));
-							Tbody.addCell(new Phrase("Name Surname", in_font));
-							Tbody.addCell(new Phrase("Group", in_font));
-							Tbody.addCell(new Phrase("Signature", in_font));
-							Tbody.addCell(new Phrase("Papers", in_font));
-							Tbody.addCell(new Phrase("Remark", in_font));
-
-							int count = 0;
-							for (int i = 0; i < studLessList.size(); i++) {
-								if ((app.getCurrentExam().getID() == 1)
-										|| (app.getCurrentExam().getID() == 2)) {
+						int count = 0;
+						for (int i = 0; i < studLessList.size(); i++) {
+							if ((app.getCurrentExam().getID() == 1)
+									|| (app.getCurrentExam().getID() == 2)) {
+								count++;
+								Tbody.addCell(new Phrase(Integer
+										.toString(count), text_font));
+								Tbody.addCell(new Phrase(studLessList.get(i)
+										.getStudName()
+										+ " "
+										+ studLessList.get(i).getStudSurname(),
+										text_font));
+								Tbody.addCell(new Phrase(studLessList.get(i)
+										.getGrpName(), text_font));
+								Tbody.addCell(" ");
+								Tbody.addCell(" ");
+								Tbody.addCell(" ");
+							} else {
+								if ((dbStudLess.calcAverage_Report(Integer
+										.toString(studLessList.get(i)
+												.getStudID()), sem_id, year_id,
+										Integer.parseInt(subjectId))) < 49.5) {
 									count++;
 									Tbody.addCell(new Phrase(Integer
 											.toString(count), text_font));
@@ -168,63 +181,36 @@ public class MakeSignatureList {
 									Tbody.addCell(" ");
 									Tbody.addCell(" ");
 									Tbody.addCell(" ");
-								} else {
-									if ((dbStudLess.calcAverage_Report(
-											Integer.toString(studLessList.get(i).getStudID()), 
-											sem_id, year_id, Integer.parseInt(subjectId))) < 49.5) {
-										count++;
-										Tbody.addCell(new Phrase(Integer
-												.toString(count), text_font));
-										Tbody.addCell(new Phrase(studLessList
-												.get(i).getStudName()
-												+ " "
-												+ studLessList.get(i)
-														.getStudSurname(),
-												text_font));
-										Tbody.addCell(new Phrase(studLessList
-												.get(i).getGrpName(), text_font));
-										Tbody.addCell(" ");
-										Tbody.addCell(" ");
-										Tbody.addCell(" ");
-									}
 								}
 							}
-							document.add(Tbody);
-							document.add(new Paragraph(10, " "));
-
-							float[] Tfoot_colsWidth = { 1.5f, 1f };
-							PdfPTable Tfoot = new PdfPTable(2);
-							Tfoot.setWidthPercentage(90f);
-							Tfoot.setWidths(Tfoot_colsWidth);
-							Tfoot.getDefaultCell().setHorizontalAlignment(
-									Element.ALIGN_LEFT);
-							Tfoot.addCell(new Phrase("Name Surname :"
-									+ inst.get(0).getInstructorName() + " "
-									+ inst.get(0).getInstructorSurname(),
-									in_font));
-							Tfoot.addCell(new Phrase("Signature :", in_font));
-							document.add(Tfoot);
-
-						} else {
-							document.add(new Phrase("No records found", warning));
 						}
+						document.add(Tbody);
+						document.add(new Paragraph(10, " "));
 
-						document.close();
-						dbStudLess.close();
-					
+						float[] Tfoot_colsWidth = { 1.5f, 1f };
+						PdfPTable Tfoot = new PdfPTable(2);
+						Tfoot.setWidthPercentage(90f);
+						Tfoot.setWidths(Tfoot_colsWidth);
+						Tfoot.getDefaultCell().setHorizontalAlignment(
+								Element.ALIGN_LEFT);
+						Tfoot.addCell(new Phrase("Name Surname :"
+								+ inst.get(0).getInstructorName() + " "
+								+ inst.get(0).getInstructorSurname(), in_font));
+						Tfoot.addCell(new Phrase("Signature :", in_font));
+						document.add(Tfoot);
 
-				} catch (DocumentException ex) {
-					// Logger.getLogger(ReportEngine.class.getName()).log(Level.SEVERE,
-					// null, ex);
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					} else {
+						document.add(new Phrase("No records found", warning));
+					}
+
+					dbStudLess.close();
+
 				} catch (Exception e) {
 					e.printStackTrace();
+				} finally {
+					if (document != null) {
+						document.close();
+					}
 				}
 
 				b = buffer.toByteArray();
