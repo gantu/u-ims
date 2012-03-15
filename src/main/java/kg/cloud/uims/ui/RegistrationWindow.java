@@ -11,7 +11,6 @@ import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.resources.RegistrationPDF;
 
 import com.vaadin.data.Container.Filter;
-import com.vaadin.data.Container.Filterable;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -30,8 +29,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ChameleonTheme;
-import com.vaadin.ui.themes.Reindeer;
-import com.vaadin.ui.themes.Runo;
 
 public class RegistrationWindow extends Window implements Button.ClickListener,
 		Property.ValueChangeListener {
