@@ -38,11 +38,11 @@ input.v-textfield-focus,
 textarea.v-textarea-focus {
 	background-color: #fffce1;
 	}
+
 input.v-textfield-error,
 textarea.v-textarea-test {
 	background-color: #FF7A7A;
 	}
-
 
 /*******************************************************************************
  * Readonly
