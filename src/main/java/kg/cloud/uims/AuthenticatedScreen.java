@@ -11,6 +11,7 @@ import kg.cloud.uims.ui.HelpView;
 import kg.cloud.uims.ui.RegistrationView;
 import kg.cloud.uims.ui.SuccessReportView;
 import kg.cloud.uims.ui.TranscriptView;
+import kg.cloud.uims.util.ExportReporttoPDF;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -22,7 +23,9 @@ import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
@@ -42,6 +45,7 @@ public class AuthenticatedScreen extends VerticalLayout implements
 	private VerticalLayout statusLayout;
 	private VerticalLayout navigationLayout;
 	private Tree navTree;
+	private Button userDetails,help;
 	private Subject currentUser = SecurityUtils.getSubject();
 
 	public AuthenticatedScreen(MyVaadinApplication app) {
@@ -62,7 +66,8 @@ public class AuthenticatedScreen extends VerticalLayout implements
 					Level.SEVERE, null, ex);
 		}
 
-		HorizontalLayout logLayout = new HorizontalLayout();
+		GridLayout logLayout = new GridLayout(1,2);
+		HorizontalLayout userlog = new HorizontalLayout();
 
 		Label logLabel = new Label("<b>"
 				+ app.getMessage(UimsMessages.LogInAsLabel) + ": </b>");
@@ -70,16 +75,26 @@ public class AuthenticatedScreen extends VerticalLayout implements
 
 	
 		ThemeResource iconUser = new ThemeResource("../runo/icons/16/user.png");
+		ThemeResource iconHelp = new ThemeResource("../runo/icons/16/help.png");
 
-		Button userDetails = new Button(currentUser.getPrincipal().toString());
+		userDetails = new Button(currentUser.getPrincipal().toString());
 		userDetails.setStyleName(ChameleonTheme.BUTTON_LINK);
 		userDetails.setDescription(app.getMessage(UimsMessages.ButtonTooltip));
 		userDetails.setIcon(iconUser);
 		userDetails.addListener((Button.ClickListener) this);
+		
+		help = new Button("Help");
+		help.setStyleName(ChameleonTheme.BUTTON_LINK);
+		help.setIcon(iconHelp);
+		help.addListener((Button.ClickListener) this);
 
-		logLayout.setSpacing(true);
-		logLayout.addComponent(logLabel);
-		logLayout.addComponent(userDetails);
+		userlog.addComponent(logLabel);
+		userlog.addComponent(userDetails);
+		logLayout.setSizeFull();
+		logLayout.setComponentAlignment(help, Alignment.MIDDLE_RIGHT);
+		logLayout.addComponent(help,0,0);
+		logLayout.addComponent(userlog,0,1);
+		
 
 		Label label = new Label("<b>"
 				+ app.getMessage(UimsMessages.CurYearLabel) + ": </b> <i>"
@@ -123,7 +138,8 @@ public class AuthenticatedScreen extends VerticalLayout implements
 				app.getMessage(UimsMessages.TSBSuccessReport)};
 		String[] instructor = { app.getMessage(UimsMessages.TBInstructor),
 				app.getMessage(UimsMessages.TSBAttendance),
-				app.getMessage(UimsMessages.TSBExam) 
+				app.getMessage(UimsMessages.TSBExam)
+				
 				};
 
 		int size = 0;
@@ -233,7 +249,15 @@ public class AuthenticatedScreen extends VerticalLayout implements
 	}
 
 	public void buttonClick(Button.ClickEvent event) {
-		this.horizontalPanel.setSecondComponent(new ChangeUserData(app));
+		final Button source = event.getButton();
+		if (source == userDetails) {
+			this.horizontalPanel.setSecondComponent(new ChangeUserData(app));
+		}
+		
+		if (source == help) {
+			this.horizontalPanel.setSecondComponent(new HelpView(app));
+		}
 	}
+		
 
 }
