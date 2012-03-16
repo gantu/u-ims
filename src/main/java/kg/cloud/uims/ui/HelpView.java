@@ -51,8 +51,9 @@ public class HelpView extends VerticalLayout implements
 	public void buildBody() {
 		body = new VerticalLayout();
 		// Tab 1 content
-		VerticalLayout statLay = new VerticalLayout();
+		GridLayout statLay = new GridLayout(2, 1);
 		statLay.setMargin(true);
+		statLay.setSizeFull();
 		Label statusesLabel = new Label(
 				"<h3>"
 						+ "Academic Statuses"
@@ -62,7 +63,7 @@ public class HelpView extends VerticalLayout implements
 						+ "<li>Master - Yüksek lisans</li>"
 						+ "<li>Phd - Doktora</li>"
 						+ "</ul>"
-						
+
 						+ "<h3>"
 						+ "Education Statuses"
 						+ "</h3><p>"
@@ -73,7 +74,7 @@ public class HelpView extends VerticalLayout implements
 						+ "<li>Out of - Üniversitemizden herhangi bir sebepten ilişiği kesilmiş olan öğrenci</li>"
 						+ "<li>Suspension - Eğitimini 1 veya 2 dönem dondurmuş olan öğrenci</li>"
 						+ "</ul>"
-						
+
 						+ "<h3>"
 						+ "Lesson Statuses"
 						+ "</h3><p>"
@@ -81,58 +82,72 @@ public class HelpView extends VerticalLayout implements
 						+ "<li>1 - İlk defa alınan ders, devamlılık mecburieti vardır</li>"
 						+ "<li>2 - Devamsızlıktan kalınan ve devamlılık mecburieti olan ders statusudur</li>"
 						+ "<li>3 - Sınavdan kalınan ve devamlılık mecburieti olan ders statusudur</li>"
-						+ "</ul>"
-						
-						+ "<h3>"
-						+ "Account Statuses"
-						+ "</h3><p>"
-						+ "<ul>"
-						+ "<li>Rector - Rektörlük</li>"
-						+ "<li>Student Affairs - Öğrenci İşleri Daire Daskanlığı</li>"
-						+ "<li>Dean - Dekanlık</li>"
-						+ "<li>Head of Department - Bölüm Başkanlığı</li>"
-						+ "<li>Supervisor - Sınıf Danışmanları</li>"
-						+ "<li>Instructor - Öğretim Görevlileri</li>"
-						+ "<li>Sekretary - Dekan veya Bölüm Sekreterlikleri</li>"
-						+ "<li>Student - Öğrenci</li>"
 						+ "</ul>");
 		statusesLabel.setSizeFull();
 		statusesLabel.setContentMode(Label.CONTENT_XHTML);
 		statLay.addComponent(statusesLabel);
+
+		Label statusesLabel2 = new Label("<h3>" + "Account Statuses"
+				+ "</h3><p>" + "<ul>" + "<li>Rector - Rektörlük</li>"
+				+ "<li>Student Affairs - Öğrenci İşleri Daire Daskanlığı</li>"
+				+ "<li>Dean - Dekanlık</li>"
+				+ "<li>Head of Department - Bölüm Başkanlığı</li>"
+				+ "<li>Supervisor - Sınıf Danışmanları</li>"
+				+ "<li>Instructor - Öğretim Görevlileri</li>"
+				+ "<li>Sekretary - Dekan veya Bölüm Sekreterlikleri</li>"
+				+ "<li>Student - Öğrenci</li>" + "</ul>");
+		statusesLabel2.setSizeFull();
+		statusesLabel2.setContentMode(Label.CONTENT_XHTML);
+		statLay.addComponent(statusesLabel2, 1, 0);
 		// Tab 2 content
-		VerticalLayout deptLay = new VerticalLayout();
+		GridLayout deptLay = new GridLayout(2, 1);
 		deptLay.setMargin(true);
-		Label depLabel = new Label(
-				"<h3>"
-						+ "Codes of Faculties"
-						+ "</h3><p>"
-						+ "<ul>"
-						+ "<li>EAF - Economy and Administration</li>"
-						+ "<li>HNF - Humanities and Natural Science</li>"
-						+ "<li>NTF - New Technologies</li>"
-						+ "<li>ISN - Institute of Social and Natural Sciences</li>"
-						+ "</ul>"
-						
-						+ "<h3>"
-						+ "Codes of Departments"
-						+ "</h3><p>"
-						+ "<ul>"
-						+ "<li>ASU - American Studies</li>"
-						+ "<li>CHN - Chinese Language</li>"
-						+ "<li>COM - Computer Engineering</li>"
-						+ "<li>DOK - Language Teaching Department</li>"
-						+ "<li>ELL - English Language and Literature</li>"
-						+ "</ul>"			
-						);
+		deptLay.setSizeFull();
+		Label depLabel = new Label("<h3>" + "NTF - New Technologies"
+				+ "</h3><p>" + "<ul>" + "<li>COM - Computer Engineering</li>"
+				+ "<li>ELT - Industrial Electronics Engineering</li>"
+				+ "<li>IDE - Industrial Engineering</li>"
+				+ "<li>MAT - Applied Math&Informatics</li>" + "</ul>"
+
+				+ "<h3>" + "ISN - Institute of Social & Natural Science"
+				+ "</h3><p>" + "<ul>"+ " <li>PCO - Psychologic Consulting</li>"
+				+ " <li>EST - Elementary School Teaching</li>" + "</ul>"
+
+				 + "<h3>" + "Master and Phd"
+				 + "</h3><p>" + "<ul>" +"<li>PIM - PhD of IT Management for Economic&S</li>" 
+				 +"<li>PMC - PhD of Mathematical and Software Ap</li>" 
+				 +"<li>MES - Master of English Studies</li>"           
+				 +"<li>MCS - Master of Computer Science </li>"         
+				 +"<li>MIR - Master of International Relations</li>"   
+				 +"<li>MBA - Master of Business Administration</li>" + "</ul>");
 		depLabel.setSizeFull();
 		depLabel.setContentMode(Label.CONTENT_XHTML);
-		deptLay.addComponent(depLabel);
+		deptLay.addComponent(depLabel, 0, 0);
+
+		Label depLabel2 = new Label("<h3>" + "EAF - Economy and Administration" + "</h3><p>"
+				+ "<ul>" + " <li>MAN - Management</li>"
+				+ " <li>INT - International Relations</li>"
+				+ " <li>FIN - Finance and Banking</li>"
+				+ " <li>WEC - World Economy</li>" + "</ul>"
+
+				+ "<h3>" + "HNF - Humanities and Natural Science" + "</h3><p>"
+				+ "<ul>" + "<li>KGZ - Kyrgyz Language</li>"
+				+ "<li>ASU - American Studies</li>"
+				+ " <li>DOK - Language Teaching Department</li>"
+				+ " <li>CHN - Chinese Language</li>"
+				+ " <li>SYT - Synchronic Translation</li>"
+				+ " <li>ELL - English Language Literature</li>"
+				+ " <li>TUR - Turkish Language</li>" + "</ul>"
+				);
+		depLabel2.setSizeFull();
+		depLabel2.setContentMode(Label.CONTENT_XHTML);
+		deptLay.addComponent(depLabel2, 1, 0);
 
 		t = new TabSheet();
 		t.setSizeFull();
 		// t.addStyleName(ChameleonTheme.TABSHEET_BORDERLESS);
 		t.addTab(statLay, "Statuses", icon1);
-		t.addTab(deptLay, "Codes", icon1);
+		t.addTab(deptLay, "Departments", icon1);
 		t.addListener(this);
 
 		body.addComponent(t);
