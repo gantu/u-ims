@@ -49,8 +49,11 @@ public class AuthenticatedScreen extends VerticalLayout implements
 	private Subject currentUser = SecurityUtils.getSubject();
 
 	public AuthenticatedScreen(MyVaadinApplication app) {
+		
+		
 		super();
 		this.app = app;
+		
 		horizontalPanel = new HorizontalSplitPanel();
 		horizontalPanel.setSplitPosition(20, Sizeable.UNITS_PERCENTAGE);
 		horizontalPanel.setSizeFull();
@@ -66,6 +69,7 @@ public class AuthenticatedScreen extends VerticalLayout implements
 					Level.SEVERE, null, ex);
 		}
 
+		
 		GridLayout logLayout = new GridLayout(1,2);
 		HorizontalLayout userlog = new HorizontalLayout();
 
@@ -114,6 +118,13 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		statusLayout.addComponent(label);
 		statusLayout.addComponent(logout);
 		statusLayout.addComponent(buildTree());
+		if(app.getuserStatus()==0){
+			userDetails.setEnabled(false);
+			Label warning = new Label("<br><h2>"+ "Sorry! The system is on the construction. "
+					 + "Try later!" + "</2>");
+			warning.setContentMode(Label.CONTENT_XHTML);
+			statusLayout.addComponent(warning);
+		}
 
 		navigationLayout = new VerticalLayout();
 		navigationLayout.addComponent(statusLayout);
@@ -192,6 +203,10 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		navTree.setItemIconPropertyId("icon");
 		navTree.setItemCaptionMode(Tree.ITEM_CAPTION_MODE_PROPERTY);
 		navTree.setImmediate(true);
+		
+		if(app.getuserStatus()==0){
+			navTree.setEnabled(false);
+		}
 
 		navTree.addListener(new ValueChangeListener() {
 
