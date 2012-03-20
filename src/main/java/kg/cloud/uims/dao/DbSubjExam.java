@@ -13,7 +13,7 @@ public class DbSubjExam extends BaseDb {
     
     public void execSQL(String subj_id,String yearID,String semID,String exam_id) throws SQLException{
         
-        String sql ="select t1.name,t1.surname,t2.name,t3.exam_name,t4.s_exam_id,t4.stud_less_id,t4.mark,t5.status,t6.name " +
+        String sql ="select t1.id, t1.name,t1.surname,t2.name,t3.exam_name,t4.s_exam_id,t4.stud_less_id,t4.mark,t5.status,t6.name " +
                 "from less_stud as t5 left join student as t1 on t1.id=t5.student_id " +
                 "left join subjects as t2 on t5.subject_id=t2.id " +
                 "left join sinif as t6 on t1.group_id=t6.id " +
@@ -34,7 +34,7 @@ public class DbSubjExam extends BaseDb {
                     result.getInt("t4.stud_less_id"),result.getString("t1.name"),
                     result.getString("t1.surname"),result.getString("t6.name"),
                     result.getString("t2.name"),result.getInt("t5.status"),
-                    result.getString("t3.exam_name"),result.getInt("t4.mark")));            
+                    result.getString("t3.exam_name"),result.getInt("t4.mark"),result.getInt("t1.id")));            
         }
     }
     
