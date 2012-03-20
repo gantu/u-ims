@@ -2,13 +2,10 @@ package kg.cloud.uims.util;
 
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbExam;
-import kg.cloud.uims.dao.DbInstructor;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.domain.Exam;
-import kg.cloud.uims.domain.Instructor;
 import kg.cloud.uims.domain.StudLess;
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
@@ -19,9 +16,7 @@ import com.vaadin.terminal.StreamResource;
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import com.lowagie.text.Image;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
@@ -42,7 +37,6 @@ public class MakeAverageList {
 
 	private String subjectId = null;
 	private ArrayList<StudLess> studLessList;
-	private ArrayList<Instructor> inst;
 	private MyVaadinApplication app;
 	private String year_id, sem_id;
 
@@ -73,13 +67,6 @@ public class MakeAverageList {
 
 					DbExam dbExam = new DbExam();
 					dbExam.connect();
-
-					DbInstructor dbInstructor = new DbInstructor();
-					dbInstructor.connect();
-					dbInstructor.execSQL_byRole(currentUser.getPrincipal()
-							.toString());
-					inst = dbInstructor.getArray();
-					dbInstructor.close();
 
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
@@ -214,8 +201,8 @@ public class MakeAverageList {
 						Tfoot.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_LEFT);
 						Tfoot.addCell(new Phrase("Name Surname :"
-								+ inst.get(0).getInstructorName() + " "
-								+ inst.get(0).getInstructorSurname(), in_font));
+								+ app.getInstName() + " "
+								+ app.getInstSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
 						document.add(Tfoot);
 					} else {

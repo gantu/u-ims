@@ -1,12 +1,11 @@
 package kg.cloud.uims.util;
 
 import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.dao.DbInstructor;
+import kg.cloud.uims.dao.DbStudAccounting;
 import kg.cloud.uims.dao.DbStudLess;
-import kg.cloud.uims.domain.Instructor;
+import kg.cloud.uims.domain.StudAccounting;
 import kg.cloud.uims.domain.StudLess;
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
@@ -17,9 +16,7 @@ import com.vaadin.terminal.StreamResource;
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import com.lowagie.text.Image;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
@@ -40,7 +37,6 @@ public class MakeSignatureList {
 
 	private String subjectId = null;
 	private ArrayList<StudLess> studLessList;
-	private ArrayList<Instructor> inst;
 	private MyVaadinApplication app;
 	private String year_id, sem_id;
 
@@ -68,13 +64,9 @@ public class MakeSignatureList {
 					dbStudLess.connect();
 					dbStudLess.execSQL_Exam(subjectId, year_id, sem_id);
 					studLessList = dbStudLess.getArray();
-
-					DbInstructor dbInstructor = new DbInstructor();
-					dbInstructor.connect();
-					dbInstructor.execSQL_byRole(currentUser.getPrincipal()
-							.toString());
-					inst = dbInstructor.getArray();
-					dbInstructor.close();
+					
+					DbStudAccounting dbAccounting = new DbStudAccounting();
+					dbAccounting.connect();
 
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
@@ -132,14 +124,15 @@ public class MakeSignatureList {
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
 
-						float[] Tbody_colsWidth = { 0.1f, 1f, 0.5f, 0.5f, 0.4f,
-								0.6f };
-						PdfPTable Tbody = new PdfPTable(6);
+						float[] Tbody_colsWidth = { 0.1f, 0.9f, 0.6f, 0.3f, 0.5f, 0.3f,
+								0.4f };
+						PdfPTable Tbody = new PdfPTable(7);
 						Tbody.setWidthPercentage(90f);
 						Tbody.setWidths(Tbody_colsWidth);
 						Tbody.getDefaultCell().setFixedHeight(16);
 						Tbody.addCell(new Phrase("#", in_font));
 						Tbody.addCell(new Phrase("Name Surname", in_font));
+						Tbody.addCell(new Phrase("Accounting", in_font));
 						Tbody.addCell(new Phrase("Group", in_font));
 						Tbody.addCell(new Phrase("Signature", in_font));
 						Tbody.addCell(new Phrase("Papers", in_font));
@@ -147,16 +140,36 @@ public class MakeSignatureList {
 
 						int count = 0;
 						for (int i = 0; i < studLessList.size(); i++) {
+							String stud_id = Integer.toString(studLessList.get(
+									i).getStudID());
+							dbAccounting.execSQL(stud_id, sem_id, year_id);
+							ArrayList<StudAccounting> account = dbAccounting
+									.getArray();
 							if ((app.getCurrentExam().getID() == 1)
 									|| (app.getCurrentExam().getID() == 2)) {
 								count++;
 								Tbody.addCell(new Phrase(Integer
 										.toString(count), text_font));
-								Tbody.addCell(new Phrase(studLessList.get(i)
-										.getStudName()
-										+ " "
-										+ studLessList.get(i).getStudSurname(),
-										text_font));
+								if (account.isEmpty()
+										|| ((account.get(0).getFinStatus() != 1 && app.getCurrentExam().getID() == 2))
+										|| ((account.get(0).getMidStatus() != 1 && app.getCurrentExam().getID() == 1))) {
+									Tbody.addCell(new Phrase("*"
+											+ studLessList.get(i).getStudName()
+											+ " "
+											+ studLessList.get(i)
+													.getStudSurname(),
+											text_font));
+									Tbody.addCell(new Phrase("Will not graduate",text_font));
+								} else {
+									Tbody.addCell(new Phrase(studLessList
+											.get(i).getStudName()
+											+ " "
+											+ studLessList.get(i)
+													.getStudSurname(),
+											text_font));
+									Tbody.addCell(new Phrase("OK",text_font));
+								}
+								
 								Tbody.addCell(new Phrase(studLessList.get(i)
 										.getGrpName(), text_font));
 								Tbody.addCell(" ");
@@ -170,12 +183,26 @@ public class MakeSignatureList {
 									count++;
 									Tbody.addCell(new Phrase(Integer
 											.toString(count), text_font));
-									Tbody.addCell(new Phrase(studLessList
-											.get(i).getStudName()
-											+ " "
-											+ studLessList.get(i)
-													.getStudSurname(),
-											text_font));
+									if (account.isEmpty()
+											|| account.get(0).getFinStatus() != 1) {
+										Tbody.addCell(new Phrase("*"
+												+ studLessList.get(i)
+														.getStudName()
+												+ " "
+												+ studLessList.get(i)
+														.getStudSurname(),
+												text_font));
+										Tbody.addCell(new Phrase("Will not graduate",text_font));
+									} else {
+										Tbody.addCell(new Phrase(studLessList
+												.get(i).getStudName()
+												+ " "
+												+ studLessList.get(i)
+														.getStudSurname(),
+												text_font));
+										Tbody.addCell(new Phrase("OK",text_font));
+									}
+									
 									Tbody.addCell(new Phrase(studLessList
 											.get(i).getGrpName(), text_font));
 									Tbody.addCell(" ");
@@ -194,8 +221,8 @@ public class MakeSignatureList {
 						Tfoot.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_LEFT);
 						Tfoot.addCell(new Phrase("Name Surname :"
-								+ inst.get(0).getInstructorName() + " "
-								+ inst.get(0).getInstructorSurname(), in_font));
+								+ app.getInstName() + " "
+								+ app.getInstSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
 						document.add(Tfoot);
 
@@ -204,6 +231,7 @@ public class MakeSignatureList {
 					}
 
 					dbStudLess.close();
+					dbAccounting.close();
 
 				} catch (Exception e) {
 					e.printStackTrace();

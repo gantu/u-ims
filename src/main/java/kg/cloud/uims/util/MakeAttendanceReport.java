@@ -1,13 +1,10 @@
 package kg.cloud.uims.util;
 
 import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.dao.DbInstructor;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.dao.DbStudent_Attendance;
-import kg.cloud.uims.domain.Instructor;
 import kg.cloud.uims.domain.StudLess;
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
@@ -18,9 +15,7 @@ import com.vaadin.terminal.StreamResource;
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 
 import com.lowagie.text.Image;
@@ -76,14 +71,7 @@ public class MakeAttendanceReport {
 							curr_Sem_id);
 					studLessList = dbStudLess.getArray();
 					dbStudLess.close();
-
-					DbInstructor dbInstructor = new DbInstructor();
-					dbInstructor.connect();
-					dbInstructor.execSQL_byRole(currentUser.getPrincipal()
-							.toString());
-					ArrayList<Instructor> inst = dbInstructor.getArray();
-					dbInstructor.close();
-
+					
 					DbStudent_Attendance dbAttandance = new DbStudent_Attendance();
 					dbAttandance.connect();
 
@@ -204,8 +192,8 @@ public class MakeAttendanceReport {
 						Tfoot.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_LEFT);
 						Tfoot.addCell(new Phrase("Name Surname : "
-								+ inst.get(0).getInstructorName() + " "
-								+ inst.get(0).getInstructorSurname(), in_font));
+								+ app.getInstName() + " "
+								+ app.getInstSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
 						document.add(Tfoot);
 

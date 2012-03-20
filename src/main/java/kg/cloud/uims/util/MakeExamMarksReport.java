@@ -1,16 +1,15 @@
 package kg.cloud.uims.util;
 
 import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.dao.DbInstructor;
+import kg.cloud.uims.dao.DbStudAccounting;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.dao.DbSubjExam;
 import kg.cloud.uims.dao.DbSubjects;
-import kg.cloud.uims.domain.Instructor;
+import kg.cloud.uims.domain.StudAccounting;
 import kg.cloud.uims.domain.SubjExam;
 import kg.cloud.uims.domain.Subjects;
 
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
@@ -21,9 +20,7 @@ import com.vaadin.terminal.StreamResource;
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import com.lowagie.text.Image;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
@@ -44,10 +41,9 @@ public class MakeExamMarksReport {
 
 	private String subjectId = null;
 	private ArrayList<SubjExam> studLessList;
-	private ArrayList<Instructor> inst;
 	private ArrayList<Subjects> subj;
 	private MyVaadinApplication app;
-	private String year_id, sem_id, exam_id, exam_name;
+	private String year_id, sem_id, exam_id, exam_name,exam_mark;
 
 	public MakeExamMarksReport(final MyVaadinApplication app, String subj_id,
 			String e_id, String e_name) {
@@ -72,9 +68,6 @@ public class MakeExamMarksReport {
 
 				try {
 
-					DbStudLess dbStudLess = new DbStudLess();
-					dbStudLess.connect();
-
 					DbSubjExam dbSubjExam = new DbSubjExam();
 					dbSubjExam.connect();
 					dbSubjExam.execSQL(subjectId, year_id, sem_id, exam_id);
@@ -86,13 +79,9 @@ public class MakeExamMarksReport {
 					dbsubject.execSQL_subj(subjectId);
 					subj = dbsubject.getArray();
 					dbsubject.close();
-
-					DbInstructor dbInstructor = new DbInstructor();
-					dbInstructor.connect();
-					dbInstructor.execSQL_byRole(currentUser.getPrincipal()
-							.toString());
-					inst = dbInstructor.getArray();
-					dbInstructor.close();
+					
+					DbStudAccounting dbAccounting = new DbStudAccounting();
+					dbAccounting.connect();
 
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
@@ -158,22 +147,43 @@ public class MakeExamMarksReport {
 						Tbody.addCell(new Phrase("Group", in_font));
 						Tbody.addCell(new Phrase("Mark", in_font));
 						for (int i = 0; i < studLessList.size(); i++) {
+							String stud_id = Integer.toString(studLessList.get(
+									i).getStudID());
+							dbAccounting.execSQL(stud_id, sem_id, year_id);
+							ArrayList<StudAccounting> account = dbAccounting
+									.getArray();
 							Tbody.addCell(new Phrase(Integer.toString(i + 1),
 									text_font));
 							Tbody.getDefaultCell().setHorizontalAlignment(
 									Element.ALIGN_LEFT);
-							Tbody.addCell(new Phrase(studLessList.get(i)
-									.getStudentName()
-									+ " "
-									+ studLessList.get(i).getStudentSurname(),
-									text_font));
+							if (account.isEmpty()
+									|| ((account.get(0).getFinStatus() != 1 && exam_id.equals("2")))
+									|| ((account.get(0).getMidStatus() != 1 && exam_id.equals("1")))) {
+								Tbody.addCell(new Phrase("*"
+										+ studLessList.get(i).getStudentName()
+										+ " "
+										+ studLessList.get(i)
+												.getStudentSurname(),
+										text_font));
+								exam_mark="IP";
+								
+							} else {
+								Tbody.addCell(new Phrase(studLessList
+										.get(i).getStudentName()
+										+ " "
+										+ studLessList.get(i)
+												.getStudentSurname(),
+										text_font));
+	
+								exam_mark=Integer.toString(studLessList.get(i)
+										.getExamMark());
+							}
+							
 							Tbody.getDefaultCell().setHorizontalAlignment(
 									Element.ALIGN_CENTER);
 							Tbody.addCell(new Phrase(studLessList.get(i)
 									.getGroup(), text_font));
-							Tbody.addCell(new Phrase(
-									Integer.toString(studLessList.get(i)
-											.getExamMark()), text_font));
+							Tbody.addCell(new Phrase(exam_mark, text_font));
 						}
 						document.add(Tbody);
 						document.add(new Paragraph(10, " "));
@@ -184,15 +194,14 @@ public class MakeExamMarksReport {
 						Tfoot.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_LEFT);
 						Tfoot.addCell(new Phrase("Name Surname : "
-								+ inst.get(0).getInstructorName() + " "
-								+ inst.get(0).getInstructorSurname(), in_font));
+								+ app.getInstName() + " "
+								+ app.getInstSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
 						document.add(Tfoot);
 					} else {
 						document.add(new Phrase("No records found", warning));
 					}
 
-					dbStudLess.close();
 
 				} catch (Exception e) {
 					e.printStackTrace();

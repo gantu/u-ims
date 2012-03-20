@@ -1,10 +1,8 @@
 package kg.cloud.uims.util;
 
 import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.dao.DbInstructor;
 import kg.cloud.uims.dao.DbStudAccounting;
 import kg.cloud.uims.dao.DbStudLess;
-import kg.cloud.uims.domain.Instructor;
 import kg.cloud.uims.domain.StudAccounting;
 import kg.cloud.uims.domain.StudLess;
 import com.lowagie.text.Document;
@@ -39,7 +37,6 @@ public class MakeResultList {
 
 	private String subjectId = null;
 	private ArrayList<StudLess> studLessList;
-	private ArrayList<Instructor> inst;
 	private MyVaadinApplication app;
 	private String year_id, sem_id;
 
@@ -67,13 +64,6 @@ public class MakeResultList {
 					dbStudLess.connect();
 					dbStudLess.execSQL_Exam(subjectId, year_id, sem_id);
 					studLessList = dbStudLess.getArray();
-
-					DbInstructor dbInstructor = new DbInstructor();
-					dbInstructor.connect();
-					dbInstructor.execSQL_byRole(currentUser.getPrincipal()
-							.toString());
-					inst = dbInstructor.getArray();
-					dbInstructor.close();
 
 					DbStudAccounting dbAccounting = new DbStudAccounting();
 					dbAccounting.connect();
@@ -133,13 +123,14 @@ public class MakeResultList {
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
 
-						float[] Tbody_colsWidth = { 0.1f, 1f, 0.4f, 0.4f };
-						PdfPTable Tbody = new PdfPTable(4);
+						float[] Tbody_colsWidth = { 0.1f, 1f, 0.6f, 0.4f, 0.4f };
+						PdfPTable Tbody = new PdfPTable(5);
 						Tbody.setWidthPercentage(90f);
 						Tbody.setWidths(Tbody_colsWidth);
 						Tbody.getDefaultCell().setFixedHeight(16);
 						Tbody.addCell(new Phrase("#", in_font));
 						Tbody.addCell(new Phrase("Name Surname", in_font));
+						Tbody.addCell(new Phrase("Accounting", in_font));
 						Tbody.addCell(new Phrase("Group", in_font));
 						Tbody.addCell(new Phrase("Mark", in_font));
 
@@ -156,21 +147,15 @@ public class MakeResultList {
 								Tbody.addCell(new Phrase(Integer
 										.toString(count), text_font));
 								if (account.isEmpty()
-										|| (account.get(0).getFinStatus() != 1 && app.getCurrentExam().getID() == 2)) {
+										|| ((account.get(0).getFinStatus() != 1 && app.getCurrentExam().getID() == 2))
+										|| ((account.get(0).getMidStatus() != 1 && app.getCurrentExam().getID() == 1))) {
 									Tbody.addCell(new Phrase("*"
 											+ studLessList.get(i).getStudName()
 											+ " "
 											+ studLessList.get(i)
 													.getStudSurname(),
 											text_font));
-								}else if (account.isEmpty()
-										|| (account.get(0).getMidStatus() != 1 && app.getCurrentExam().getID() == 1)) {
-									Tbody.addCell(new Phrase("*"
-											+ studLessList.get(i).getStudName()
-											+ " "
-											+ studLessList.get(i)
-													.getStudSurname(),
-											text_font));
+									Tbody.addCell(new Phrase("Will not graduate",text_font));
 								} else {
 									Tbody.addCell(new Phrase(studLessList
 											.get(i).getStudName()
@@ -178,6 +163,7 @@ public class MakeResultList {
 											+ studLessList.get(i)
 													.getStudSurname(),
 											text_font));
+									Tbody.addCell(new Phrase("OK",text_font));
 								}
 								Tbody.addCell(new Phrase(studLessList.get(i)
 										.getGrpName(), text_font));
@@ -199,6 +185,7 @@ public class MakeResultList {
 												+ studLessList.get(i)
 														.getStudSurname(),
 												text_font));
+										Tbody.addCell(new Phrase("Will not graduate",text_font));
 									} else {
 										Tbody.addCell(new Phrase(studLessList
 												.get(i).getStudName()
@@ -206,6 +193,7 @@ public class MakeResultList {
 												+ studLessList.get(i)
 														.getStudSurname(),
 												text_font));
+										Tbody.addCell(new Phrase("OK",text_font));
 									}
 									Tbody.addCell(new Phrase(studLessList
 											.get(i).getGrpName(), text_font));
@@ -223,8 +211,8 @@ public class MakeResultList {
 						Tfoot.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_LEFT);
 						Tfoot.addCell(new Phrase("Name Surname :"
-								+ inst.get(0).getInstructorName() + " "
-								+ inst.get(0).getInstructorSurname(), in_font));
+								+ app.getInstName() + " "
+								+ app.getInstSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
 						document.add(Tfoot);
 					} else {
