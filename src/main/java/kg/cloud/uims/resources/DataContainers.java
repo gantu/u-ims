@@ -3,12 +3,16 @@ package kg.cloud.uims.resources;
 import java.util.ArrayList;
 
 import kg.cloud.uims.MyVaadinApplication;
+import kg.cloud.uims.dao.DbDepartment;
 import kg.cloud.uims.dao.DbExam;
+import kg.cloud.uims.dao.DbGroup;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.dao.DbStudent;
 import kg.cloud.uims.dao.DbStudent_Attendance;
 import kg.cloud.uims.dao.DbSubjects;
+import kg.cloud.uims.domain.Department;
 import kg.cloud.uims.domain.Exam;
+import kg.cloud.uims.domain.Group;
 import kg.cloud.uims.domain.StudLess;
 import kg.cloud.uims.domain.Student;
 import kg.cloud.uims.domain.Subjects;
@@ -44,6 +48,7 @@ public class DataContainers {
 	public String PROPERTY_STUDENT_ATTENDANCE;
 
 	public String PROPERTY_GROUP_NAME;
+	public String PROPERTY_FACULTY_CODE;
 
 	public String PROPERTY_STUDENT_MARK;
 
@@ -79,6 +84,7 @@ public class DataContainers {
 				.getMessage(UimsMessages.SubjectHoursPerWeek);
 		PROPERTY_GROUP_NAME = app.getMessage(UimsMessages.GroupName);
 		PROPERTY_STUDENT_MARK = app.getMessage(UimsMessages.StudentMark);
+		PROPERTY_FACULTY_CODE = app.getMessage(UimsMessages.FacultyCode);
 	}
 
 	public DataContainers() {
@@ -373,48 +379,95 @@ public class DataContainers {
 		return container;
 	}
 
-	public IndexedContainer getInstructor_Lesson(String year_id, String sem_id,
-			String rollnum) {
+	public IndexedContainer getGroupList_forSelect(int f_id) {
 
-		IndexedContainer instLessContainer = new IndexedContainer();
-		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_CODE,
+		IndexedContainer deptContainer = new IndexedContainer();
+		deptContainer.addContainerProperty(PROPERTY_GROUP_NAME,
 				String.class, null);
-		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_NAME,
-				String.class, null);
-		instLessContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
-				String.class, null);
-		instLessContainer.addContainerProperty(PROPERTY_STDYEAR, String.class,
-				null);
-		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_HOURS_WEEK,
-				String.class, null);
+		
 		try {
-			DbSubjects dbSubjects = new DbSubjects();
-			dbSubjects.connect();
-			dbSubjects.execSQL_subj_inst_new(year_id, sem_id, rollnum);
-			ArrayList<Subjects> instLessList = dbSubjects.getArray();
-			dbSubjects.close();
+			DbGroup dbGroup = new DbGroup();
+			dbGroup.connect();
+			dbGroup.execSQL_byFID(f_id);
+			ArrayList<Group> groupList = dbGroup.getArray();
+			dbGroup.close();
 
-			for (int i = 0; i < instLessList.size(); i++) {
-				String id = Integer.toString(instLessList.get(i).getID());
-				Item item = instLessContainer.addItem(id);
-				item.getItemProperty(PROPERTY_SUBJECT_CODE).setValue(
-						instLessList.get(i).getSubjCode());
-				item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
-						instLessList.get(i).getSubjectName());
-				item.getItemProperty(PROPERTY_DEPARTMENT_CODE).setValue(
-						instLessList.get(i).getDepartment());
-				item.getItemProperty(PROPERTY_STDYEAR).setValue(
-						instLessList.get(i).getStdYear());
-				item.getItemProperty(PROPERTY_SUBJECT_HOURS_WEEK).setValue(
-						instLessList.get(i).getSubjHrs());
-
+			for (int i = 0; i < groupList.size(); i++) {
+				String id = Integer.toString(groupList.get(i).getID());
+				Item item = deptContainer.addItem(id);
+				item.getItemProperty(PROPERTY_GROUP_NAME).setValue(
+						groupList.get(i).getGr_Name());
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		instLessContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE,
-				PROPERTY_STDYEAR }, new boolean[] { true });
-		return instLessContainer;
+		deptContainer.sort(new Object[] { PROPERTY_GROUP_NAME }, new boolean[] { true });
+		return deptContainer;
+
+	}
+	
+	public IndexedContainer getGroupList(int f_id) {
+
+		IndexedContainer deptContainer = new IndexedContainer();
+		deptContainer.addContainerProperty(PROPERTY_GROUP_NAME,
+				String.class, null);
+		deptContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
+				String.class, null);
+		deptContainer.addContainerProperty(PROPERTY_FACULTY_CODE,
+				String.class, null);
+		
+		try {
+			DbGroup dbGroup = new DbGroup();
+			dbGroup.connect();
+			dbGroup.execSQL_byFID(f_id);
+			ArrayList<Group> groupList = dbGroup.getArray();
+			dbGroup.close();
+
+			for (int i = 0; i < groupList.size(); i++) {
+				String id = Integer.toString(groupList.get(i).getID());
+				Item item = deptContainer.addItem(id);
+				item.getItemProperty(PROPERTY_GROUP_NAME).setValue(
+						groupList.get(i).getGr_Name());
+				item.getItemProperty(PROPERTY_DEPARTMENT_CODE).setValue(
+						groupList.get(i).getD_Code());
+				item.getItemProperty(PROPERTY_FACULTY_CODE).setValue(
+						groupList.get(i).getF_Code());
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		deptContainer.sort(new Object[] { PROPERTY_GROUP_NAME }, new boolean[] { true });
+		return deptContainer;
+
+	}
+	
+	public IndexedContainer getDeptList(int f_id) {
+
+		IndexedContainer deptContainer = new IndexedContainer();
+		deptContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
+				String.class, null);
+		
+		try {
+			DbDepartment dbDepartment = new DbDepartment();
+			dbDepartment.connect();
+			dbDepartment.execSQL_F_ID(f_id);
+			ArrayList<Department> deptList = dbDepartment.getArray();
+			dbDepartment.close();
+
+			for (int i = 0; i < deptList.size(); i++) {
+				String id = Integer.toString(deptList.get(i).getID());
+				Item item = deptContainer.addItem(id);
+				item.getItemProperty(PROPERTY_DEPARTMENT_CODE).setValue(
+						deptList.get(i).getDprt_Code());
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		deptContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE }, new boolean[] { true });
+		return deptContainer;
 
 	}
 
@@ -521,6 +574,95 @@ public class DataContainers {
 		studListContainer.sort(new Object[] { studContainer_PROPERTY_NAME },
 				new boolean[] { true });
 		return studListContainer;
+
+	}
+	
+	public IndexedContainer getLessonList_byDept(String deptID, String year_id, String sem_id) {
+
+		IndexedContainer instLessContainer = new IndexedContainer();
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_CODE,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_NAME,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_STDYEAR, String.class,
+				null);
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_HOURS_WEEK,
+				String.class, null);
+		try {
+			DbSubjects dbSubjects = new DbSubjects();
+			dbSubjects.connect();
+			dbSubjects.execSQL_byDeprtActive(deptID, year_id, sem_id);
+			ArrayList<Subjects> lessonsList = dbSubjects.getArray();
+			dbSubjects.close();
+
+			for (int i = 0; i < lessonsList.size(); i++) {
+				String id = Integer.toString(lessonsList.get(i).getID());
+				Item item = instLessContainer.addItem(id);
+				item.getItemProperty(PROPERTY_SUBJECT_CODE).setValue(
+						lessonsList.get(i).getSubjCode());
+				item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
+						lessonsList.get(i).getSubjectName());
+				item.getItemProperty(PROPERTY_DEPARTMENT_CODE).setValue(
+						lessonsList.get(i).getDepartment());
+				item.getItemProperty(PROPERTY_STDYEAR).setValue(
+						lessonsList.get(i).getStdYear());
+				item.getItemProperty(PROPERTY_SUBJECT_HOURS_WEEK).setValue(
+						lessonsList.get(i).getSubjHrs());
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		instLessContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE,
+				PROPERTY_STDYEAR }, new boolean[] { true });
+		return instLessContainer;
+
+	}
+
+	public IndexedContainer getInstructor_Lesson(String year_id, String sem_id,
+			String rollnum) {
+
+		IndexedContainer instLessContainer = new IndexedContainer();
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_CODE,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_NAME,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
+				String.class, null);
+		instLessContainer.addContainerProperty(PROPERTY_STDYEAR, String.class,
+				null);
+		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_HOURS_WEEK,
+				String.class, null);
+		try {
+			DbSubjects dbSubjects = new DbSubjects();
+			dbSubjects.connect();
+			dbSubjects.execSQL_subj_inst_new(year_id, sem_id, rollnum);
+			ArrayList<Subjects> instLessList = dbSubjects.getArray();
+			dbSubjects.close();
+
+			for (int i = 0; i < instLessList.size(); i++) {
+				String id = Integer.toString(instLessList.get(i).getID());
+				Item item = instLessContainer.addItem(id);
+				item.getItemProperty(PROPERTY_SUBJECT_CODE).setValue(
+						instLessList.get(i).getSubjCode());
+				item.getItemProperty(PROPERTY_SUBJECT_NAME).setValue(
+						instLessList.get(i).getSubjectName());
+				item.getItemProperty(PROPERTY_DEPARTMENT_CODE).setValue(
+						instLessList.get(i).getDepartment());
+				item.getItemProperty(PROPERTY_STDYEAR).setValue(
+						instLessList.get(i).getStdYear());
+				item.getItemProperty(PROPERTY_SUBJECT_HOURS_WEEK).setValue(
+						instLessList.get(i).getSubjHrs());
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		instLessContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE,
+				PROPERTY_STDYEAR }, new boolean[] { true });
+		return instLessContainer;
 
 	}
 
