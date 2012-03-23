@@ -1,5 +1,8 @@
 package kg.cloud.uims.ui;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbStudent_Attendance;
 import kg.cloud.uims.i18n.UimsMessages;
@@ -34,6 +37,7 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 	IndexedContainer studentDatasource;
 	MyVaadinApplication app;
 
+	private Subject currentUser = SecurityUtils.getSubject();
 	private String subject_id = null;
 	private String subjectName = null;
 	private String curr_Sem_id, curr_Year_id, curr_Week_id;
@@ -69,6 +73,10 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 		save.addListener((Button.ClickListener) this);
 		report.setCaption(app.getMessage(UimsMessages.ButtonMakeReport));
 		report.addListener((Button.ClickListener) this);
+		
+		if(currentUser.hasRole("secretary")){
+			save.setEnabled(false);
+		}
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		GridLayout infoLayout = new GridLayout(3, 1);
