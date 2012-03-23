@@ -9,6 +9,7 @@ import kg.cloud.uims.ui.ChangeUserData;
 import kg.cloud.uims.ui.ExamView;
 import kg.cloud.uims.ui.HelpView;
 import kg.cloud.uims.ui.RegistrationView;
+import kg.cloud.uims.ui.StudentListView;
 import kg.cloud.uims.ui.SuccessReportView;
 import kg.cloud.uims.ui.TranscriptView;
 import kg.cloud.uims.util.ExportReporttoPDF;
@@ -152,11 +153,21 @@ public class AuthenticatedScreen extends VerticalLayout implements
 				app.getMessage(UimsMessages.TSBExam)
 				
 				};
+		
+		String[] secretary = { app.getMessage(UimsMessages.TBSecretary),
+				app.getMessage(UimsMessages.TSBAttendance),
+				app.getMessage(UimsMessages.TSBExam),
+				app.getMessage(UimsMessages.TSBStudentList),
+				app.getMessage(UimsMessages.TSBSuccessReport)
+				
+				};
 
 		int size = 0;
 		if (currentUser.hasRole("supervisor"))
 			size++;
 		if (currentUser.hasRole("instructor"))
+			size++;
+		if (currentUser.hasRole("secretary"))
 			size++;
 
 		String[][] navigation = new String[size][];
@@ -165,6 +176,8 @@ public class AuthenticatedScreen extends VerticalLayout implements
 			navigation[controller++] = supervisor;
 		if (currentUser.hasRole("instructor"))
 			navigation[controller++] = instructor;
+		if (currentUser.hasRole("secretary"))
+			navigation[controller++] = secretary;
 
 		Object propertyName = "name";
 		Object propertyIcon = "icon";
@@ -252,6 +265,12 @@ public class AuthenticatedScreen extends VerticalLayout implements
 							.getMessage(UimsMessages.TSBExam))) {
 						// getWindow().showNotification(eventPressed);
 						horizontalPanel.setSecondComponent(new ExamView(
+								app));
+
+					}else if (eventPressed.equals(app
+							.getMessage(UimsMessages.TSBStudentList))) {
+						// getWindow().showNotification(eventPressed);
+						horizontalPanel.setSecondComponent(new StudentListView(
 								app));
 
 					}
