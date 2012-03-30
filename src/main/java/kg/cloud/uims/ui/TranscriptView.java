@@ -33,7 +33,7 @@ public class TranscriptView extends VerticalLayout {
 		Label headerLabel = new Label("<h1>"
 				+ app.getMessage(UimsMessages.TranscriptHeader) + "</h1>");
 		headerLabel.setContentMode(Label.CONTENT_XHTML);
-		headerLabel.setSizeFull();
+		header.setMargin(false, false, false, true);
 		header.addComponent(headerLabel);
 		addComponent(header);
 	}

@@ -1,5 +1,8 @@
 package kg.cloud.uims.ui;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbSubjExam;
 import kg.cloud.uims.i18n.UimsMessages;
@@ -40,6 +43,7 @@ public class ExamWindow extends Window implements Button.ClickListener {
 	IndexedContainer studentDatasource;
 	MyVaadinApplication app;
 
+	private Subject currentUser = SecurityUtils.getSubject();
 	private String subject_id = null;
 	private String subjectName = null;
 	private String curr_Sem_id, curr_Year_id, curr_Exam_id;
@@ -82,6 +86,10 @@ public class ExamWindow extends Window implements Button.ClickListener {
 		makeUpMarks.addListener((Button.ClickListener) this);
 		avReport.setCaption("Average Report");
 		avReport.addListener((Button.ClickListener) this);
+		
+		if(currentUser.hasRole("secretary")){
+			save.setEnabled(false);
+		}
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		GridLayout infoLayout = new GridLayout(3, 1);

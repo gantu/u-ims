@@ -46,6 +46,12 @@ public class UimsMessages_en extends UimsMessages {
 			{ TBInstructor, "Lecturer" },
 			{ TSBAttendance, "Attendance" },
 			{ TSBExam, "Exam" },
+			
+			// Secretary Branches
+						{ TBSecretary, "Secretary" },
+						{ TSBStudentList, "Student List" },
+						{ FacultyCode, "Faculty" },
+				
 			// Registration View
 			{ RegistrationHeader, "Registration" },
 			{ RegistrationStudentName, "First Name" },

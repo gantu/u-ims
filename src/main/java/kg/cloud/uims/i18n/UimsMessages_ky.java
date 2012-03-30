@@ -43,6 +43,12 @@ public class UimsMessages_ky extends UimsMessages {
 			{ TBInstructor, "Окутуучу" },
 			{ TSBAttendance, "Жоктоо" },
 			{ TSBExam, "Сынак" },
+			
+			// Secretary Branches
+			{ TBSecretary, "Секретарь" },
+			{ TSBStudentList, "Список студентов" },
+			{ FacultyCode, "Факультет" },
+	
 			// Registration View
 			{ RegistrationHeader, "Регистрация" },
 			{ RegistrationStudentName, "Аты" },

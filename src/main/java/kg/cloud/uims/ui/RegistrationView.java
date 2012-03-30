@@ -34,6 +34,7 @@ public class RegistrationView extends VerticalLayout {
 				+ app.getMessage(UimsMessages.RegistrationHeader) + "</h1>");
 		headerLabel.setContentMode(Label.CONTENT_XHTML);
 		header.addComponent(headerLabel);
+		header.setMargin(false, false, false, true);
 		addComponent(header);
 	}
 
