@@ -111,29 +111,28 @@ public class UimsMessages_ky extends UimsMessages {
 			
 			// ExamWindow
 						{StudentMark, "Баасы"},
-						{NotifBigger100, "Оценка не может быть выше 100"},
+						{NotifBigger100, "Баа 100 балдан өйдө болбоого тийиш!"},
 
 			// HelpView
 			{ HelpHeader, "Жардам" },
 			// ChangeUserDataView
 			{ ChangeUserDataHeader, "Маалымат алмаштыр" },
-			{ FormCaptionUser, "Пользователь" },
+			{ FormCaptionUser, "Колдонуучу" },
 			{
 					FormDescription,
 					"Введите сложный пароль длинною 6-20 характеров - "
 							+ "цифры, латинские буквы и специальные символы." },
-			{ FormFiledCurPassword, "Текущий Пароль" },
-			{ FormFiledNewPassword, "Новый Пароль" },
-			{ FormFiledConfPassword, "Подтвердите Пароль" },
+			{ FormFiledCurPassword, "Азыркы Сыр Сөз" },
+			{ FormFiledNewPassword, "Жаңы Сыр Сөз" },
+			{ FormFiledConfPassword, "Жаңы Сыр Сөздү Кайталаңыз" },
 
-			{ RequiredErrorCurrPassword, "Пожалуйста, введите Текущий Пароль!" },
-			{ RequiredErrorNewPassword, "Пожалуйста, введите Новый Пароль!" },
+			{ RequiredErrorCurrPassword, "Сураныч,Азыркы Сыр Сөзүңүздү Кириңиз!" },
+			{ RequiredErrorNewPassword, "Сураныч,Жаңы Сыр Сөзүңүздү Кириңиз!" },
 			{ RequiredErrorConfPassword,
-					"Пожалуйста, подтвердите Новый Пароль!" },
+					"Сураныч,Жаңы Сыр Сөзүңүздү Кайталаңыз!" },
 			{
 					RegexpValidatorError,
-					"Пароль должен содержать не менее 6 характеров "
-							+ "и состоять из допустимых символов" },
+					"Сыр сөз эң аз 6 тамгадан туруусу зарыл!" },
 			{
 					NotifDontMatch,
 					"Новый Пароль и Пароль подтверждения не совпадают,"
