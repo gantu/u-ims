@@ -24,6 +24,7 @@ public class UimsMessages_ky extends UimsMessages {
 			{ CurWeekLabel, "Апта" },
 			{ CurExamLabel, "Сынак" },
 			{ ButtonTooltip, "Биякта сыр сөздүнү алмаштыр!" },
+			{SystemClosedNotif, "Извините! Над системой ведутся ремонтные работы. Пожалуйста, попробуйте позднее!"},
 
 			// Navigation Tree Branches
 			{ TBEduProcess, "Окуу Процеси" },
@@ -94,7 +95,7 @@ public class UimsMessages_ky extends UimsMessages {
 			{ SuccessReportHeader, "Жетишкендиктер" },
 			{ StudentMidterm, "Мидтерм" },
 			{ StudentFinal, "Финал" },
-			{ StudentMakeup, "Мейкап" },
+			{ StudentMakeup, "Мэйкап" },
 			{ StudentAttandance, "Жоктоо" },
 
 			// AttendanceView
@@ -114,6 +115,11 @@ public class UimsMessages_ky extends UimsMessages {
 			
 			// ExamView
 			{ ExamHeader, "Сынак" },
+			{Department, "Бөлүм"},
+			{Group, "Группа"},
+			{ButtonSignatureList, "Лист для подписей"},
+			{ButtonResultList, "Лист для результатов"},
+			{ButtonAverageReport, "Репорт успеваемости"},
 			
 			// ExamWindow
 						{StudentMark, "Баасы"},
@@ -121,6 +127,8 @@ public class UimsMessages_ky extends UimsMessages {
 
 			// HelpView
 			{ HelpHeader, "Жардам" },
+			{DepartmentsTab, "Бөлүмдөр"},
+			{StatusesTab, "Статустар"},
 			// ChangeUserDataView
 			{ ChangeUserDataHeader, "Маалымат алмаштыр" },
 			{ FormCaptionUser, "Пользователь" },

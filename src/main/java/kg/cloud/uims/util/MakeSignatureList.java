@@ -10,6 +10,7 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.vaadin.terminal.StreamResource;
@@ -22,23 +23,19 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
 import java.util.ArrayList;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 public class MakeSignatureList {
 
-	private ByteArrayOutputStream reportBuffer = null;
 	private byte[] b = null;
 	private StreamResource.StreamSource source1 = null;
 	ByteArrayOutputStream buffer = null;
 	StreamResource resource = null;
 	private Image img;
-	private Subject currentUser = SecurityUtils.getSubject();
 
 	private String subjectId = null;
 	private ArrayList<StudLess> studLessList;
 	private MyVaadinApplication app;
 	private String year_id, sem_id;
+	private Document document = null;
 
 	public MakeSignatureList(final MyVaadinApplication app, String subj_id) {
 		this.app = app;
@@ -52,7 +49,8 @@ public class MakeSignatureList {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
+			private final static String FONT_LOCATION ="/usr/local/images/LiberationSans-Regular.ttf";
+			private final static String FONT_LOCATION_BOLD ="/usr/local/images/LiberationSans-Bold.ttf";
 
 			public InputStream getStream() {
 
@@ -67,7 +65,7 @@ public class MakeSignatureList {
 					
 					DbStudAccounting dbAccounting = new DbStudAccounting();
 					dbAccounting.connect();
-
+					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();
@@ -89,7 +87,14 @@ public class MakeSignatureList {
 					warning.setColor(new Color(0xFF, 0x00, 0x00));
 					Font in_font = new Font(Font.COURIER, 12, Font.BOLD);
 					Font text_font = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL);
-
+					BaseFont baseFont = BaseFont.createFont(FONT_LOCATION,
+				    BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+					BaseFont baseFont_bold = BaseFont.createFont(FONT_LOCATION_BOLD,
+						    BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+					Font font = new Font(baseFont, Font.DEFAULTSIZE,
+				            Font.NORMAL);
+					Font font_header = new Font(baseFont_bold, Font.DEFAULTSIZE,
+				            Font.NORMAL);
 					Paragraph iaau = new Paragraph(
 							"INTERNATIONAL ATATURK ALATOO UNIVERSITY",
 							title_font);
@@ -97,9 +102,14 @@ public class MakeSignatureList {
 					Paragraph sif = new Paragraph("EXAMINATION SIGNATURE LIST",
 							big_font);
 					sif.setAlignment(Element.ALIGN_CENTER);
+					Paragraph att = new Paragraph("Not valid without attachment",
+							in_font);
+					att.setAlignment(Element.ALIGN_CENTER);
 					document.add(iaau);
 					document.add(sif);
+					document.add(att);
 					document.add(new Paragraph(10, " "));
+					
 
 					if (!studLessList.isEmpty()) {
 
@@ -121,8 +131,62 @@ public class MakeSignatureList {
 						Thead.addCell(new Phrase("Examination: "
 								+ app.getCurrentExam().getExam(), in_font));
 						Thead.addCell(new Phrase("Date: ", in_font));
+						
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
+						float[] Thead2_colsWidth = { 2f };
+						PdfPTable Thead2 = new PdfPTable(1);
+						Thead2.setWidthPercentage(90f);
+						Thead2.setWidths(Thead2_colsWidth);
+						Thead2.getDefaultCell().setBorder(0);
+						Thead2.addCell(new Phrase("TO ATTENTION OF STUDENTS!",font_header));
+						Thead2.addCell(new Phrase("1 - If in the below-stated list opposite to your name " +
+								"you found the record WILL BE IGNORED (WBI), the grade for " +
+								"examination will be canceled.",font));
+						Thead2.addCell(new Phrase("2 - for entering the grade of this student in this " +
+								"subject it is necessary to reply to ACCOUNTS DEPARTMENT during " +
+								"April 02-07, 2012.",font));
+						Thead2.addCell(new Phrase("* I, as a student of IUAA, confirm by signature that familiarized " +
+								"with the above-stated information from authorized persons.",font));
+						Thead2.addCell(new Paragraph(10, " "));
+						Thead2.addCell(new Phrase("ÖĞRENCİLERİN DİKKATİNE",font_header));
+						Thead2.addCell(new Phrase("1 - Aşağıdaki listede isminin karşısında " +
+								"WILL BE IGNORED (WBI) olan öğrencilerin girmiş oldukları sınavın, " +
+								"sınav notları değerlendirmeye alınmayıp, sınav sonuçları 0 (sıfır) " +
+								"olarak işleme konacaktır.",font));
+						Thead2.addCell(new Phrase("2 - Bu öğrencilerin, sınav notlarının işleme konabilmesi " +
+								"için (02-07 april, 2012) tarihine kadar MUHASEBEYE muracatta bulunmaları " +
+								"gerekmektedir.",font));
+						Thead2.addCell(new Phrase("* IAAU öğrencisi olarak, yukarıdaki bilgilerinde ışığında, " +
+								"gerekli olan tüm bilgilendirme ve uyarılar, yetkili kişilerce tarafıma " +
+								"yapılmış olup, bu durumu kendi imzamlada ONAYLIYORUM.",font));
+											
+						Thead2.addCell(new Paragraph(10, " "));
+						Thead2.addCell(new Phrase("ВНИМАНИЮ СТУДЕНТОВ!",font_header));
+						Thead2.addCell(new Phrase("1 - Если в нижеуказанном списке напротив своего имени " +
+								"Вы обнаружили запись WILL BE IGNORED (WBI), то оценка за экзамен " +
+								"будет аннулирована. ",font));
+						Thead2.addCell(new Phrase("2 - Для введения оценки этого студента по данному предмету " +
+								"необходимо обратиться в БУХГАЛТЕРИЮ со 02 по 07 апреля 2012 года.",font));
+						Thead2.addCell(new Phrase("* Я, являясь студентом МУАА, подтверждаю подписью, что ознакомился " +
+								"с вышеуказанной информацией от уполномоченных лиц.",font));
+											
+						document.add(Thead2);
+						
+						document.newPage();
+						
+						punder.addImage(img);
+						document.add(iaau);
+						document.add(sif);
+						Paragraph att2 = new Paragraph("This is an attachment, " +
+								"not valid without first page.",
+								in_font);
+						att2.setAlignment(Element.ALIGN_CENTER);
+						document.add(att2);
+						document.add(new Paragraph(10, " "));
+						document.add(Thead);
+						document.add(new Paragraph(10, " "));
+						
 
 						float[] Tbody_colsWidth = { 0.1f, 0.9f, 0.6f, 0.3f, 0.5f, 0.3f,
 								0.4f };
@@ -159,7 +223,7 @@ public class MakeSignatureList {
 											+ studLessList.get(i)
 													.getStudSurname(),
 											text_font));
-									Tbody.addCell(new Phrase("Will not graduate",text_font));
+									Tbody.addCell(new Phrase("WBI",text_font));
 								} else {
 									Tbody.addCell(new Phrase(studLessList
 											.get(i).getStudName()
@@ -192,7 +256,7 @@ public class MakeSignatureList {
 												+ studLessList.get(i)
 														.getStudSurname(),
 												text_font));
-										Tbody.addCell(new Phrase("Will not graduate",text_font));
+										Tbody.addCell(new Phrase("WBI",text_font));
 									} else {
 										Tbody.addCell(new Phrase(studLessList
 												.get(i).getStudName()
@@ -213,7 +277,8 @@ public class MakeSignatureList {
 						}
 						document.add(Tbody);
 						document.add(new Paragraph(10, " "));
-
+					
+						
 						float[] Tfoot_colsWidth = { 1.5f, 1f };
 						PdfPTable Tfoot = new PdfPTable(2);
 						Tfoot.setWidthPercentage(90f);
@@ -224,6 +289,7 @@ public class MakeSignatureList {
 								+ app.getInstName() + " "
 								+ app.getInstSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
+						
 						document.add(Tfoot);
 
 					} else {

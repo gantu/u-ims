@@ -7,7 +7,6 @@ import kg.cloud.uims.domain.Student;
 import kg.cloud.uims.domain.Year;
 import kg.cloud.uims.i18n.UimsMessages;
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
@@ -17,15 +16,12 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.vaadin.terminal.StreamResource;
 import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.ui.Embedded;
 import com.vaadin.data.Item;
 
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 
 import com.lowagie.text.Image;
@@ -35,7 +31,6 @@ import java.util.ArrayList;
 
 public class ExportTranscriptToPDF {
 
-	private ByteArrayOutputStream reportBuffer = null;
 	private byte[] b = null;
 	private StreamResource.StreamSource source1 = null;
 	ByteArrayOutputStream buffer = null;
@@ -51,6 +46,7 @@ public class ExportTranscriptToPDF {
 	private ArrayList<Student> studDetails;
 	private IndexedContainer transcriptDatasource;
 	private MyVaadinApplication app;
+	private Document document = null;
 
 	public ExportTranscriptToPDF(final MyVaadinApplication app, String sid,
 			String stud_fname, Double t, Double c_sum,
@@ -68,7 +64,6 @@ public class ExportTranscriptToPDF {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 
 			public InputStream getStream() {
 
@@ -85,7 +80,7 @@ public class ExportTranscriptToPDF {
 					dbStud.execFaculty(studentId);
 					studDetails = dbStud.getArray();
 					dbStud.close();
-
+					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();

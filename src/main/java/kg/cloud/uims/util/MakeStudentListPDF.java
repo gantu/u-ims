@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class MakeStudentListPDF {
 
-	private ByteArrayOutputStream reportBuffer = null;
 	private byte[] b = null;
 	private StreamResource.StreamSource source1 = null;
 	ByteArrayOutputStream buffer = null;
@@ -33,6 +32,7 @@ public class MakeStudentListPDF {
 	private String group_id = null;
 	private ArrayList<Student> studList;
 	private MyVaadinApplication app;
+	private Document document = null;
 
 	public MakeStudentListPDF(final MyVaadinApplication app, String gr_id) {
 		this.app = app;
@@ -44,7 +44,6 @@ public class MakeStudentListPDF {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 
 			public InputStream getStream() {
 
@@ -56,7 +55,7 @@ public class MakeStudentListPDF {
 					dbStudent.execSQL_GR_Active(group_id);
 					studList = dbStudent.getArray();
 					dbStudent.close();
-
+					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();

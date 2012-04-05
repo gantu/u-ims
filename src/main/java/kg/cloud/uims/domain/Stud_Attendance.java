@@ -1,5 +1,7 @@
 package kg.cloud.uims.domain;
 
+import java.io.Serializable;
+
 /*
  * Stud_Attendance.java
  * Created on January 25, 2008, 11:43 PM
@@ -8,8 +10,12 @@ package kg.cloud.uims.domain;
 /**
  * @author mantya
  */
-public class Stud_Attendance {
-    private int id;
+public class Stud_Attendance implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
     private int student_id;
     private int subject_id;
     private int year_id;

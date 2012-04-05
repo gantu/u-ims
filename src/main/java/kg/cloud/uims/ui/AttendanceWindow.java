@@ -10,6 +10,7 @@ import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.util.MakeAttendanceForm;
 import kg.cloud.uims.util.MakeAttendanceReport;
 
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.ChameleonTheme;
 import com.vaadin.data.util.IndexedContainer;
@@ -67,11 +68,16 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 		studentTable.setFooterVisible(true);
 		studentTable.setSelectable(false);
 
+		ThemeResource iconPDF = new ThemeResource("../runo/icons/16/document-pdf.png");
+		ThemeResource iconOK = new ThemeResource("../runo/icons/16/ok.png");
 		makeForm.setCaption(app.getMessage(UimsMessages.ButtonMakeForm));
+		makeForm.setIcon(iconPDF);
 		makeForm.addListener((Button.ClickListener) this);
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
+		save.setIcon(iconOK);
 		save.addListener((Button.ClickListener) this);
 		report.setCaption(app.getMessage(UimsMessages.ButtonMakeReport));
+		report.setIcon(iconPDF);
 		report.addListener((Button.ClickListener) this);
 		
 		if(currentUser.hasRole("secretary")){

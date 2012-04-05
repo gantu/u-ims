@@ -46,15 +46,14 @@ public class AuthenticatedScreen extends VerticalLayout implements
 	private VerticalLayout statusLayout;
 	private VerticalLayout navigationLayout;
 	private Tree navTree;
-	private Button userDetails,help;
+	private Button userDetails, help;
 	private Subject currentUser = SecurityUtils.getSubject();
 
 	public AuthenticatedScreen(MyVaadinApplication app) {
-		
-		
+
 		super();
 		this.app = app;
-		
+
 		horizontalPanel = new HorizontalSplitPanel();
 		horizontalPanel.setSplitPosition(20, Sizeable.UNITS_PERCENTAGE);
 		horizontalPanel.setSizeFull();
@@ -70,15 +69,13 @@ public class AuthenticatedScreen extends VerticalLayout implements
 					Level.SEVERE, null, ex);
 		}
 
-		
-		GridLayout logLayout = new GridLayout(1,2);
+		GridLayout logLayout = new GridLayout(1, 2);
 		HorizontalLayout userlog = new HorizontalLayout();
 
 		Label logLabel = new Label("<b>"
 				+ app.getMessage(UimsMessages.LogInAsLabel) + ": </b>");
 		logLabel.setContentMode(Label.CONTENT_XHTML);
 
-	
 		ThemeResource iconUser = new ThemeResource("../runo/icons/16/user.png");
 		ThemeResource iconHelp = new ThemeResource("../runo/icons/16/help.png");
 
@@ -87,7 +84,7 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		userDetails.setDescription(app.getMessage(UimsMessages.ButtonTooltip));
 		userDetails.setIcon(iconUser);
 		userDetails.addListener((Button.ClickListener) this);
-		
+
 		help = new Button("Help");
 		help.setStyleName(ChameleonTheme.BUTTON_LINK);
 		help.setIcon(iconHelp);
@@ -97,9 +94,8 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		userlog.addComponent(userDetails);
 		logLayout.setSizeFull();
 		logLayout.setComponentAlignment(help, Alignment.MIDDLE_RIGHT);
-		logLayout.addComponent(help,0,0);
-		logLayout.addComponent(userlog,0,1);
-		
+		logLayout.addComponent(help, 0, 0);
+		logLayout.addComponent(userlog, 0, 1);
 
 		Label label = new Label("<b>"
 				+ app.getMessage(UimsMessages.CurYearLabel) + ": </b> <i>"
@@ -119,10 +115,10 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		statusLayout.addComponent(label);
 		statusLayout.addComponent(logout);
 		statusLayout.addComponent(buildTree());
-		if(app.getuserStatus()==0){
+		if (app.getuserStatus() == 0) {
 			userDetails.setEnabled(false);
-			Label warning = new Label("<br><h2>"+ "Sorry! The system is on the construction. "
-					 + "Try later!" + "</2>");
+			Label warning = new Label("<br><h2>"
+					+ app.getMessage(UimsMessages.SystemClosedNotif) + "</h2>");
 			warning.setContentMode(Label.CONTENT_XHTML);
 			statusLayout.addComponent(warning);
 		}
@@ -147,20 +143,18 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		String[] supervisor = { app.getMessage(UimsMessages.TBSupervisor),
 				app.getMessage(UimsMessages.TSBRegistration),
 				app.getMessage(UimsMessages.TSBTranscript),
-				app.getMessage(UimsMessages.TSBSuccessReport)};
+				app.getMessage(UimsMessages.TSBSuccessReport) };
 		String[] instructor = { app.getMessage(UimsMessages.TBInstructor),
 				app.getMessage(UimsMessages.TSBAttendance),
-				app.getMessage(UimsMessages.TSBExam)
-				
-				};
-		
+				app.getMessage(UimsMessages.TSBExam), };
+
 		String[] secretary = { app.getMessage(UimsMessages.TBSecretary),
 				app.getMessage(UimsMessages.TSBAttendance),
 				app.getMessage(UimsMessages.TSBExam),
 				app.getMessage(UimsMessages.TSBStudentList),
 				app.getMessage(UimsMessages.TSBSuccessReport)
-				
-				};
+
+		};
 
 		int size = 0;
 		if (currentUser.hasRole("supervisor"))
@@ -216,8 +210,8 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		navTree.setItemIconPropertyId("icon");
 		navTree.setItemCaptionMode(Tree.ITEM_CAPTION_MODE_PROPERTY);
 		navTree.setImmediate(true);
-		
-		if(app.getuserStatus()==0){
+
+		if (app.getuserStatus() == 0) {
 			navTree.setEnabled(false);
 		}
 
@@ -264,10 +258,9 @@ public class AuthenticatedScreen extends VerticalLayout implements
 					} else if (eventPressed.equals(app
 							.getMessage(UimsMessages.TSBExam))) {
 						// getWindow().showNotification(eventPressed);
-						horizontalPanel.setSecondComponent(new ExamView(
-								app));
+						horizontalPanel.setSecondComponent(new ExamView(app));
 
-					}else if (eventPressed.equals(app
+					} else if (eventPressed.equals(app
 							.getMessage(UimsMessages.TSBStudentList))) {
 						// getWindow().showNotification(eventPressed);
 						horizontalPanel.setSecondComponent(new StudentListView(
@@ -287,11 +280,10 @@ public class AuthenticatedScreen extends VerticalLayout implements
 		if (source == userDetails) {
 			this.horizontalPanel.setSecondComponent(new ChangeUserData(app));
 		}
-		
+
 		if (source == help) {
 			this.horizontalPanel.setSecondComponent(new HelpView(app));
 		}
 	}
-		
 
 }

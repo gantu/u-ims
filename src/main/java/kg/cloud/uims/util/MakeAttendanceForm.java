@@ -20,23 +20,20 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
 import java.util.ArrayList;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 public class MakeAttendanceForm {
 
-	private ByteArrayOutputStream reportBuffer = null;
 	private byte[] b = null;
 	private StreamResource.StreamSource source1 = null;
 	ByteArrayOutputStream buffer = null;
 	StreamResource resource = null;
 	private Image img;
-	private Subject currentUser = SecurityUtils.getSubject();
+	
 
 	private String subjectId = null;
 	private ArrayList<StudLess> studLessList;
 	private MyVaadinApplication app;
 	private String year_id, sem_id;
+	private Document document = null;
 
 	public MakeAttendanceForm(final MyVaadinApplication app, String subj_id) {
 		this.app = app;
@@ -50,7 +47,6 @@ public class MakeAttendanceForm {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 
 			public InputStream getStream() {
 
@@ -62,7 +58,7 @@ public class MakeAttendanceForm {
 					dbStudLess.execSQL_Subject(subjectId, year_id, sem_id);
 					studLessList = dbStudLess.getArray();
 					dbStudLess.close();
-
+					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();

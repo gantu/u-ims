@@ -146,8 +146,8 @@ public class HelpView extends VerticalLayout implements
 		t = new TabSheet();
 		t.setSizeFull();
 		// t.addStyleName(ChameleonTheme.TABSHEET_BORDERLESS);
-		t.addTab(statLay, "Statuses", icon1);
-		t.addTab(deptLay, "Departments", icon1);
+		t.addTab(statLay, app.getMessage(UimsMessages.StatusesTab), icon1);
+		t.addTab(deptLay, app.getMessage(UimsMessages.DepartmentsTab), icon1);
 		t.addListener(this);
 
 		body.addComponent(t);

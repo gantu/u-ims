@@ -5,6 +5,7 @@ import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.util.ExportTranscriptToPDF;
 
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ChameleonTheme;
@@ -55,7 +56,9 @@ public class TranscriptWindow extends Window implements ClickListener{
 		transcriptTable.setCaption(app.getMessage(UimsMessages.TranscriptHeader));
 		transcriptTable.setStyleName(ChameleonTheme.TABLE_STRIPED);
 
+		ThemeResource iconPDF = new ThemeResource("../runo/icons/16/document-pdf.png");
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
+		toPDF.setIcon(iconPDF);
 		toPDF.addListener((Button.ClickListener) this);
 
 		VerticalLayout mainLayout = new VerticalLayout();

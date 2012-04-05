@@ -10,6 +10,7 @@ import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.util.ExportReporttoPDF;
 
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -81,7 +82,9 @@ public class SuccessReportWindow extends Window implements ClickListener {
 				.setCaption(app.getMessage(UimsMessages.SuccessReportHeader));
 		reportTable.setStyleName(ChameleonTheme.TABLE_STRIPED);
 
+		ThemeResource iconPDF = new ThemeResource("../runo/icons/16/document-pdf.png");
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
+		toPDF.setIcon(iconPDF);
 		toPDF.addListener((Button.ClickListener) this);
 
 		VerticalLayout mainLayout = new VerticalLayout();

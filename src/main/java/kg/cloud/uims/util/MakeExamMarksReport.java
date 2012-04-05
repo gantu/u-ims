@@ -2,7 +2,6 @@ package kg.cloud.uims.util;
 
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbStudAccounting;
-import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.dao.DbSubjExam;
 import kg.cloud.uims.dao.DbSubjects;
 import kg.cloud.uims.domain.StudAccounting;
@@ -26,24 +25,20 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
 import java.util.ArrayList;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 public class MakeExamMarksReport {
 
-	private ByteArrayOutputStream reportBuffer = null;
 	private byte[] b = null;
 	private StreamResource.StreamSource source1 = null;
 	ByteArrayOutputStream buffer = null;
 	StreamResource resource = null;
 	private Image img;
-	private Subject currentUser = SecurityUtils.getSubject();
 
 	private String subjectId = null;
 	private ArrayList<SubjExam> studLessList;
 	private ArrayList<Subjects> subj;
 	private MyVaadinApplication app;
 	private String year_id, sem_id, exam_id, exam_name,exam_mark;
+	private Document document = null;
 
 	public MakeExamMarksReport(final MyVaadinApplication app, String subj_id,
 			String e_id, String e_name) {
@@ -60,7 +55,6 @@ public class MakeExamMarksReport {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 
 			public InputStream getStream() {
 
@@ -82,7 +76,7 @@ public class MakeExamMarksReport {
 					
 					DbStudAccounting dbAccounting = new DbStudAccounting();
 					dbAccounting.connect();
-
+					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();
@@ -108,6 +102,10 @@ public class MakeExamMarksReport {
 					Paragraph sif = new Paragraph("EXAMINATION RESULT LIST",
 							big_font);
 					sif.setAlignment(Element.ALIGN_CENTER);
+					Paragraph note = new Paragraph("* WBI - Exam results ignored students must visit " +
+							"Accounting Department between April 02 and 07, 2012",
+							in_font);
+					note.setAlignment(Element.ALIGN_CENTER);
 					document.add(iaau);
 					document.add(sif);
 					document.add(new Paragraph(10, " "));
@@ -165,7 +163,7 @@ public class MakeExamMarksReport {
 										+ studLessList.get(i)
 												.getStudentSurname(),
 										text_font));
-								exam_mark="IP";
+								exam_mark="WBI";
 								
 							} else {
 								Tbody.addCell(new Phrase(studLessList
@@ -198,6 +196,8 @@ public class MakeExamMarksReport {
 								+ app.getInstSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
 						document.add(Tfoot);
+						document.add(new Paragraph(10, " "));
+						document.add(note);
 					} else {
 						document.add(new Phrase("No records found", warning));
 					}

@@ -57,7 +57,7 @@ public class MyVaadinApplication extends Application implements
 	private int groupId;
 	private String instName;
 	private String instSurname;
-	private int userStatus=8;
+	private int userStatus;
 	private ResourceBundle i18nBundle;
 	ViewManager viewManager;
 

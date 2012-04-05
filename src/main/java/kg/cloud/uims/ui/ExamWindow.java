@@ -12,6 +12,7 @@ import kg.cloud.uims.util.MakeExamMarksReport;
 import kg.cloud.uims.util.MakeResultList;
 import kg.cloud.uims.util.MakeSignatureList;
 
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.ChameleonTheme;
 import com.vaadin.data.util.IndexedContainer;
@@ -72,19 +73,28 @@ public class ExamWindow extends Window implements Button.ClickListener {
 		studentTable.setFooterVisible(true);
 		studentTable.setSelectable(false);
 
-		signList.setCaption("Signature List");
+		ThemeResource iconPDF = new ThemeResource("../runo/icons/16/document-pdf.png");
+		ThemeResource iconOK = new ThemeResource("../runo/icons/16/ok.png");
+		signList.setCaption(app.getMessage(UimsMessages.ButtonSignatureList));
+		signList.setIcon(iconPDF);
 		signList.addListener((Button.ClickListener) this);
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
+		save.setIcon(iconOK);
 		save.addListener((Button.ClickListener) this);
-		resultList.setCaption("Result List");
+		resultList.setCaption(app.getMessage(UimsMessages.ButtonResultList));
+		resultList.setIcon(iconPDF);
 		resultList.addListener((Button.ClickListener) this);
-		midMarks.setCaption("Midterm");
+		midMarks.setCaption(app.getMessage(UimsMessages.StudentMidterm));
+		midMarks.setIcon(iconPDF);
 		midMarks.addListener((Button.ClickListener) this);
-		finMarks.setCaption("Final");
+		finMarks.setCaption(app.getMessage(UimsMessages.StudentFinal));
+		finMarks.setIcon(iconPDF);
 		finMarks.addListener((Button.ClickListener) this);
-		makeUpMarks.setCaption("MakeUp");
+		makeUpMarks.setCaption(app.getMessage(UimsMessages.StudentMakeup));
+		makeUpMarks.setIcon(iconPDF);
 		makeUpMarks.addListener((Button.ClickListener) this);
-		avReport.setCaption("Average Report");
+		avReport.setCaption(app.getMessage(UimsMessages.ButtonAverageReport));
+		avReport.setIcon(iconPDF);
 		avReport.addListener((Button.ClickListener) this);
 		
 		if(currentUser.hasRole("secretary")){

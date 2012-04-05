@@ -22,23 +22,19 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
 import java.util.ArrayList;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 public class MakeResultList {
 
-	private ByteArrayOutputStream reportBuffer = null;
 	private byte[] b = null;
 	private StreamResource.StreamSource source1 = null;
 	ByteArrayOutputStream buffer = null;
 	StreamResource resource = null;
 	private Image img;
-	private Subject currentUser = SecurityUtils.getSubject();
 
 	private String subjectId = null;
 	private ArrayList<StudLess> studLessList;
 	private MyVaadinApplication app;
 	private String year_id, sem_id;
+	private Document document = null;
 
 	public MakeResultList(final MyVaadinApplication app, String subj_id) {
 		this.app = app;
@@ -52,7 +48,6 @@ public class MakeResultList {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 
 			public InputStream getStream() {
 
@@ -67,7 +62,7 @@ public class MakeResultList {
 
 					DbStudAccounting dbAccounting = new DbStudAccounting();
 					dbAccounting.connect();
-
+					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();
@@ -123,7 +118,7 @@ public class MakeResultList {
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
 
-						float[] Tbody_colsWidth = { 0.1f, 1f, 0.6f, 0.4f, 0.4f };
+						float[] Tbody_colsWidth = { 0.1f, 1f, 0.5f, 0.4f, 0.5f };
 						PdfPTable Tbody = new PdfPTable(5);
 						Tbody.setWidthPercentage(90f);
 						Tbody.setWidths(Tbody_colsWidth);
@@ -155,7 +150,7 @@ public class MakeResultList {
 											+ studLessList.get(i)
 													.getStudSurname(),
 											text_font));
-									Tbody.addCell(new Phrase("Will not graduate",text_font));
+									Tbody.addCell(new Phrase("WBI",text_font));
 								} else {
 									Tbody.addCell(new Phrase(studLessList
 											.get(i).getStudName()
@@ -185,7 +180,7 @@ public class MakeResultList {
 												+ studLessList.get(i)
 														.getStudSurname(),
 												text_font));
-										Tbody.addCell(new Phrase("Will not graduate",text_font));
+										Tbody.addCell(new Phrase("WBI",text_font));
 									} else {
 										Tbody.addCell(new Phrase(studLessList
 												.get(i).getStudName()

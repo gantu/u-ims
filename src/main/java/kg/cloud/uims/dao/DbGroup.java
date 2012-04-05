@@ -68,6 +68,28 @@ public class DbGroup extends BaseDb {
                     result.getInt("s.id"), result.getString("s.name")));
         }
     }
+    
+    public void execSQL_byFID_active(int f_id) throws SQLException {
+        String sql = "select t2.id, t2.name, t3.code, t4.code, count(*) as total " +
+        		"from student as t1 " +
+        		"left join sinif as t2 on t1.group_id=t2.id " +
+        		"left join department as t3 on t1.dept_id=t3.id " +
+        		"left join faculty as t4 on t3.faculty_id=t4.id " +
+        		"left join education as t5 on t1.edu_status_id=t5.id " +
+        		"where t4.id=? and t1.edu_status_id=1 " +
+        		"group by t2.id, t2.name order by t2.name asc;";
+        q = new ArrayList<Group>();
+
+        PreparedStatement stat = dbCon.prepareStatement(sql);
+        stat.setInt(1, f_id);
+        ResultSet result = stat.executeQuery();
+        while (result.next()) {
+            q.add(new Group(result.getString("t4.code"),
+                    result.getString("t3.code"),
+                    result.getInt("t2.id"), result.getString("t2.name"), 
+                    result.getInt("total")));
+        }
+    }
 
     public void execAddGroup(String groupName, String dept_id) throws SQLException {
         String sql = "insert into sinif(name,dept_id) values(?,?);";

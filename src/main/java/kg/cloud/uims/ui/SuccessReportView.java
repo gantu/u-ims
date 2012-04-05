@@ -30,7 +30,7 @@ public class SuccessReportView extends VerticalLayout implements
 	private Table groupStudentTable = new Table();
 	private Subject currentUser = SecurityUtils.getSubject();
 	private String group_id;
-	private Select groupSelect = new Select("Group");
+	private Select groupSelect = new Select();
 	private DataContainers container;
 
 	public SuccessReportView(MyVaadinApplication app) {
@@ -58,6 +58,7 @@ public class SuccessReportView extends VerticalLayout implements
 			HorizontalLayout selectLay = new HorizontalLayout();
 			selectLay.setSpacing(true);
 
+			groupSelect.setCaption(app.getMessage(UimsMessages.Group));
 			groupSelect.setWidth("2cm");
 			groupSelect.setNullSelectionAllowed(false);
 			groupSelect

@@ -11,6 +11,7 @@ import kg.cloud.uims.domain.Users;
 import kg.cloud.uims.i18n.UimsMessages;
 
 import com.vaadin.data.validator.RegexpValidator;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Form;
@@ -60,7 +61,9 @@ public class ChangeUserData extends VerticalLayout implements
 	public void buildBody() {
 		body = new FormLayout();
 		userForm = new Form();
+		ThemeResource iconOK = new ThemeResource("../runo/icons/16/ok.png");
 		Button save = new Button(app.getMessage(UimsMessages.SaveButton));
+		save.setIcon(iconOK);
 		save.addListener((Button.ClickListener) this);
 
 		userForm.setCaption(app.getMessage(UimsMessages.FormCaptionUser) + ": "

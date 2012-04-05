@@ -5,7 +5,6 @@ import kg.cloud.uims.dao.DbStudent;
 import kg.cloud.uims.domain.Student;
 import kg.cloud.uims.i18n.UimsMessages;
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
@@ -14,15 +13,12 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.vaadin.terminal.StreamResource;
 import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.ui.Embedded;
 import com.vaadin.data.Item;
 
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 
 import com.lowagie.text.Image;
@@ -32,7 +28,6 @@ import java.util.ArrayList;
 
 public class ExportReporttoPDF {
 
-	private ByteArrayOutputStream reportBuffer = null;
 	private byte[] b = null;
 	private StreamResource.StreamSource source1 = null;
 	ByteArrayOutputStream buffer = null;
@@ -45,6 +40,7 @@ public class ExportReporttoPDF {
 	private ArrayList<Student> studDetails;
 	private IndexedContainer reportDatasource;
 	private MyVaadinApplication app;
+	private Document document = null;
 
 	public ExportReporttoPDF(final MyVaadinApplication app, String sid,
 			String stud_fname, IndexedContainer repDatasource, String year_n,
@@ -55,6 +51,7 @@ public class ExportReporttoPDF {
 		this.reportDatasource = repDatasource;
 		this.year_name = year_n;
 		this.sem_name = sem_n;
+		
 
 		source1 = new StreamResource.StreamSource() {
 
@@ -62,8 +59,7 @@ public class ExportReporttoPDF {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
-
+			
 			public InputStream getStream() {
 
 				buffer = new ByteArrayOutputStream();
@@ -75,7 +71,7 @@ public class ExportReporttoPDF {
 					dbStud.execSQL(studentId);
 					studDetails = dbStud.getArray();
 					dbStud.close();
-
+					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();

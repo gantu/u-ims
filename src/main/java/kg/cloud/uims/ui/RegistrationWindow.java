@@ -20,6 +20,7 @@ import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.StreamResource;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
@@ -113,14 +114,23 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		controlButtons.setWidth("100%");
 		controlButtons.setHeight("10%");
 		controlLayout.setSpacing(true);
+		
+		ThemeResource iconDown = new ThemeResource("../runo/icons/16/arrow-down.png");
+		ThemeResource iconUp = new ThemeResource("../runo/icons/16/arrow-up.png");
+		ThemeResource iconPDF = new ThemeResource("../runo/icons/16/document-pdf.png");
+		ThemeResource iconOK = new ThemeResource("../runo/icons/16/ok.png");
 
 		moveDown.setCaption(app.getMessage(UimsMessages.MoveDownButton));
+		moveDown.setIcon(iconDown);
 		moveDown.addListener((Button.ClickListener) this);
 		moveUp.setCaption(app.getMessage(UimsMessages.MoveUpButton));
+		moveUp.setIcon(iconUp);
 		moveUp.addListener((Button.ClickListener) this);
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
+		save.setIcon(iconOK);
 		save.addListener((Button.ClickListener) this);
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
+		toPDF.setIcon(iconPDF);
 		toPDF.addListener((Button.ClickListener) this);
 
 		Label filter1Label = new Label(app.getMessage(UimsMessages.FilterByYearLabel));

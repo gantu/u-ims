@@ -37,8 +37,8 @@ public class ExamView extends VerticalLayout implements
 	private String curr_Sem_id, curr_Year_id;
 	private String department_id, year;
 	private int hourSum;
-	private Select deptSelect = new Select("Department");
-	private Select yearSelect = new Select("Year");
+	private Select deptSelect = new Select();
+	private Select yearSelect = new Select();
 	private DataContainers container;
 
 	public ExamView(MyVaadinApplication app) {
@@ -68,6 +68,7 @@ public class ExamView extends VerticalLayout implements
 			HorizontalLayout selectLay = new HorizontalLayout();
 			selectLay.setSpacing(true);
 
+			deptSelect.setCaption(app.getMessage(UimsMessages.Department));
 			deptSelect.setWidth("2cm");
 			deptSelect.setNullSelectionAllowed(false);
 			deptSelect
@@ -81,6 +82,7 @@ public class ExamView extends VerticalLayout implements
 					.getFacultyId());
 			deptSelect.setContainerDataSource(deptContainer);
 
+			yearSelect.setCaption(app.getMessage(UimsMessages.Group));
 			yearSelect.setWidth("2cm");
 			yearSelect.setNullSelectionAllowed(false);
 			yearSelect

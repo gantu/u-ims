@@ -16,7 +16,6 @@ import kg.cloud.uims.domain.Instructor;
 import kg.cloud.uims.domain.StudLess;
 
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;

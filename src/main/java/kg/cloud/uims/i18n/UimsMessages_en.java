@@ -26,6 +26,7 @@ public class UimsMessages_en extends UimsMessages {
 			{CurWeekLabel, "Current Week"},
 			{CurExamLabel, "Current Exam"},
 			{ButtonTooltip, "Change your password here!"},
+			{SystemClosedNotif, "Sorry! The system is under maintenance. Please, try later!"},
 			
 			// Navigation Tree Branches
 			{ TBEduProcess, "Educational Process" },
@@ -117,6 +118,11 @@ public class UimsMessages_en extends UimsMessages {
 			
 			// ExamView
 			{ExamHeader, "Exam"},
+			{Department, "Department"},
+			{Group, "Group"},
+			{ButtonSignatureList, "Signature List"},
+			{ButtonResultList, "Result List"},
+			{ButtonAverageReport, "Average Report"},
 			
 			// ExamWindow
 			{StudentMark, "Mark"},
@@ -124,6 +130,8 @@ public class UimsMessages_en extends UimsMessages {
 			
 			//HelpView
 			{HelpHeader, "Help"},
+			{DepartmentsTab, "Departments"},
+			{StatusesTab, "Statuses"},
 			
 			// ChangeUserDataView
 			{ChangeUserDataHeader, "Change Information"},

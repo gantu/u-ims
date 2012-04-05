@@ -20,6 +20,7 @@ public class Group implements Serializable {
     private  String dept_code;
     private int faculty_id;
     private String faculty_code;
+    private int total_students;
     
     public Group(int gr_id, String gr_name, int dept_id) {
         this.id = gr_id;
@@ -34,6 +35,15 @@ public class Group implements Serializable {
         this.dept_code = dcode;
         this.id = sid;
         this.group_name = sname;
+    }
+    
+    public Group(String fcode, String dcode, int sid, String sname, int total) {
+       
+        this.faculty_code = fcode;
+        this.dept_code = dcode;
+        this.id = sid;
+        this.group_name = sname;
+        this.total_students = total;
     }
     
     public int getID() {
@@ -59,5 +69,8 @@ public class Group implements Serializable {
     }
     public String getD_Code(){
         return dept_code;
+    }
+    public int getTotal_students(){
+        return total_students;
     }
 }

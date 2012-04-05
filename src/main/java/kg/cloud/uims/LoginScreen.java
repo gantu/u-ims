@@ -10,6 +10,8 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -37,14 +39,17 @@ public class LoginScreen extends VerticalLayout{
 		addComponent(languageBar);
 		setComponentAlignment(languageBar, Alignment.TOP_RIGHT);
 		
-				
+		ThemeResource iconKG = new ThemeResource("../runo/icons/16/Kyrgyzstan16.png");
 		Button kyrgyz=new Button("Kyrgyz");
 		kyrgyz.addListener(new SwitchLanguage(app));
+		kyrgyz.setIcon(iconKG);
 		kyrgyz.setEnabled(!app.getLocale().getLanguage().equals("ky"));
 		languageBar.addComponent(kyrgyz);
 		
+		ThemeResource iconUK = new ThemeResource("../runo/icons/16/United-Kingdom16.png");
 		Button english=new Button("English");
 		english.addListener(new SwitchLanguage(app));
+		english.setIcon(iconUK);
 		english.setEnabled(!app.getLocale().getLanguage().equals("en"));
 		languageBar.addComponent(english);
 		

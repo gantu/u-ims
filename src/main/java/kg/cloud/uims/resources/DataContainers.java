@@ -21,8 +21,6 @@ import kg.cloud.uims.ui.TextFieldValidated;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.data.validator.IntegerValidator;
-import com.vaadin.ui.TextField;
 
 public class DataContainers {
 	public String studContainer_PROPERTY_NAME;
@@ -49,6 +47,7 @@ public class DataContainers {
 
 	public String PROPERTY_GROUP_NAME;
 	public String PROPERTY_FACULTY_CODE;
+	public String PROPERTY_TOTAL_STUDENTS;
 
 	public String PROPERTY_STUDENT_MARK;
 
@@ -85,6 +84,7 @@ public class DataContainers {
 		PROPERTY_GROUP_NAME = app.getMessage(UimsMessages.GroupName);
 		PROPERTY_STUDENT_MARK = app.getMessage(UimsMessages.StudentMark);
 		PROPERTY_FACULTY_CODE = app.getMessage(UimsMessages.FacultyCode);
+		PROPERTY_TOTAL_STUDENTS = app.getMessage(UimsMessages.TotalStudents);
 	}
 
 	public DataContainers() {
@@ -388,7 +388,7 @@ public class DataContainers {
 		try {
 			DbGroup dbGroup = new DbGroup();
 			dbGroup.connect();
-			dbGroup.execSQL_byFID(f_id);
+			dbGroup.execSQL_byFID_active(f_id);
 			ArrayList<Group> groupList = dbGroup.getArray();
 			dbGroup.close();
 
@@ -416,11 +416,13 @@ public class DataContainers {
 				String.class, null);
 		deptContainer.addContainerProperty(PROPERTY_FACULTY_CODE,
 				String.class, null);
+		deptContainer.addContainerProperty(PROPERTY_TOTAL_STUDENTS,
+				String.class, null);
 		
 		try {
 			DbGroup dbGroup = new DbGroup();
 			dbGroup.connect();
-			dbGroup.execSQL_byFID(f_id);
+			dbGroup.execSQL_byFID_active(f_id);
 			ArrayList<Group> groupList = dbGroup.getArray();
 			dbGroup.close();
 
@@ -433,6 +435,8 @@ public class DataContainers {
 						groupList.get(i).getD_Code());
 				item.getItemProperty(PROPERTY_FACULTY_CODE).setValue(
 						groupList.get(i).getF_Code());
+				item.getItemProperty(PROPERTY_TOTAL_STUDENTS).setValue(
+						groupList.get(i).getTotal_students());
 				
 			}
 		} catch (Exception e) {
