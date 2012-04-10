@@ -123,6 +123,7 @@ public class UimsMessages_en extends UimsMessages {
 			{ButtonSignatureList, "Signature List"},
 			{ButtonResultList, "Result List"},
 			{ButtonAverageReport, "Average Report"},
+			{NotifSuccesSaveExam, "Exam results are successfully saved"},
 			
 			// ExamWindow
 			{StudentMark, "Mark"},

@@ -111,6 +111,7 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
 	public static final String ButtonSignatureList = generateId();
 	public static final String ButtonResultList = generateId();
 	public static final String ButtonAverageReport = generateId();
+	public static final String NotifSuccesSaveExam = generateId();
 	// ExamWindow
 	public static final String StudentMark = generateId();
 	public static final String NotifBigger100 = generateId();

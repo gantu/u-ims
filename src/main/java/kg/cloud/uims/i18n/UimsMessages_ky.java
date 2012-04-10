@@ -120,6 +120,7 @@ public class UimsMessages_ky extends UimsMessages {
 			{ButtonSignatureList, "Лист для подписей"},
 			{ButtonResultList, "Лист для результатов"},
 			{ButtonAverageReport, "Репорт успеваемости"},
+			{NotifSuccesSaveExam, "Спасибо! Результаты экзаменов успешно сохранены!"},
 			
 			// ExamWindow
 						{StudentMark, "Баасы"},

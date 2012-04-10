@@ -2,14 +2,6 @@ package kg.cloud.uims.domain;
 
 import java.io.Serializable;
 
-/*
- * Stud_Attendance.java
- * Created on January 25, 2008, 11:43 PM
- */
-
-/**
- * @author mantya
- */
 public class Stud_Attendance implements Serializable{
     /**
 	 * 

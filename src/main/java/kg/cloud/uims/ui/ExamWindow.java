@@ -224,7 +224,7 @@ public class ExamWindow extends Window implements Button.ClickListener {
 				} finally {
 					if (status != 0) {
 						getWindow().showNotification(
-								app.getMessage(UimsMessages.NotifSuccesSave));
+								app.getMessage(UimsMessages.NotifSuccesSaveExam));
 					} else {
 						getWindow().showNotification(
 								app.getMessage(UimsMessages.NotifDbError));
