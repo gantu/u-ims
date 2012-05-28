@@ -6,6 +6,7 @@ import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbDepartment;
 import kg.cloud.uims.dao.DbExam;
 import kg.cloud.uims.dao.DbGroup;
+import kg.cloud.uims.dao.DbStudAccounting;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.dao.DbStudent;
 import kg.cloud.uims.dao.DbStudent_Attendance;
@@ -13,12 +14,14 @@ import kg.cloud.uims.dao.DbSubjects;
 import kg.cloud.uims.domain.Department;
 import kg.cloud.uims.domain.Exam;
 import kg.cloud.uims.domain.Group;
+import kg.cloud.uims.domain.StudAccounting;
 import kg.cloud.uims.domain.StudLess;
 import kg.cloud.uims.domain.Student;
 import kg.cloud.uims.domain.Subjects;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.ui.TextFieldValidated;
 
+import com.lowagie.text.Phrase;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
 
@@ -303,6 +306,7 @@ public class DataContainers {
 				null);
 		container.addContainerProperty(PROPERTY_STUDENT_ATTENDANCE,
 				String.class, null);
+		String exam_id = Integer.toString(app.getCurrentExam().getID());
 		try {
 			DbStudLess dbStudLess = new DbStudLess();
 			dbStudLess.connect();
@@ -314,6 +318,9 @@ public class DataContainers {
 
 			DbStudent_Attendance dbAttandance = new DbStudent_Attendance();
 			dbAttandance.connect();
+
+			DbStudAccounting dbAccounting = new DbStudAccounting();
+			dbAccounting.connect();
 
 			if (subjectList != null) {
 				for (int i = 0; i < subjectList.size(); i++) {
@@ -334,30 +341,67 @@ public class DataContainers {
 							subjectList.get(i).getSubjID());
 					ArrayList<Exam> examList = dbExam.getArray();
 
+					dbAccounting.execSQL(stID, semID, yearID);
+					ArrayList<StudAccounting> account = dbAccounting.getArray();
+
+					int finStat = 1;
+					int midStat = 1;
+					if (!account.isEmpty()) {
+						finStat = account.get(0).getFinStatus();
+						midStat = account.get(0).getMidStatus();
+					}
+
 					Double av = dbStudLess.calcAverage_Report(stID, semID,
 							yearID, subjectList.get(i).getSubjID());
 					if (examList != null) {
 						for (int j = 0; j < examList.size(); j++) {
 							if (examList.get(j).getExam().equals("Midterm")) {
-								item.getItemProperty(PROPERTY_STUDENT_MIDTERM)
-										.setValue(
-												examList.get(j).getPercentage());
+								if (midStat == 1) {
+									item.getItemProperty(
+											PROPERTY_STUDENT_MIDTERM).setValue(
+											examList.get(j).getPercentage());
+								} else {
+									item.getItemProperty(
+											PROPERTY_STUDENT_MIDTERM).setValue(
+											"WBI");
+								}
 							} else if (examList.get(j).getExam()
 									.equals("Final")) {
-								item.getItemProperty(PROPERTY_STUDENT_FINAL)
-										.setValue(
-												examList.get(j).getPercentage());
+								if (finStat == 1) {
+									item.getItemProperty(PROPERTY_STUDENT_FINAL)
+											.setValue(
+													examList.get(j)
+															.getPercentage());
+								} else {
+									item.getItemProperty(PROPERTY_STUDENT_FINAL)
+											.setValue("WBI");
+								}
 							} else if (examList.get(j).getExam()
 									.equals("MakeUp")) {
-								item.getItemProperty(PROPERTY_STUDENT_MAKE_UP)
-										.setValue(
-												examList.get(j).getPercentage());
+								if (finStat == 1) {
+									item.getItemProperty(
+											PROPERTY_STUDENT_MAKE_UP).setValue(
+											examList.get(j).getPercentage());
+								} else {
+									item.getItemProperty(
+											PROPERTY_STUDENT_MAKE_UP).setValue(
+											"WBI");
+								}
 							}
 						}
 					}
-
-					item.getItemProperty(PROPERTY_SUBJECT_AVERAGE).setValue(
-							Math.round(av));
+					if (item.getItemProperty(PROPERTY_STUDENT_MIDTERM)
+							.getValue().toString().equals("WBI")
+							|| item.getItemProperty(PROPERTY_STUDENT_FINAL)
+									.getValue().toString().equals("WBI")
+							|| item.getItemProperty(PROPERTY_STUDENT_MAKE_UP)
+									.getValue().toString().equals("WBI")) {
+						item.getItemProperty(PROPERTY_SUBJECT_AVERAGE)
+								.setValue("WBI");
+					} else {
+						item.getItemProperty(PROPERTY_SUBJECT_AVERAGE)
+								.setValue(Math.round(av));
+					}
 
 					String att = Integer.toString(dbAttandance
 							.execSQL_All(stID, semID, yearID, subjectList
@@ -371,6 +415,7 @@ public class DataContainers {
 			dbStudLess.close();
 			dbAttandance.close();
 			dbExam.close();
+			dbAccounting.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -382,9 +427,9 @@ public class DataContainers {
 	public IndexedContainer getGroupList_forSelect(int f_id) {
 
 		IndexedContainer deptContainer = new IndexedContainer();
-		deptContainer.addContainerProperty(PROPERTY_GROUP_NAME,
-				String.class, null);
-		
+		deptContainer.addContainerProperty(PROPERTY_GROUP_NAME, String.class,
+				null);
+
 		try {
 			DbGroup dbGroup = new DbGroup();
 			dbGroup.connect();
@@ -397,28 +442,29 @@ public class DataContainers {
 				Item item = deptContainer.addItem(id);
 				item.getItemProperty(PROPERTY_GROUP_NAME).setValue(
 						groupList.get(i).getGr_Name());
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		deptContainer.sort(new Object[] { PROPERTY_GROUP_NAME }, new boolean[] { true });
+		deptContainer.sort(new Object[] { PROPERTY_GROUP_NAME },
+				new boolean[] { true });
 		return deptContainer;
 
 	}
-	
+
 	public IndexedContainer getGroupList(int f_id) {
 
 		IndexedContainer deptContainer = new IndexedContainer();
-		deptContainer.addContainerProperty(PROPERTY_GROUP_NAME,
-				String.class, null);
+		deptContainer.addContainerProperty(PROPERTY_GROUP_NAME, String.class,
+				null);
 		deptContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
 				String.class, null);
-		deptContainer.addContainerProperty(PROPERTY_FACULTY_CODE,
-				String.class, null);
+		deptContainer.addContainerProperty(PROPERTY_FACULTY_CODE, String.class,
+				null);
 		deptContainer.addContainerProperty(PROPERTY_TOTAL_STUDENTS,
 				String.class, null);
-		
+
 		try {
 			DbGroup dbGroup = new DbGroup();
 			dbGroup.connect();
@@ -437,22 +483,23 @@ public class DataContainers {
 						groupList.get(i).getF_Code());
 				item.getItemProperty(PROPERTY_TOTAL_STUDENTS).setValue(
 						groupList.get(i).getTotal_students());
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		deptContainer.sort(new Object[] { PROPERTY_GROUP_NAME }, new boolean[] { true });
+		deptContainer.sort(new Object[] { PROPERTY_GROUP_NAME },
+				new boolean[] { true });
 		return deptContainer;
 
 	}
-	
+
 	public IndexedContainer getDeptList(int f_id) {
 
 		IndexedContainer deptContainer = new IndexedContainer();
 		deptContainer.addContainerProperty(PROPERTY_DEPARTMENT_CODE,
 				String.class, null);
-		
+
 		try {
 			DbDepartment dbDepartment = new DbDepartment();
 			dbDepartment.connect();
@@ -465,12 +512,13 @@ public class DataContainers {
 				Item item = deptContainer.addItem(id);
 				item.getItemProperty(PROPERTY_DEPARTMENT_CODE).setValue(
 						deptList.get(i).getDprt_Code());
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		deptContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE }, new boolean[] { true });
+		deptContainer.sort(new Object[] { PROPERTY_DEPARTMENT_CODE },
+				new boolean[] { true });
 		return deptContainer;
 
 	}
@@ -580,8 +628,9 @@ public class DataContainers {
 		return studListContainer;
 
 	}
-	
-	public IndexedContainer getLessonList_byDept(String deptID, String year_id, String sem_id) {
+
+	public IndexedContainer getLessonList_byDept(String deptID, String year_id,
+			String sem_id) {
 
 		IndexedContainer instLessContainer = new IndexedContainer();
 		instLessContainer.addContainerProperty(PROPERTY_SUBJECT_CODE,
