@@ -18,6 +18,7 @@ public class SubjExam implements Serializable{
     private String examName;
     private int examMark;
     private int studID;
+    private String stRollNum;
     
     public SubjExam(int id,int s_less_id,String sName,String sSurname,String gro,
             String subName,int subStatus,String exName,int exMark,int stud_id){
@@ -32,6 +33,22 @@ public class SubjExam implements Serializable{
         this.examName=exName;
         this.examMark=exMark;
         this.studID=stud_id;
+    }
+    
+    public SubjExam(int id,int s_less_id,String sName,String sSurname,String gro,
+            String subName,int subStatus,String exName,int exMark,int stud_id, String strollnum){
+        
+        this.ID=id;
+        this.stud_less_id=s_less_id;
+        this.studentName=sName;
+        this.studentSurname=sSurname;
+        this.group=gro;
+        this.subjectName=subName;
+        this.subjectStatus=subStatus;
+        this.examName=exName;
+        this.examMark=exMark;
+        this.studID=stud_id;
+        this.stRollNum = strollnum;
     }
     
     public SubjExam(int s_less_id,String sName,String sSurname,String gro,
@@ -82,5 +99,9 @@ public class SubjExam implements Serializable{
     
     public int getStudID() {
         return studID;
+    }
+    
+    public String getStRollNum() {
+        return stRollNum;
     }
 }
