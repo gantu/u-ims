@@ -25,6 +25,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
 import java.util.ArrayList;
 
+
 public class MakeExamMarksReport {
 
 	private byte[] b = null;
@@ -38,7 +39,6 @@ public class MakeExamMarksReport {
 	private ArrayList<Subjects> subj;
 	private MyVaadinApplication app;
 	private String year_id, sem_id, exam_id, exam_name,exam_mark;
-	private Document document = null;
 
 	public MakeExamMarksReport(final MyVaadinApplication app, String subj_id,
 			String e_id, String e_name) {
@@ -55,6 +55,7 @@ public class MakeExamMarksReport {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
+			Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 
 			public InputStream getStream() {
 
@@ -76,7 +77,7 @@ public class MakeExamMarksReport {
 					
 					DbStudAccounting dbAccounting = new DbStudAccounting();
 					dbAccounting.connect();
-					document = new Document(PageSize.A4, 10, 10, 10, 10);
+
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
 					document.open();
@@ -103,7 +104,7 @@ public class MakeExamMarksReport {
 							big_font);
 					sif.setAlignment(Element.ALIGN_CENTER);
 					Paragraph note = new Paragraph("* WBI - Exam results ignored students must visit " +
-							"Accounting Department between April 02 and 07, 2012",
+							"Accounting Department between May 28 and June 08, 2012",
 							in_font);
 					note.setAlignment(Element.ALIGN_CENTER);
 					document.add(iaau);
@@ -133,7 +134,7 @@ public class MakeExamMarksReport {
 						Thead.addCell(new Phrase(" "));
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
-						float[] Tbody_colsWidth = { 0.1f, 1f, 0.4f, 0.4f };
+						float[] Tbody_colsWidth = { 0.1f, 0.8f, 0.5f, 0.5f };
 						PdfPTable Tbody = new PdfPTable(4);
 						Tbody.setWidthPercentage(90f);
 						Tbody.setWidths(Tbody_colsWidth);
@@ -141,7 +142,7 @@ public class MakeExamMarksReport {
 						Tbody.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_CENTER);
 						Tbody.addCell(new Phrase("#", in_font));
-						Tbody.addCell(new Phrase("Name Surname", in_font));
+						Tbody.addCell(new Phrase("Roll Number", in_font));
 						Tbody.addCell(new Phrase("Group", in_font));
 						Tbody.addCell(new Phrase("Mark", in_font));
 						for (int i = 0; i < studLessList.size(); i++) {
@@ -158,19 +159,13 @@ public class MakeExamMarksReport {
 									|| ((account.get(0).getFinStatus() != 1 && exam_id.equals("2")))
 									|| ((account.get(0).getMidStatus() != 1 && exam_id.equals("1")))) {
 								Tbody.addCell(new Phrase("*"
-										+ studLessList.get(i).getStudentName()
-										+ " "
-										+ studLessList.get(i)
-												.getStudentSurname(),
+										+ studLessList.get(i).getStRollNum(),
 										text_font));
 								exam_mark="WBI";
 								
 							} else {
 								Tbody.addCell(new Phrase(studLessList
-										.get(i).getStudentName()
-										+ " "
-										+ studLessList.get(i)
-												.getStudentSurname(),
+										.get(i).getStRollNum(),
 										text_font));
 	
 								exam_mark=Integer.toString(studLessList.get(i)

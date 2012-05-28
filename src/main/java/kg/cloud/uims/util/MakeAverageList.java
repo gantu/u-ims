@@ -2,8 +2,10 @@ package kg.cloud.uims.util;
 
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.dao.DbExam;
+import kg.cloud.uims.dao.DbStudAccounting;
 import kg.cloud.uims.dao.DbStudLess;
 import kg.cloud.uims.domain.Exam;
+import kg.cloud.uims.domain.StudAccounting;
 import kg.cloud.uims.domain.StudLess;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
@@ -62,6 +64,10 @@ public class MakeAverageList {
 
 					DbExam dbExam = new DbExam();
 					dbExam.connect();
+
+					DbStudAccounting dbAccounting = new DbStudAccounting();
+					dbAccounting.connect();
+
 					document = new Document(PageSize.A4, 10, 10, 10, 10);
 					PdfWriter writer = PdfWriter.getInstance(document, buffer);
 
@@ -131,30 +137,57 @@ public class MakeAverageList {
 						Tbody.addCell(new Phrase("Status", in_font));
 
 						for (int i = 0; i < studLessList.size(); i++) {
-							Double av = dbStudLess.calcAverage_Report(Integer
-									.toString(studLessList.get(i).getStudID()),
-									sem_id, year_id, Integer
-											.parseInt(subjectId));
+
 							dbExam.execStudentExamDetails(Integer
 									.toString(studLessList.get(i).getStudID()),
 									sem_id, year_id, Integer
 											.parseInt(subjectId));
 							ArrayList<Exam> examList = dbExam.getArray();
-							double marks[] = new double[3];
+
+							dbAccounting.execSQL(Integer.toString(studLessList
+									.get(i).getStudID()), sem_id, year_id);
+							ArrayList<StudAccounting> account = dbAccounting
+									.getArray();
+
+							int finStat = 1;
+							int midStat = 1;
+							if (!account.isEmpty()) {
+								finStat = account.get(0).getFinStatus();
+								midStat = account.get(0).getMidStatus();
+							}
+							Double av = dbStudLess.calcAverage_Report(Integer
+									.toString(studLessList.get(i).getStudID()),
+									sem_id, year_id, Integer
+											.parseInt(subjectId));
+
+							String marks[] = new String[3];
 							if (examList != null) {
 								for (int j = 0; j < examList.size(); j++) {
 									if (examList.get(j).getExam()
 											.equals("Midterm")) {
-										marks[0] = examList.get(j)
-												.getPercentage();
+										if (midStat == 1) {
+											marks[0] = Double.toString(examList
+													.get(j).getPercentage());
+										} else {
+											marks[0] = "WBI";
+										}
+
 									} else if (examList.get(j).getExam()
 											.equals("Final")) {
-										marks[1] = examList.get(j)
-												.getPercentage();
+										if (finStat == 1) {
+											marks[1] = Double.toString(examList
+													.get(j).getPercentage());
+										} else {
+											marks[1] = "WBI";
+										}
 									} else if (examList.get(j).getExam()
 											.equals("MakeUp")) {
-										marks[2] = examList.get(j)
-												.getPercentage();
+										if (finStat == 1) {
+											marks[2] = Double.toString(examList
+													.get(j).getPercentage());
+										} else {
+											marks[2] = "WBI";
+										}
 									}
 								}
 							}
@@ -172,19 +205,29 @@ public class MakeAverageList {
 									Element.ALIGN_CENTER);
 							Tbody.addCell(new Phrase(studLessList.get(i)
 									.getGrpName(), text_font));
-							Tbody.addCell(new Phrase(Double.toString(marks[0]),
-									text_font));
-							Tbody.addCell(new Phrase(Double.toString(marks[1]),
-									text_font));
-							Tbody.addCell(new Phrase(Double.toString(marks[2]),
-									text_font));
-							Tbody.addCell(new Phrase(Double.toString(av),
-									text_font));
-							if (av < 49.5) {
+							Tbody.addCell(new Phrase(marks[0], text_font));
+							Tbody.addCell(new Phrase(marks[1], text_font));
+							Tbody.addCell(new Phrase(marks[2], text_font));
+
+							if ((marks[0] != null && marks[0].equals("WBI"))
+									|| (marks[1] != null && marks[1]
+											.equals("WBI"))
+									|| (marks[2] != null && marks[2]
+											.equals("WBI"))) {
+								Tbody.addCell(new Phrase("WBI", text_font));
 								Tbody.addCell(new Phrase("Failed", text_font));
-							} else if (av >= 49.5) {
-								Tbody.addCell(new Phrase("Passed", text_font));
+							} else {
+								Tbody.addCell(new Phrase(Double.toString(av),
+										text_font));
+								if (av < 49.5) {
+									Tbody.addCell(new Phrase("Failed",
+											text_font));
+								} else if (av >= 49.5) {
+									Tbody.addCell(new Phrase("Passed",
+											text_font));
+								}
 							}
+
 						}
 						document.add(Tbody);
 						document.add(new Paragraph(10, " "));
@@ -206,6 +249,7 @@ public class MakeAverageList {
 
 					dbStudLess.close();
 					dbExam.close();
+					dbAccounting.close();
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -236,5 +280,4 @@ public class MakeAverageList {
 		// app.addComponent(e);
 		app.getMainWindow().open(resource);
 	}
-
 }
