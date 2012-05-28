@@ -96,7 +96,6 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		notTakenSubjects.setSelectable(true);
 		notTakenSubjects.setImmediate(true);
 		notTakenSubjects.setStyleName(ChameleonTheme.TABLE_STRIPED);
-		notTakenSubjects.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		VerticalLayout tablesLayout = new VerticalLayout();
