@@ -151,7 +151,7 @@ public class MakeAverageList {
 
 							int finStat = 1;
 							int midStat = 1;
-							if (!account.isEmpty()) {
+							if (account.size() !=0) {
 								finStat = account.get(0).getFinStatus();
 								midStat = account.get(0).getMidStatus();
 							}

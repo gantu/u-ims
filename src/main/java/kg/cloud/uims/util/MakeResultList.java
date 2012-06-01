@@ -141,7 +141,7 @@ public class MakeResultList {
 								count++;
 								Tbody.addCell(new Phrase(Integer
 										.toString(count), text_font));
-								if (account.isEmpty()
+								if (account.size()==0
 										|| ((account.get(0).getFinStatus() != 1 && app.getCurrentExam().getID() == 2))
 										|| ((account.get(0).getMidStatus() != 1 && app.getCurrentExam().getID() == 1))) {
 									Tbody.addCell(new Phrase("*"
@@ -171,7 +171,7 @@ public class MakeResultList {
 									count++;
 									Tbody.addCell(new Phrase(Integer
 											.toString(count), text_font));
-									if (account.isEmpty()
+									if (account.size()==0
 											|| account.get(0).getFinStatus() != 1) {
 										Tbody.addCell(new Phrase("*"
 												+ studLessList.get(i)

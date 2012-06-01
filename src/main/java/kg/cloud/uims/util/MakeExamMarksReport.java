@@ -155,7 +155,7 @@ public class MakeExamMarksReport {
 									text_font));
 							Tbody.getDefaultCell().setHorizontalAlignment(
 									Element.ALIGN_LEFT);
-							if (account.isEmpty()
+							if (account.size()==0
 									|| ((account.get(0).getFinStatus() != 1 && exam_id.equals("2")))
 									|| ((account.get(0).getMidStatus() != 1 && exam_id.equals("1")))) {
 								Tbody.addCell(new Phrase("*"
