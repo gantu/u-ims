@@ -93,8 +93,10 @@ public class DbStudLess extends BaseDb {
 	public void execSQL_Exam(String subj_id, String yearID, String semID)
 			throws SQLException {
 
-		String sql = "select t0.id,t1.id,t1.name,t1.surname,t6.name,t2.name,t2.id,t2.code,t2.stdyear,t2.hours,t2.credit,t3.id,"
-				+ "t3.name,t4.year,t5.semester,t0.status,t7.name, t1.dept_id from less_stud as t0 "
+		String sql = "select t0.id,t1.id,t1.name,t1.surname, t1.rollnum, "
+				+ "t6.name,t2.name,t2.id,t2.code,t2.stdyear,t2.hours,t2.credit,t3.id,"
+				+ "t3.name,t4.year,t5.semester,t0.status,t7.name, t1.dept_id "
+				+ "from less_stud as t0 "
 				+ "left join student as t1 on t0.student_id=t1.id "
 				+ "left join department as t6 on t1.dept_id=t6.id "
 				+ "left join subjects as t2 on t0.subject_id=t2.id "
@@ -124,7 +126,8 @@ public class DbStudLess extends BaseDb {
 							.getString("t5.semester"), result
 							.getString("t2.hours"), result
 							.getString("t2.credit"), result
-							.getString("t7.name"), result.getInt("t1.dept_id")));
+							.getString("t7.name"), result.getInt("t1.dept_id"),
+					result.getString("t1.rollnum")));
 		}
 	}
 

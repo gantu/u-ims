@@ -128,7 +128,7 @@ public class MakeAverageList {
 						Tbody.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_CENTER);
 						Tbody.addCell(new Phrase("#", in_font));
-						Tbody.addCell(new Phrase("Name Surname", in_font));
+						Tbody.addCell(new Phrase("Roll Number", in_font));
 						Tbody.addCell(new Phrase("Group", in_font));
 						Tbody.addCell(new Phrase("Midterm", in_font));
 						Tbody.addCell(new Phrase("Final", in_font));
@@ -151,7 +151,7 @@ public class MakeAverageList {
 
 							int finStat = 1;
 							int midStat = 1;
-							if (account.size() !=0) {
+							if (account.size() != 0) {
 								finStat = account.get(0).getFinStatus();
 								midStat = account.get(0).getMidStatus();
 							}
@@ -197,10 +197,7 @@ public class MakeAverageList {
 							Tbody.getDefaultCell().setHorizontalAlignment(
 									Element.ALIGN_LEFT);
 							Tbody.addCell(new Phrase(studLessList.get(i)
-									.getStudName()
-									+ " "
-									+ studLessList.get(i).getStudSurname(),
-									text_font));
+									.getRollNum(), text_font));
 							Tbody.getDefaultCell().setHorizontalAlignment(
 									Element.ALIGN_CENTER);
 							Tbody.addCell(new Phrase(studLessList.get(i)
