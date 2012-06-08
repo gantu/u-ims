@@ -134,7 +134,7 @@ public class MakeExamMarksReport {
 						Thead.addCell(new Phrase(" "));
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
-						float[] Tbody_colsWidth = { 0.1f, 0.8f, 0.5f, 0.5f };
+						float[] Tbody_colsWidth = { 0.14f, 0.6f, 0.6f, 0.6f };
 						PdfPTable Tbody = new PdfPTable(4);
 						Tbody.setWidthPercentage(90f);
 						Tbody.setWidths(Tbody_colsWidth);
@@ -153,8 +153,7 @@ public class MakeExamMarksReport {
 									.getArray();
 							Tbody.addCell(new Phrase(Integer.toString(i + 1),
 									text_font));
-							Tbody.getDefaultCell().setHorizontalAlignment(
-									Element.ALIGN_LEFT);
+							
 							if (account.size()==0
 									|| ((account.get(0).getFinStatus() != 1 && exam_id.equals("2")))
 									|| ((account.get(0).getMidStatus() != 1 && exam_id.equals("1")))) {

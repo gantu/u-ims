@@ -204,7 +204,7 @@ public class MakeSignatureList {
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
 
-						float[] Tbody_colsWidth = { 0.1f, 0.9f, 0.6f, 0.3f,
+						float[] Tbody_colsWidth = { 0.14f, 0.9f, 0.6f, 0.3f,
 								0.5f, 0.3f, 0.4f };
 						PdfPTable Tbody = new PdfPTable(7);
 						Tbody.setWidthPercentage(90f);

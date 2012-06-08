@@ -118,7 +118,7 @@ public class MakeResultList {
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
 
-						float[] Tbody_colsWidth = { 0.1f, 1f, 0.5f, 0.4f, 0.5f };
+						float[] Tbody_colsWidth = { 0.14f, 1f, 0.5f, 0.4f, 0.5f };
 						PdfPTable Tbody = new PdfPTable(5);
 						Tbody.setWidthPercentage(90f);
 						Tbody.setWidths(Tbody_colsWidth);

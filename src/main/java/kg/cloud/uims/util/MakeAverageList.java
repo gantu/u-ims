@@ -119,7 +119,7 @@ public class MakeAverageList {
 						document.add(Thead);
 						document.add(new Paragraph(10, " "));
 
-						float[] Tbody_colsWidth = { 0.1f, 1f, 0.3f, 0.4f, 0.4f,
+						float[] Tbody_colsWidth = { 0.17f, 0.7f, 0.4f, 0.4f, 0.4f,
 								0.4f, 0.4f, 0.4f };
 						PdfPTable Tbody = new PdfPTable(8);
 						Tbody.setWidthPercentage(90f);
@@ -195,11 +195,10 @@ public class MakeAverageList {
 							Tbody.addCell(new Phrase(Integer.toString(i + 1),
 									text_font));
 							Tbody.getDefaultCell().setHorizontalAlignment(
-									Element.ALIGN_LEFT);
+									Element.ALIGN_CENTER);
 							Tbody.addCell(new Phrase(studLessList.get(i)
 									.getRollNum(), text_font));
-							Tbody.getDefaultCell().setHorizontalAlignment(
-									Element.ALIGN_CENTER);
+							
 							Tbody.addCell(new Phrase(studLessList.get(i)
 									.getGrpName(), text_font));
 							Tbody.addCell(new Phrase(marks[0], text_font));
