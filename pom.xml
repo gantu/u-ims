@@ -6,7 +6,7 @@
 	<artifactId>uims</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Vaadin Web Application</name>
+	<name>uims</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

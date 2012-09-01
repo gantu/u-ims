@@ -3,15 +3,17 @@
  * Created on December 18, 2007, 1:32 PM
  */
 package kg.cloud.uims.domain;
-import java.io.Serializable;
-import java.util.*;
 
-public class Student implements Serializable{
+import java.io.Serializable;
+import java.util.Date;
+
+public class Student implements Serializable {
+
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int id;
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private int id;
     private String name;
     private String surname;
     private String group_name;
@@ -63,14 +65,14 @@ public class Student implements Serializable{
     private String fullName;
     private String faculty_name;
 
-    public Student(int i,String nam, String sur, String rollnum, String edu_order_num1, String awards,String attestat,
-            String purmAdr,String currAdr,String birthPl,String phone,Date dob,String passport,String email,String photo,
-            String motherName,String motherSurname,String motherWorkPl,String motherPh,
-            String fatherName,String fatherSurname,String fatherWorkPl,String fatherPh,
-            String note1,String note2,String note3,String note4, String grp_nam,String dpt_nam,String dpt_code,
-            String education,String academic,String ghsType,String ghsLanguage,String enterY,
-            String remark,String school,String country,String region,String oblast,String blood,String nation,String gender,
-            String password, String grad_project, String status, String edu_order_num2,String edu_order_num3) {
+    public Student(int i, String nam, String sur, String rollnum, String edu_order_num1, String awards, String attestat,
+            String purmAdr, String currAdr, String birthPl, String phone, Date dob, String passport, String email, String photo,
+            String motherName, String motherSurname, String motherWorkPl, String motherPh,
+            String fatherName, String fatherSurname, String fatherWorkPl, String fatherPh,
+            String note1, String note2, String note3, String note4, String grp_nam, String dpt_nam, String dpt_code,
+            String education, String academic, String ghsType, String ghsLanguage, String enterY,
+            String remark, String school, String country, String region, String oblast, String blood, String nation, String gender,
+            String password, String grad_project, String status, String edu_order_num2, String edu_order_num3) {
         this.id = i;
         this.name = nam;
         this.surname = sur;
@@ -94,7 +96,7 @@ public class Student implements Serializable{
         this.phone = phone;
         this.purmAdr = purmAdr;
         this.currAdr = currAdr;
-        this.birthPl  = birthPl;
+        this.birthPl = birthPl;
         this.dob = dob;
         this.blood = blood;
         this.nation = nation;
@@ -121,14 +123,14 @@ public class Student implements Serializable{
         this.edu_order_num3 = edu_order_num3;
     }
 
-     public Student(int i,String nam, String sur, String rollnum, String edu_order_num1, String awards,String attestat,
-            String purmAdr,String currAdr,String birthPl,String phone,Date dob,String passport,String email,String photo,
-            String motherName,String motherSurname,String motherWorkPl,String motherPh,
-            String fatherName,String fatherSurname,String fatherWorkPl,String fatherPh,
-            String note1,String note2,String note3,String note4, String grp_nam,String dpt_nam,String dpt_code,
-            String education,String academic,String ghsType,String ghsLanguage,String enterY,
-            String remark,String school,String country,String region,String oblast,String blood,String nation,String gender,
-            String password, String grad_project, String status, String edu_order_num2,String edu_order_num3,String acc_status) {
+    public Student(int i, String nam, String sur, String rollnum, String edu_order_num1, String awards, String attestat,
+            String purmAdr, String currAdr, String birthPl, String phone, Date dob, String passport, String email, String photo,
+            String motherName, String motherSurname, String motherWorkPl, String motherPh,
+            String fatherName, String fatherSurname, String fatherWorkPl, String fatherPh,
+            String note1, String note2, String note3, String note4, String grp_nam, String dpt_nam, String dpt_code,
+            String education, String academic, String ghsType, String ghsLanguage, String enterY,
+            String remark, String school, String country, String region, String oblast, String blood, String nation, String gender,
+            String password, String grad_project, String status, String edu_order_num2, String edu_order_num3, String acc_status) {
         this.id = i;
         this.name = nam;
         this.surname = sur;
@@ -152,7 +154,7 @@ public class Student implements Serializable{
         this.phone = phone;
         this.purmAdr = purmAdr;
         this.currAdr = currAdr;
-        this.birthPl  = birthPl;
+        this.birthPl = birthPl;
         this.dob = dob;
         this.blood = blood;
         this.nation = nation;
@@ -177,161 +179,217 @@ public class Student implements Serializable{
         this.status = status;
         this.edu_order_num2 = edu_order_num2;
         this.edu_order_num3 = edu_order_num3;
-        this.acc_status=acc_status;
+        this.acc_status = acc_status;
     }
 
     public Student(String fname, String rollnum, String fct_nam, String dpt_nam) {
-    	
-    	this.fullName=fname;
-    	this.rollnum = rollnum;
-    	this.dept_name = dpt_nam;
-        this.faculty_name = fct_nam;
-        
-        
-	}
 
-	public int getID(){
+        this.fullName = fname;
+        this.rollnum = rollnum;
+        this.dept_name = dpt_nam;
+        this.faculty_name = fct_nam;
+
+
+    }
+
+    public Student(int id, String name, String surname,
+            String edu) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.education = edu;
+
+    }
+
+    public int getID() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public String getSurname() {
         return surname;
     }
+
     public String getGroupName() {
         return group_name;
     }
-    public String getDepartName(){
+
+    public String getDepartName() {
         return dept_name;
     }
-    public String getStRollnum(){
+
+    public String getStRollnum() {
         return rollnum;
     }
-    public String getDepartCode(){
+
+    public String getDepartCode() {
         return dept_code;
     }
+
     public String getEducation() {
         return education;
     }
+
     public String getAcademic() {
         return academic;
     }
+
     public String getGhsType() {
         return ghsType;
     }
-    public String getGhsLanguage(){
+
+    public String getGhsLanguage() {
         return ghsLanguage;
     }
-    public String getEnterY(){
+
+    public String getEnterY() {
         return enterY;
     }
+
     public String getRemark() {
         return remark;
     }
+
     public String getEnterOrderNumber() {
         return edu_order_num1;
     }
+
     public String getAcademOrderNumber() {
         return edu_order_num2;
     }
+
     public String getGraduateOrderNumber() {
         return edu_order_num3;
     }
+
     public String getAwards() {
         return awards;
     }
-    public String getdocs(){
+
+    public String getdocs() {
         return attestat;
     }
-    public String getSchool(){
+
+    public String getSchool() {
         return school;
     }
+
     public String getCountry() {
         return country;
     }
+
     public String getOblast() {
         return oblast;
     }
+
     public String getRegion() {
         return region;
     }
-    public String getPhoneNumber(){
+
+    public String getPhoneNumber() {
         return phone;
     }
+
     public String getPurmAddress() {
         return purmAdr;
     }
+
     public String getCurrAddress() {
         return currAdr;
     }
+
     public String getBirthPlace() {
         return birthPl;
     }
-    public Date getDoB(){
+
+    public Date getDoB() {
         return dob;
     }
-    public String getBlood(){
+
+    public String getBlood() {
         return blood;
     }
+
     public String getNationality() {
         return nation;
     }
+
     public String getGender() {
         return gender;
     }
+
     public String getPassport() {
         return passport;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    public String getPhoto(){
+
+    public String getPhoto() {
         return photo;
     }
+
     public String getMotherName() {
         return motherName;
     }
+
     public String getMotherSurname() {
         return motherSurname;
     }
+
     public String getMotherWorkPlace() {
         return motherWorkPl;
     }
-    public String getMotherPh(){
+
+    public String getMotherPh() {
         return motherph;
     }
+
     public String getFatherName() {
         return fatherName;
     }
+
     public String getFatherSurname() {
         return fatherSurname;
     }
+
     public String getFatherWorkPlace() {
         return fatherWorkPl;
     }
-    public String getFatherPh(){
+
+    public String getFatherPh() {
         return fatherph;
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return password;
     }
-    public String getNote1(){
+
+    public String getNote1() {
         return note1;
     }
-    public String getNote2(){
+
+    public String getNote2() {
         return note2;
     }
-    public String getNote3(){
+
+    public String getNote3() {
         return note3;
     }
-    public String getNote4(){
+
+    public String getNote4() {
         return note4;
     }
-    public String getGraduateProject(){
+
+    public String getGraduateProject() {
         return gradProject;
     }
-    public String getStatus(){
+
+    public String getStatus() {
         return status;
     }
 
@@ -341,11 +399,11 @@ public class Student implements Serializable{
     public String getAcc_status() {
         return acc_status;
     }
-    
+
     public String getFull_name() {
         return fullName;
     }
-    
+
     public String getFaculty_name() {
         return faculty_name;
     }
