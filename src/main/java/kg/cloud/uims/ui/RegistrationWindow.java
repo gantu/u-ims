@@ -191,7 +191,7 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 					.execSQL(studentId, app.getCurrentSemester().getId(), app
 							.getCurrentYear().getId());
 			dbStudReg.close();
-			if (status.equals("0")) {
+			if (status.equals("0") || !status.equals("")) {
 				controlLayout.addComponent(save);
 			} else {
 				studInfo.setCaption(app.getMessage(UimsMessages.LabelStudent)
