@@ -1,15 +1,5 @@
 package kg.cloud.uims.ui;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
-
-import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.dao.DbStudLess;
-import kg.cloud.uims.dao.DbStudReg;
-import kg.cloud.uims.i18n.UimsMessages;
-import kg.cloud.uims.resources.DataContainers;
-import kg.cloud.uims.resources.RegistrationPDF;
-
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -21,15 +11,17 @@ import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.terminal.Resource;
 import com.vaadin.terminal.StreamResource;
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
+import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ChameleonTheme;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import kg.cloud.uims.MyVaadinApplication;
+import kg.cloud.uims.dao.DbStudLess;
+import kg.cloud.uims.dao.DbStudReg;
+import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.resources.DataContainers;
+import kg.cloud.uims.resources.RegistrationPDF;
 
 public class RegistrationWindow extends Window implements Button.ClickListener,
 		Property.ValueChangeListener {
@@ -122,15 +114,19 @@ public class RegistrationWindow extends Window implements Button.ClickListener,
 		moveDown.setCaption(app.getMessage(UimsMessages.MoveDownButton));
 		moveDown.setIcon(iconDown);
 		moveDown.addListener((Button.ClickListener) this);
+                moveDown.setStyleName("default");
 		moveUp.setCaption(app.getMessage(UimsMessages.MoveUpButton));
 		moveUp.setIcon(iconUp);
 		moveUp.addListener((Button.ClickListener) this);
+                moveUp.setStyleName("default");
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
 		save.setIcon(iconOK);
 		save.addListener((Button.ClickListener) this);
+                save.setStyleName("default");
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
 		toPDF.setIcon(iconPDF);
 		toPDF.addListener((Button.ClickListener) this);
+                toPDF.setStyleName("default");
 
 		Label filter1Label = new Label(app.getMessage(UimsMessages.FilterByYearLabel));
 		filter1Label.setStyleName(ChameleonTheme.LABEL_BIG);

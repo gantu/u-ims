@@ -73,12 +73,15 @@ public class AttendanceWindow extends Window implements Button.ClickListener {
 		makeForm.setCaption(app.getMessage(UimsMessages.ButtonMakeForm));
 		makeForm.setIcon(iconPDF);
 		makeForm.addListener((Button.ClickListener) this);
+                makeForm.setStyleName("default");
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
 		save.setIcon(iconOK);
 		save.addListener((Button.ClickListener) this);
+                save.setStyleName("default");
 		report.setCaption(app.getMessage(UimsMessages.ButtonMakeReport));
 		report.setIcon(iconPDF);
 		report.addListener((Button.ClickListener) this);
+                report.setStyleName("default");
 		
 		if(currentUser.hasRole("secretary")){
 			save.setEnabled(false);

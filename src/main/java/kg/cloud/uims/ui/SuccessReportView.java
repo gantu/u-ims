@@ -1,22 +1,15 @@
 package kg.cloud.uims.ui;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
-import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.i18n.UimsMessages;
-import kg.cloud.uims.resources.DataContainers;
-
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.ui.AbstractSelect;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Select;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ChameleonTheme;
+import kg.cloud.uims.MyVaadinApplication;
+import kg.cloud.uims.i18n.UimsMessages;
+import kg.cloud.uims.resources.DataContainers;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
 public class SuccessReportView extends VerticalLayout implements
         Property.ValueChangeListener {

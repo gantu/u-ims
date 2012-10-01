@@ -1,26 +1,14 @@
 package kg.cloud.uims;
 
 
-import java.util.Locale;
-
-import kg.cloud.uims.i18n.UimsMessages;
-
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.LoginForm.LoginEvent;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Window.Notification;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
+import java.util.Locale;
+import kg.cloud.uims.i18n.UimsMessages;
+import org.apache.shiro.authc.*;
 
 public class LoginScreen extends VerticalLayout{
 	/**
@@ -42,6 +30,7 @@ public class LoginScreen extends VerticalLayout{
 		ThemeResource iconKG = new ThemeResource("../runo/icons/16/Kyrgyzstan16.png");
 		Button kyrgyz=new Button("Kyrgyz");
 		kyrgyz.addListener(new SwitchLanguage(app));
+                kyrgyz.setStyleName("default");
 		kyrgyz.setIcon(iconKG);
 		kyrgyz.setEnabled(!app.getLocale().getLanguage().equals("ky"));
 		languageBar.addComponent(kyrgyz);
@@ -49,6 +38,7 @@ public class LoginScreen extends VerticalLayout{
 		ThemeResource iconUK = new ThemeResource("../runo/icons/16/United-Kingdom16.png");
 		Button english=new Button("English");
 		english.addListener(new SwitchLanguage(app));
+                english.setStyleName("default");
 		english.setIcon(iconUK);
 		english.setEnabled(!app.getLocale().getLanguage().equals("en"));
 		languageBar.addComponent(english);

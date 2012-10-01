@@ -206,8 +206,8 @@ public class MakeResultList {
 						Tfoot.getDefaultCell().setHorizontalAlignment(
 								Element.ALIGN_LEFT);
 						Tfoot.addCell(new Phrase("Name Surname :"
-								+ app.getInstName() + " "
-								+ app.getInstSurname(), in_font));
+								+ app.getName() + " "
+								+ app.getSurname(), in_font));
 						Tfoot.addCell(new Phrase("Signature :", in_font));
 						document.add(Tfoot);
 					} else {

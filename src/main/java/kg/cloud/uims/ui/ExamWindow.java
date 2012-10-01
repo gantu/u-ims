@@ -78,24 +78,31 @@ public class ExamWindow extends Window implements Button.ClickListener {
 		signList.setCaption(app.getMessage(UimsMessages.ButtonSignatureList));
 		signList.setIcon(iconPDF);
 		signList.addListener((Button.ClickListener) this);
+                signList.setStyleName("default");
 		save.setCaption(app.getMessage(UimsMessages.SaveButton));
 		save.setIcon(iconOK);
 		save.addListener((Button.ClickListener) this);
+                save.setStyleName("default");
 		resultList.setCaption(app.getMessage(UimsMessages.ButtonResultList));
 		resultList.setIcon(iconPDF);
 		resultList.addListener((Button.ClickListener) this);
+                resultList.setStyleName("default");
 		midMarks.setCaption(app.getMessage(UimsMessages.StudentMidterm));
 		midMarks.setIcon(iconPDF);
 		midMarks.addListener((Button.ClickListener) this);
+                midMarks.setStyleName("default");
 		finMarks.setCaption(app.getMessage(UimsMessages.StudentFinal));
 		finMarks.setIcon(iconPDF);
 		finMarks.addListener((Button.ClickListener) this);
+                finMarks.setStyleName("default");
 		makeUpMarks.setCaption(app.getMessage(UimsMessages.StudentMakeup));
 		makeUpMarks.setIcon(iconPDF);
 		makeUpMarks.addListener((Button.ClickListener) this);
+                makeUpMarks.setStyleName("default");
 		avReport.setCaption(app.getMessage(UimsMessages.ButtonAverageReport));
 		avReport.setIcon(iconPDF);
 		avReport.addListener((Button.ClickListener) this);
+                avReport.setStyleName("default");
 		
 		if(currentUser.hasRole("secretary")){
 			save.setEnabled(false);

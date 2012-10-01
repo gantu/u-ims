@@ -91,6 +91,7 @@ public class SuccessReportWindow extends Window implements ClickListener,
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
 		toPDF.setIcon(iconPDF);
 		toPDF.addListener((Button.ClickListener) this);
+                toPDF.setStyleName("default");
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		GridLayout infoLayout = new GridLayout(3, 1);

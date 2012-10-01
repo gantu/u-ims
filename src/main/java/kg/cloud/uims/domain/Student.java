@@ -64,6 +64,10 @@ public class Student implements Serializable {
     private String acc_status;
     private String fullName;
     private String faculty_name;
+    private int reg_stat;
+    private int acc_reg_stat;
+    private int acc_mid_stat;
+    private int acc_fin_stat;
 
     public Student(int i, String nam, String sur, String rollnum, String edu_order_num1, String awards, String attestat,
             String purmAdr, String currAdr, String birthPl, String phone, Date dob, String passport, String email, String photo,
@@ -198,6 +202,19 @@ public class Student implements Serializable {
         this.name = name;
         this.surname = surname;
         this.education = edu;
+
+    }
+    
+    public Student(int id, String name, String surname,
+            String edu, int reg_s, int acc_reg, int acc_mid, int acc_fin) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.education = edu;
+        this.reg_stat = reg_s;
+        this.acc_reg_stat = acc_reg;
+        this.acc_mid_stat = acc_mid;
+        this.acc_fin_stat = acc_fin;
 
     }
 
@@ -413,5 +430,37 @@ public class Student implements Serializable {
      */
     public void setAcc_status(String acc_status) {
         this.acc_status = acc_status;
+    }
+
+    public int getReg_stat() {
+        return reg_stat;
+    }
+
+    public void setReg_stat(int reg_stat) {
+        this.reg_stat = reg_stat;
+    }
+
+    public int getAcc_reg_stat() {
+        return acc_reg_stat;
+    }
+
+    public void setAcc_reg_stat(int acc_reg_stat) {
+        this.acc_reg_stat = acc_reg_stat;
+    }
+
+    public int getAcc_mid_stat() {
+        return acc_mid_stat;
+    }
+
+    public void setAcc_mid_stat(int acc_mid_stat) {
+        this.acc_mid_stat = acc_mid_stat;
+    }
+
+    public int getAcc_fin_stat() {
+        return acc_fin_stat;
+    }
+
+    public void setAcc_fin_stat(int acc_fin_stat) {
+        this.acc_fin_stat = acc_fin_stat;
     }
 }

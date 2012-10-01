@@ -1,20 +1,13 @@
 package kg.cloud.uims.ui;
 
-import kg.cloud.uims.MyVaadinApplication;
-import kg.cloud.uims.i18n.UimsMessages;
-
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.VerticalLayout;
-
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
-import com.vaadin.ui.TabSheet.Tab;
-import com.vaadin.ui.themes.ChameleonTheme;
+import com.vaadin.ui.VerticalLayout;
+import kg.cloud.uims.MyVaadinApplication;
+import kg.cloud.uims.i18n.UimsMessages;
 
 public class HelpView extends VerticalLayout implements
 		TabSheet.SelectedTabChangeListener {

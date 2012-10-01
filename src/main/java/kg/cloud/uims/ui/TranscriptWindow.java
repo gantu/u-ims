@@ -1,24 +1,18 @@
 package kg.cloud.uims.ui;
 
+import com.vaadin.data.Item;
+import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ChameleonTheme;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import kg.cloud.uims.MyVaadinApplication;
 import kg.cloud.uims.i18n.UimsMessages;
 import kg.cloud.uims.resources.DataContainers;
 import kg.cloud.uims.util.ExportTranscriptToPDF;
-
-import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.ChameleonTheme;
-import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
-import com.vaadin.data.Item;
-
-import java.text.NumberFormat;
-import java.text.ParseException;
 
 
 public class TranscriptWindow extends Window implements ClickListener{
@@ -60,6 +54,7 @@ public class TranscriptWindow extends Window implements ClickListener{
 		toPDF.setCaption(app.getMessage(UimsMessages.ButtonMakePDF));
 		toPDF.setIcon(iconPDF);
 		toPDF.addListener((Button.ClickListener) this);
+                toPDF.setStyleName("default");
 
 		VerticalLayout mainLayout = new VerticalLayout();
 		Label studInfo = new Label(app.getMessage(UimsMessages.LabelStudent) + " : " + studentFullName);
