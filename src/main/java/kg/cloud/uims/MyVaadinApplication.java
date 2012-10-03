@@ -65,7 +65,7 @@ public class MyVaadinApplication extends Application implements
 
     @Override
     public void init() {
-        setTheme("good_cham");
+        setTheme("last_cham");
         final ResourceBundle i18n = ResourceBundle.getBundle(
                 UimsMessages.class.getName(), getLocale());
         this.getContext().addTransactionListener(this);
