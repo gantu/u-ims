@@ -68,6 +68,7 @@ public class Student implements Serializable {
     private int acc_reg_stat;
     private int acc_mid_stat;
     private int acc_fin_stat;
+    private String supervisorFullName;
 
     public Student(int i, String nam, String sur, String rollnum, String edu_order_num1, String awards, String attestat,
             String purmAdr, String currAdr, String birthPl, String phone, Date dob, String passport, String email, String photo,
@@ -204,9 +205,10 @@ public class Student implements Serializable {
         this.education = edu;
 
     }
-    
+
     public Student(int id, String name, String surname,
-            String edu, int reg_s, int acc_reg, int acc_mid, int acc_fin) {
+            String edu, int reg_s, int acc_reg, int acc_mid, int acc_fin,
+            String faculty, String dept, String gr, String supVisorFName) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -215,7 +217,10 @@ public class Student implements Serializable {
         this.acc_reg_stat = acc_reg;
         this.acc_mid_stat = acc_mid;
         this.acc_fin_stat = acc_fin;
-
+        this.faculty_name = faculty;
+        this.dept_name = dept;
+        this.group_name = gr;
+        this.supervisorFullName = supVisorFName;
     }
 
     public int getID() {
@@ -462,5 +467,13 @@ public class Student implements Serializable {
 
     public void setAcc_fin_stat(int acc_fin_stat) {
         this.acc_fin_stat = acc_fin_stat;
+    }
+
+    public String getSupervisorFullName() {
+        return supervisorFullName;
+    }
+
+    public void setSupervisorFullName(String supervisorFullName) {
+        this.supervisorFullName = supervisorFullName;
     }
 }

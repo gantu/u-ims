@@ -28,7 +28,6 @@ public class UimsMessages_ky extends UimsMessages {
         {SystemClosedNotif, "Извините! Над системой ведутся ремонтные работы. "
             + "Пожалуйста, попробуйте позднее!"},
         {FullName, "Ф.И"},
-        
         // Navigation Tree Branches
         {TBEduProcess, "Окуу Процеси"},
         // Navigation Tree Sub-branches
@@ -52,10 +51,15 @@ public class UimsMessages_ky extends UimsMessages {
         // Student Branches
         {TBStudent, "Студент"},
         {TSBMyInfo, "Моя информация"},
-        {EduStatusLabel, "Образовательные статусы"},
-                {EducationLabel, "Образование"},
+        {EduStatusLabel, "Общая Информация"},
+        {EducationLabel, "Образование"},
         {AccountingStatuses, "Статусы бухгалтерии"},
-                // Registration View
+        // my Info
+        {Registered, "Зарегистрирован(а)"},
+        {NotRegistered, "Не зарегистрирован(а)"},
+        {Released, "Разрешена"},
+        {Freezed, "Запрещена"},
+        // Registration View
         {RegistrationHeader, "Регистрация"},
         {RegistrationStudentName, "Аты"},
         {RegistrationStudentSurname, "Фамилиясы"},

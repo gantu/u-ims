@@ -201,13 +201,17 @@ public class MyVaadinApplication extends Application implements
                 + "e.exam_name, e.percentage, stud.id, stud.dept_id, "
                 + "stud.group_id, stud.name, stud.surname, u.status, "
                 + "acc.reg_status, acc.mid_status, acc.fin_status, "
-                + "reg.status, edu.name, dep.faculty_id "
+                + "reg.status, edu.name, dep.faculty_id, dep.name, fac.name, "
+                + "gr.name, concat(inst.name, ' ' , inst.surname) as instFullName "
                 + "from year as y, semester as s, weeks as w, exam as e, "
                 + "users as u, student as stud "
                 + "left join stud_accounting as acc on stud.id=acc.student_id "
                 + "left join stud_reg as reg on stud.id=reg.student_id "
                 + "left join education as edu on stud.edu_status_id=edu.id "
                 + "left join department as dep on stud.dept_id=dep.id "
+                + "left join faculty as fac on dep.faculty_id=fac.id "
+                + "left join sinif as gr on stud.group_id=gr.id "
+                + "left join instructor as inst on stud.group_id=inst.group_id "
                 + "where stud.rollnum=u.user_name and y.curr=? and "
                 + "s.curr=? and w.curr=? and e.curr=? and u.user_name=? "
                 + "and acc.year_id=y.id and acc.sem_id=s.id and reg.year_id=y.id "
@@ -246,11 +250,13 @@ public class MyVaadinApplication extends Application implements
             departmentId = result.getInt("stud.dept_id");
             groupId = result.getInt("stud.group_id");
             userStatus = result.getInt("u.status");
-            student=new Student(result.getInt("stud.id"),
+            student = new Student(result.getInt("stud.id"),
                     result.getString("stud.name"), result.getString("stud.surname"),
-                    result.getString("edu.name"), result.getInt("reg.status"), 
-                    result.getInt("acc.reg_status"), result.getInt("acc.mid_status"), 
-                    result.getInt("acc.fin_status"));
+                    result.getString("edu.name"), result.getInt("reg.status"),
+                    result.getInt("acc.reg_status"), result.getInt("acc.mid_status"),
+                    result.getInt("acc.fin_status"), result.getString("fac.name"),
+                    result.getString("dep.name"), result.getString("gr.name"),
+                    result.getString("instFullName"));
         }
         base.close();
     }

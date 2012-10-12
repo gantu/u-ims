@@ -142,9 +142,14 @@ public class UimsMessages extends ListResourceBundle implements Serializable {
     // Student Branches
     public static final String TBStudent = generateId();
     public static final String TSBMyInfo = generateId();
+    //my Info
     public static final String EduStatusLabel = generateId();
     public static final String EducationLabel = generateId();
     public static final String AccountingStatuses = generateId();
+    public static final String Registered = generateId();
+    public static final String NotRegistered = generateId();
+    public static final String Released = generateId();
+    public static final String Freezed = generateId();
 
     private static String generateId() {
         return new Integer(ids++).toString();

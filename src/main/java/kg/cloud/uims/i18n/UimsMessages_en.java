@@ -52,9 +52,15 @@ public class UimsMessages_en extends UimsMessages {
         // Student Branches
         {TBStudent, "Student"},
         {TSBMyInfo, "My Information"},
-        {EduStatusLabel, "Education Statuses"},
+        // My Info
+        {EduStatusLabel, "General Information"},
         {EducationLabel, "Education"},
         {AccountingStatuses, "Accounting Statuses"},
+        {AccountingStatuses, "Accounting Statuses"},
+        {Registered, "Registered"},
+        {NotRegistered, "Not Registered"},
+        {Released, "Released"},
+        {Freezed, "Freezed"},
         // Registration View
         {RegistrationHeader, "Registration"},
         {RegistrationStudentName, "First Name"},

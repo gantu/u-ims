@@ -10,6 +10,7 @@ import kg.cloud.uims.dao.DbUsers;
 import kg.cloud.uims.domain.Users;
 import kg.cloud.uims.i18n.UimsMessages;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 
 public class ChangeUserData extends VerticalLayout implements
@@ -129,10 +130,10 @@ public class ChangeUserData extends VerticalLayout implements
                     dbUser.execSQL_pass(currentUser.getPrincipal().toString());
                     ArrayList<Users> userList = dbUser.getArray();
 
-                    if (userForm.getField("pass").toString().equals(userList.get(0).getUserPass())) {
+                    if (new Sha256Hash(userForm.getField("pass").toString()).toString().equals(userList.get(0).getUserPass())) {
 
                         dbUser.editPass(currentUser.getPrincipal().toString(),
-                                userForm.getField("new_pass").toString());
+                                new Sha256Hash(userForm.getField("new_pass").toString()).toString());
                         getWindow().showNotification(
                                 app.getMessage(UimsMessages.NotifSuccessfulChange));
 
